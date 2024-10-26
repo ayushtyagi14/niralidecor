@@ -30,7 +30,6 @@ const Hero = () => {
                     loop
                     playsInline
                     preload="auto"
-                    poster="/path/to/fallback-image.jpg" // Optional: image shown while video loads
                     onLoadedData={() => setVideoLoaded(true)}
                 ></video>
             )}
