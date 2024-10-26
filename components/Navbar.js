@@ -25,7 +25,7 @@ const Navbar = () => {
         <nav className="fixed w-full z-50 transition-all duration-300">
             <div
                 className={`
-                    ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#00000048] bg-[#f9e1ffbe] text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
+                    ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#00000015] bg-[#f9e1ffbe] text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
                     mx-auto lg:px-32 px-5 transition-all duration-300
                 `}
             >

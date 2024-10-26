@@ -10,23 +10,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Background video styling */
-.background-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.background-content {
-  position: relative;
-  z-index: 10;
-}
-
 .icon-menu {
   --gap: 5px;
   --height-bar: 2.5px;
