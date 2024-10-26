@@ -47,7 +47,7 @@ const Testimonials = () => {
 
     return (
         <motion.div
-            className='mb-16 mt-24 lg:w-[75%] w-[90%] mx-auto'
+            className='mb-16 -mt-28 w-full max-w-[1800px] mx-auto'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -76,7 +76,7 @@ const Testimonials = () => {
                     <div>
                         <motion.div
                             key={testimonials[current].id}
-                            className='flex flex-col lg:flex-row items-center p-6 rounded-[24px] shadow-lg bg-[#fed9fe]'
+                            className='flex flex-col lg:flex-row items-center p-6 shadow-lg bg-[#fed9fe]'
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -98,34 +98,6 @@ const Testimonials = () => {
                         </motion.div>
                     </div>
                 </AnimatePresence>
-
-                <div className='flex justify-between mt-6 w-full'>
-                    <button
-                        onClick={prevTestimonial}
-                        className='text-[#96034f] hover:text-[#c75b98] transition'
-                    >
-                        &lt; Previous
-                    </button>
-
-                    {/* Dot Navigation */}
-                    <div className='flex justify-center space-x-2'>
-                        {testimonials.map((_, index) => (
-                            <button
-                                key={index}
-                                className={`w-3 h-3 rounded-full ${index === current ? 'bg-[#96034f]' : 'bg-gray-300'
-                                    }`}
-                                onClick={() => goToTestimonial(index)}
-                            />
-                        ))}
-                    </div>
-
-                    <button
-                        onClick={nextTestimonial}
-                        className='text-[#96034f] hover:text-[#c75b98] transition'
-                    >
-                        Next &gt;
-                    </button>
-                </div>
             </motion.div>
 
             <button

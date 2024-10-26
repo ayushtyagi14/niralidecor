@@ -112,7 +112,7 @@ const Service = () => {
                 <button
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500 mx-auto w-[35%] row-span-1 col-span-2 lg:-mt-[13rem] -mt-[10rem] mb-[13rem]'
                 >
-                    Our Services
+                    Our Portfolio
                 </button>
             </div>
         </motion.div>

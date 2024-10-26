@@ -28,7 +28,7 @@ const Contact = () => {
                             <span>(609) 703-5879</span>
                         </div>
                         <div className='flex flex-row items-center gap-4'>
-                            <img src="/assets/instagram.png" alt="Email" />
+                            <img src="/assets/instagram.png" alt="Instagram" />
                             <span>@niralidecor</span>
                         </div>
                     </div>

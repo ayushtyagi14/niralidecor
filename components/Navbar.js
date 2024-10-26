@@ -25,11 +25,20 @@ const Navbar = () => {
         <nav className="fixed w-full z-50 transition-all duration-300">
             <div
                 className={`
-                    ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#00000048] bg-[#f9e1ffbe] text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
+                    ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#f4c7ffca] bg-[#f4c7ffca] text-[#96034f] lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
                     mx-auto lg:px-32 px-5 transition-all duration-300
                 `}
             >
-                <div className="flex flex-row justify-evenly items-center w-full h-16">
+                <div className="flex flex-row justify-between items-center w-full h-16">
+                    <Link href="/">
+                        <motion.img
+                            src={"/assets/logo.png"}
+                            alt="Logo"
+                            className={`${scrolled ? 'w-[240px]' : 'w-[350px] transition-all duration-300'} mb-2`}
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                        />
+                    </Link>
                     <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[14px]' : 'text-[16px]'} uppercase tracking-widest`}>
                         <Link href="/about">
                             <h1 className="hover-underline">About Us</h1>
@@ -37,17 +46,6 @@ const Navbar = () => {
                         <Link href="/portfolio">
                             <h1 className="hover-underline">Portfolio</h1>
                         </Link>
-                    </div>
-                    <Link href="/">
-                        <motion.img
-                            src={"/assets/logo.png"}
-                            alt="Logo"
-                            className={`${scrolled ? 'w-[50%]' : 'w-[60%] transition-all duration-300'} lg:mx-auto mb-2`}
-                            whileHover={{ scale: 1.1 }}
-                            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                        />
-                    </Link>
-                    <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[14px]' : 'text-[16px]'} uppercase tracking-widest`}>
                         <Link href="/testimonials">
                             <h1 className="hover-underline">Testimonials</h1>
                         </Link>
