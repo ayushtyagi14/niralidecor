@@ -6,7 +6,6 @@ import Hero from "@/components/Homepage/Hero";
 import AboutUs from "@/components/Homepage/AboutUs";
 import Service from "@/components/Homepage/Service";
 import Testimonials from "@/components/Homepage/Testimonials";
-import Process from "@/components/Homepage/Process";
 import Faq from "@/components/Homepage/Faq";
 import Gallery from "@/components/Homepage/Gallery";
 import Contact from "@/components/Homepage/Contact";
@@ -19,7 +18,6 @@ export default function Home() {
       <Hero />
       <AboutUs />
       <Service />
-      {/* <Process /> */}
       <Testimonials />
       <Gallery />
       <Faq />
