@@ -47,7 +47,7 @@ const Hero = () => {
 
                 {/* Arrow Button */}
                 <div
-                    className="absolute bottom-12 left-[47%] 2xl:left-[49%] cursor-pointer"
+                    className="absolute bottom-12 left-[45%] md:left-[47%] 2xl:left-[49%] cursor-pointer"
                     onClick={scrollToContent}
                 >
                     <img src="/assets/arrow-down.png" alt="arrow" className="scroll" />

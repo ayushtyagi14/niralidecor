@@ -34,7 +34,7 @@ const Navbar = () => {
                         <motion.img
                             src={"/assets/logo.png"}
                             alt="Logo"
-                            className={`${scrolled ? 'w-[240px]' : 'w-[350px] transition-all duration-300'} mb-2`}
+                            className={`${scrolled ? 'w-[240px]' : 'w-[300px] lg:w-[350px] transition-all duration-300'} mb-2`}
                             whileHover={{ scale: 1.1 }}
                             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                         />
