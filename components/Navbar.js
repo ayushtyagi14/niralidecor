@@ -75,7 +75,7 @@ const Navbar = () => {
                 animate={{ height: isOpen ? 'auto' : 0 }}
                 className="lg:hidden overflow-hidden"
             >
-                <div className="flex flex-col items-center space-y-4 py-4 bg-[#f4c7ffc3] w-[90%] mx-auto my-2 rounded-[50px] shadow-lg uppercase tracking-widest text-[#96034f]">
+                <div className={`flex flex-col items-center space-y-4 py-4 ${scrolled ? 'bg-[#f4c7ffca]' : 'bg-[#f9e1ffbe]'} w-[90%] mx-auto my-2 rounded-[50px] shadow-lg uppercase tracking-widest text-[#96034f]`}>
                     <Link href="/about">
                         <h1 onClick={toggleMenu}>About Us</h1>
                     </Link>
