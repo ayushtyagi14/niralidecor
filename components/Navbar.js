@@ -49,7 +49,7 @@ const Navbar = () => {
                         <Link href="/testimonials">
                             <h1 className="hover-underline">Testimonials</h1>
                         </Link>
-                        <Link href="/contact">
+                        <Link href="/contact-us">
                             <h1 className="hover-underline">Contact Us</h1>
                         </Link>
                     </div>
@@ -82,10 +82,10 @@ const Navbar = () => {
                     <Link href="/portfolio">
                         <h1 onClick={toggleMenu}>Portfolio</h1>
                     </Link>
-                    <Link href="/certification">
+                    <Link href="/testimonials">
                         <h1 onClick={toggleMenu}>Testimonials</h1>
                     </Link>
-                    <Link href="/contact">
+                    <Link href="/contact-us">
                         <h1 onClick={toggleMenu}>Contact Us</h1>
                     </Link>
                 </div>
