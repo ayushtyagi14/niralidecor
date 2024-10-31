@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const AboutUs = () => {
+    const router = useRouter();
+
     return (
         <motion.div
             className='my-16 lg:w-[75%] w-[90%] mx-auto'
@@ -62,11 +65,13 @@ const AboutUs = () => {
                     </p>
                     <div className='grid grid-cols-2 gap-5'>
                         <button
+                            onClick={() => router.push('/about-us')}
                             className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500'
                         >
                             Learn More
                         </button>
                         <button
+                            onClick={() => router.push('/contact-us')}
                             className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500'
                         >
                             Contact Us

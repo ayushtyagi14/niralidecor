@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    const router = useRouter();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -26,7 +29,7 @@ const Navbar = () => {
             <div
                 className={`
                     ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#00000015] bg-[#f9e1ffbe] text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
-                    mx-auto lg:px-32 px-5 transition-all duration-300
+                    mx-auto lg:px-28 px-5 transition-all duration-300
                 `}
             >
                 <div className="flex flex-row justify-between items-center w-full h-16">
@@ -40,6 +43,9 @@ const Navbar = () => {
                         />
                     </Link>
                     <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[14px]' : 'text-[16px]'} uppercase tracking-widest`}>
+                        <Link href="/">
+                            <h1 className="hover-underline">Home</h1>
+                        </Link>
                         <Link href="/about">
                             <h1 className="hover-underline">About Us</h1>
                         </Link>
@@ -52,6 +58,20 @@ const Navbar = () => {
                         <Link href="/contact-us">
                             <h1 className="hover-underline">Contact Us</h1>
                         </Link>
+                        <div className='flex flex-row items-center gap-2'>
+                            <img
+                                src={scrolled ? "/assets/instagram-pink.png" : "/assets/instagram-white.png"}
+                                alt="Instagram"
+                                className='cursor-pointer hover:scale-110 duration-300 transition-all'
+                                onClick={() => router.push('https://instagram.com/niralidecor')}
+                            />
+                            <img
+                                src={scrolled ? "/assets/facebook-pink.png" : "/assets/facebook-white.png"}
+                                alt="Facebook"
+                                className='cursor-pointer hover:scale-110 duration-300 transition-all'
+                                onClick={() => router.push('https://instagram.com/niralidecor')}
+                            />
+                        </div>
                     </div>
                     <div className="lg:hidden block">
                         <input
@@ -76,6 +96,9 @@ const Navbar = () => {
                 className="lg:hidden overflow-hidden"
             >
                 <div className={`flex flex-col items-center space-y-4 py-4 ${scrolled ? 'bg-[#f4c7ffca]' : 'bg-[#f9e1ffbe]'} w-[90%] mx-auto my-2 rounded-[50px] shadow-lg uppercase tracking-widest text-[#96034f]`}>
+                    <Link href="/">
+                        <h1 onClick={toggleMenu}>Home</h1>
+                    </Link>
                     <Link href="/about">
                         <h1 onClick={toggleMenu}>About Us</h1>
                     </Link>

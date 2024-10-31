@@ -2,8 +2,11 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const Contact = () => {
+    const router = useRouter();
+
     return (
         <motion.div
             className='mb-16 mt-24 lg:w-[75%] w-[90%] mx-auto grid lg:grid-cols-2 grid-cols-1 gap-10'
@@ -35,6 +38,7 @@ const Contact = () => {
                 </div>
                 <button
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500 mx-auto w-full'
+                    onClick={() => router.push('/contact-us')}
                 >
                     Book an Appointment
                 </button>

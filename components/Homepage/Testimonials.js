@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const testimonials = [
     {
@@ -25,6 +26,9 @@ const testimonials = [
 
 const Testimonials = () => {
     const [current, setCurrent] = useState(0);
+
+    const router = useRouter();
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -102,6 +106,7 @@ const Testimonials = () => {
 
             <button
                 className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500 mx-auto w-[35%] row-span-1 col-span-2 mt-10 flex justify-center'
+                onClick={() => router.push('/testimonials')}
             >
                 Testimonials
             </button>
