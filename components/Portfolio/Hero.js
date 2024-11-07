@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
     return (
-        <div className="relative bg-cover bg-center object-cover h-[60vh]" style={{ backgroundImage: 'url(/assets/contact-hero.jpg)' }}>
+        <div className="relative bg-cover bg-top object-cover h-[60vh]" style={{ backgroundImage: 'url(/assets/portfolio-hero.jpg)' }}>
             <div className="absolute inset-0 bg-black bg-opacity-[0.4] flex flex-col items-center justify-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
