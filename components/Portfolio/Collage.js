@@ -23,7 +23,7 @@ const Collage = () => {
             <div className="flex flex-col-reverse gap-4 mt-16 lg:w-[75%] w-[90%] mx-auto">
                 {/* Large Bottom Horizontal Image */}
                 <motion.div
-                    className="relative h-[300px] group"
+                    className="relative h-[300px] w-full group"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
