@@ -18,6 +18,10 @@ const Contact = () => {
                 <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>Studio Location</h1>
                     <p className='text-[18px] my-4'>500 Lincoln Blvd. <br /> Middlesex, NJ 08846</p>
+                    <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>We Travel to</h1>
+                    <p className='text-[18px] mb-4'>
+                        New York, New Jersey, Connecticut, Maryland, Atlanta/Georgia, North Carolina, South Carolina, Tennessee, Virginia, Florida, Delaware, Alabama, Boston/Massachusetts, Pennsylvania and Ohio
+                    </p>
                 </div>
                 <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>Connect With Us</h1>
@@ -48,7 +52,7 @@ const Contact = () => {
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                className="rounded-2xl shadow-xl w-full h-[380px]"
+                className="rounded-2xl shadow-xl w-full lg:h-full h-[380px]"
             ></iframe>
         </motion.div>
     )

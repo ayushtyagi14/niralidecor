@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const Collage = () => {
+    const router = useRouter()
+
     return (
         <div>
             {/* Heading Section */}
@@ -27,6 +30,7 @@ const Collage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
+                    onClick={() => router.push('/service/centerpiece')}
                 >
                     <img
                         src="/assets/centerpiece.jpg"
@@ -48,6 +52,7 @@ const Collage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
+                        onClick={() => router.push('/service/wedding')}
                     >
                         <img
                             src="/assets/wedding.jpg"
@@ -69,6 +74,7 @@ const Collage = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
+                            onClick={() => router.push('/service/sangeet-and-garba')}
                         >
                             <img
                                 src="/assets/sangeet.webp"
@@ -88,6 +94,7 @@ const Collage = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
+                            onClick={() => router.push('/service/vidhi-and-haldi')}
                         >
                             <img
                                 src="/assets/haldi.jpg"
@@ -108,6 +115,7 @@ const Collage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
+                        onClick={() => router.push('/service/reception')}
                     >
                         <img
                             src="/assets/reception.jpg"
