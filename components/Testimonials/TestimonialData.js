@@ -97,7 +97,7 @@ const TestimonialData = () => {
                             <h3 className="text-[#96034f] text-lg font-semibold mb-2">
                                 {testimonial.name}
                             </h3>
-                            <p className="text-gray-700 text-sm">
+                            <p className="text-gray-700 text-sm font-light">
                                 {testimonial.review}
                             </p>
                         </div>
@@ -116,7 +116,7 @@ const TestimonialData = () => {
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500'
                     onClick={() => router.push('/contact-us')}
                 >
-                    Contact Us
+                    Connect With Us
                 </button>
             </div>
         </motion.div>

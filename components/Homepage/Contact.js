@@ -17,15 +17,17 @@ const Contact = () => {
             <div className='flex flex-col justify-between'>
                 <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>Studio Location</h1>
-                    <p className='text-[18px] my-4'>500 Lincoln Blvd. <br /> Middlesex, NJ 08846</p>
+                    <p className='text-[18px] my-4 font-light'>500 Lincoln Blvd. <br /> Middlesex, NJ 08846</p>
+                </div>
+                <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>We Travel to</h1>
-                    <p className='text-[18px] mb-4'>
+                    <p className='my-4 font-light'>
                         New York, New Jersey, Connecticut, Maryland, Atlanta/Georgia, North Carolina, South Carolina, Tennessee, Virginia, Florida, Delaware, Alabama, Boston/Massachusetts, Pennsylvania and Ohio
                     </p>
                 </div>
                 <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>Connect With Us</h1>
-                    <div className='flex flex-col gap-2 my-4'>
+                    <div className='flex flex-col gap-2 my-4 font-light'>
                         <div className='flex flex-row items-center gap-4'>
                             <img src="/assets/mail.png" alt="Email" />
                             <span>info@niralidecor.com</span>

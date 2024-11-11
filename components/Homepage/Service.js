@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const Service = () => {
+    const router = useRouter();
+
     return (
         <motion.div
             className='mt-24 lg:w-[75%] w-[90%] mx-auto'
@@ -111,6 +114,7 @@ const Service = () => {
 
                 <button
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500 mx-auto w-[35%] row-span-1 col-span-2 lg:-mt-[13rem] -mt-[10rem] mb-[13rem]'
+                    onClick={() => router.push('/portfolio')}
                 >
                     Our Portfolio
                 </button>

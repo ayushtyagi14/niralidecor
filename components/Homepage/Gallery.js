@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
+import { useRouter } from 'next/navigation';
 
 const Gallery = () => {
     const images = [
@@ -13,6 +14,8 @@ const Gallery = () => {
         { id: 7, src: '/assets/gallery7.jpg' },
         { id: 8, src: '/assets/gallery3.jpg' },
     ];
+
+    const router = useRouter();
 
     return (
         <>
@@ -40,7 +43,8 @@ const Gallery = () => {
                     {images.map((item) => (
                         <div
                             key={item.id}
-                            className="overflow-hidden rounded-[12px] relative group"
+                            className="overflow-hidden rounded-[12px] relative group cursor-pointer"
+                            onClick={() => router.push('https://www.instagram.com/niralidecor')}
                         >
                             <motion.img
                                 src={item.src}

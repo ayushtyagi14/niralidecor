@@ -35,7 +35,7 @@ const Gallery = () => {
     return (
         <>
             <motion.div
-                className='mb-16 lg:w-[75%] w-[90%] mx-auto'
+                className='mb-16 lg:w-[75%] w-[90%] mx-auto mt-24'
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}

@@ -46,7 +46,7 @@ const Navbar = () => {
                         <Link href="/">
                             <h1 className="hover-underline">Home</h1>
                         </Link>
-                        <Link href="/about">
+                        <Link href="/about-us">
                             <h1 className="hover-underline">About Us</h1>
                         </Link>
                         <Link href="/portfolio">
@@ -99,7 +99,7 @@ const Navbar = () => {
                     <Link href="/">
                         <h1 onClick={toggleMenu}>Home</h1>
                     </Link>
-                    <Link href="/about">
+                    <Link href="/about-us">
                         <h1 onClick={toggleMenu}>About Us</h1>
                     </Link>
                     <Link href="/portfolio">
@@ -111,6 +111,20 @@ const Navbar = () => {
                     <Link href="/contact-us">
                         <h1 onClick={toggleMenu}>Contact Us</h1>
                     </Link>
+                    <div className='flex flex-row items-center gap-2'>
+                        <img
+                            src={"/assets/instagram-pink.png"}
+                            alt="Instagram"
+                            className='cursor-pointer hover:scale-110 duration-300 transition-all'
+                            onClick={() => router.push('https://instagram.com/niralidecor')}
+                        />
+                        <img
+                            src={"/assets/facebook-pink.png"}
+                            alt="Facebook"
+                            className='cursor-pointer hover:scale-110 duration-300 transition-all'
+                            onClick={() => router.push('https://instagram.com/niralidecor')}
+                        />
+                    </div>
                 </div>
             </motion.div>
 
