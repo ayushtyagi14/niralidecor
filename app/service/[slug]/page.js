@@ -3,6 +3,7 @@
 import Footer from '@/components/Footer';
 import Contact from '@/components/Homepage/Contact';
 import Navbar from '@/components/Navbar';
+import Explore from '@/components/ServicePage/Explore';
 import Gallery from '@/components/ServicePage/Gallery';
 import Hero from '@/components/ServicePage/Hero';
 import React, { useState, useEffect } from 'react';
@@ -38,6 +39,7 @@ export default function Page({ params }) {
             <Navbar />
             <Hero serviceName={serviceName} />
             <Gallery />
+            <Explore serviceName={serviceName} />
             <Contact />
             <Footer />
         </div>
