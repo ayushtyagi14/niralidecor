@@ -62,6 +62,18 @@ const Timeline = () => {
         };
     }, []);
 
+    useEffect(() => {
+        // Assign navigation buttons to Swiper after component is mounted
+        if (prevButtonRef.current && nextButtonRef.current) {
+            // Manually initialize Swiper's navigation
+            const swiperInstance = document.querySelector('.swiper').swiper;
+            swiperInstance.params.navigation.prevEl = prevButtonRef.current;
+            swiperInstance.params.navigation.nextEl = nextButtonRef.current;
+            swiperInstance.navigation.init();
+            swiperInstance.navigation.update();
+        }
+    }, [prevButtonRef, nextButtonRef]);
+
     return (
         <motion.div
             className="mb-16 mt-24 lg:w-[80%] w-[95%] mx-auto"
@@ -96,10 +108,6 @@ const Timeline = () => {
                         slidesPerView={isSmallScreen ? 1 : 1.2}
                         loop={false}
                         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-                        navigation={{
-                            prevEl: prevButtonRef.current,
-                            nextEl: nextButtonRef.current,
-                        }}
                         className="my-8"
                     >
                         {TimelineData.map((phase, index) => (
@@ -155,7 +163,7 @@ const Timeline = () => {
                     </button>
                     <button
                         ref={nextButtonRef}
-                        className={`${activeIndex === 3 && 'opacity-50'} custom-next-button border-[1.5px] border-[#96034f] p-4 rounded-full ${activeIndex !== 3 && 'hover:bg-[#fed9fe]'} duration-300 transition`}
+                        className={`${activeIndex === TimelineData.length - 1 && 'opacity-50'} custom-next-button border-[1.5px] border-[#96034f] p-4 rounded-full ${activeIndex !== TimelineData.length - 1 && 'hover:bg-[#fed9fe]'} duration-300 transition`}
                     >
                         <img src="/assets/next.png" alt="Next Arrow" />
                     </button>
