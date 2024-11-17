@@ -6,7 +6,7 @@ import Hero from "@/components/Homepage/Hero";
 import AboutUs from "@/components/Homepage/AboutUs";
 import Service from "@/components/Homepage/Service";
 import Testimonials from "@/components/Homepage/Testimonials";
-import Faq from "@/components/Homepage/Faq";
+import Timeline from "@/components/Homepage/Timeline";
 import Gallery from "@/components/Homepage/Gallery";
 import Contact from "@/components/Homepage/Contact";
 import Footer from "@/components/Footer";
@@ -20,7 +20,7 @@ export default function Home() {
       <Service />
       <Testimonials />
       <Gallery />
-      <Faq />
+      <Timeline />
       <Contact />
       <Footer />
     </>

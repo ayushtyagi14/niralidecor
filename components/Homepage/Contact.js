@@ -28,18 +28,18 @@ const Contact = () => {
                 <div>
                     <h1 className={`${deco.className} text-[24px] lg:text-[32px] text-[#96034f]`}>Connect With Us</h1>
                     <div className='flex flex-col gap-2 my-4 font-light'>
-                        <div className='flex flex-row items-center gap-4'>
+                        <Link className='flex flex-row items-center gap-4' href="mailto:niralidecor@gmail.com">
                             <img src="/assets/mail.png" alt="Email" />
-                            <span>info@niralidecor.com</span>
-                        </div>
-                        <div className='flex flex-row items-center gap-4'>
+                            <span>niralidecor@gmail.com</span>
+                        </Link>
+                        <Link href={'tel:+6097035879'} className='flex flex-row items-center gap-4'>
                             <img src="/assets/call.png" alt="call" />
                             <span>(609) 703-5879</span>
-                        </div>
-                        <div className='flex flex-row items-center gap-4'>
+                        </Link>
+                        <Link href={'https://www.instagram.com/niralidecor'} className='flex flex-row items-center gap-4'>
                             <img src="/assets/instagram.png" alt="Instagram" />
                             <span>@niralidecor</span>
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 <button
