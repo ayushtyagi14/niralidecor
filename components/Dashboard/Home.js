@@ -39,7 +39,10 @@ const Home = () => {
                     Reviews
                 </button>
                 <button
-                    className={`py-2 px-4 rounded-[12px] ${activeSection === 'Gallery' ? 'bg-[#96034f] text-white' : 'bg-white'}`}
+                    className={`
+                        py-2 px-4 rounded-[12px] 
+                        ${activeSection === 'Gallery' ? 'bg-[#96034f] text-white' : 'bg-white'}
+                    `}
                     onClick={() => setActiveSection('Gallery')}
                 >
                     Gallery
