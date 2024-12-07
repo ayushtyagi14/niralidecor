@@ -68,11 +68,13 @@ const DashboardPage = () => {
 
     return (
         <DashboardProvider>
-            <div className="flex">
-                <div className="pt-6 h-[97vh]">
+            <div className="flex flex-row">
+                <div className="pt-6 h-[97vh] w-[15%] fixed">
                     <Sidebar />
                 </div>
-                <DashboardContent />
+                <div className='w-[85%] ml-auto'>
+                    <DashboardContent />
+                </div>
             </div>
         </DashboardProvider>
     );

@@ -6,7 +6,7 @@ const Sidebar = () => {
     const router = useRouter();
 
     return (
-        <nav className="flex flex-col justify-center h-full rounded-[24px] shadow-md my-auto ml-3 w-64 bg-[#f4c7ffca] text-[#96034f] px-5">
+        <nav className="flex flex-col justify-center h-full rounded-[24px] shadow-md my-auto ml-3 bg-[#f4c7ffca] text-[#96034f] px-5">
             <ul className="space-y-4">
                 <li
                     onClick={() => setActiveComponent('Home')}

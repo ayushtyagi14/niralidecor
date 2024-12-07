@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { deco } from '@/app/layout';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ const Navbar = () => {
                             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                         />
                     </Link>
-                    <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[14px]' : 'text-[16px]'} uppercase tracking-widest`}>
+                    <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[16px] font-semibold' : 'text-[18px]'} tracking-widest ${deco.className}`}>
                         <Link href="/">
                             <h1 className="hover-underline">Home</h1>
                         </Link>
