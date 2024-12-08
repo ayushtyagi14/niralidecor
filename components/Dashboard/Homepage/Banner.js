@@ -15,6 +15,7 @@ const Banner = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [uploadStatus, setUploadStatus] = useState('idle');
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchBanner = async () => {
@@ -42,7 +43,7 @@ const Banner = () => {
         };
 
         fetchBanner();
-    }, []);
+    }, [refresh]);
 
     const handleFileSelect = (event) => {
         const file = event.target.files?.[0];
@@ -118,9 +119,7 @@ const Banner = () => {
             if (error) throw error;
 
             // Refresh the page after successful upload
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Upload error:', error);
             setUploadStatus('error');
@@ -168,6 +167,7 @@ const Banner = () => {
 
             setMediaUrl(null); // Clear the media URL
             setShowConfirmDelete(false); // Close the confirmation popup
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error deleting banner video:', error);
         }
@@ -175,7 +175,7 @@ const Banner = () => {
 
     return (
         <div className="p-6 space-y-4">
-            <h2 className="text-2xl font-bold">Banner Section</h2>
+            <h2 className="text-2xl font-bold">Homepage Banner</h2>
             {mediaUrl ? (
                 <div>
                     {mediaUrl && (mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.mov')) ? (

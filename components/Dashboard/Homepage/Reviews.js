@@ -322,7 +322,7 @@ const Reviews = () => {
     };
 
     return (
-        <div>
+        <div className="p-6 space-y-4">
             <h2 className="text-2xl font-bold">Homepage Reviews</h2>
 
             {uploadMessage && (

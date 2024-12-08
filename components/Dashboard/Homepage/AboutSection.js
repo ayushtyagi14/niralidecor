@@ -17,6 +17,7 @@ const AboutSection = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [currentDeleteFile, setCurrentDeleteFile] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     // Fetch images from Supabase on mount
     useEffect(() => {
@@ -43,7 +44,7 @@ const AboutSection = () => {
         };
 
         fetchImages();
-    }, []);
+    }, [refresh]);
 
     // Handle file selection
     const handleFileSelect = (event) => {
@@ -135,6 +136,7 @@ const AboutSection = () => {
             if (error) throw error;
 
             setUploadStatus('success');
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error uploading file:', error);
             setUploadStatus('error');
@@ -181,6 +183,7 @@ const AboutSection = () => {
                 console.error('Failed to delete file from Spaces:', response.data);
             }
             setShowDeleteConfirmation(false); // Close the confirmation popup
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error deleting banner video:', error);
         }

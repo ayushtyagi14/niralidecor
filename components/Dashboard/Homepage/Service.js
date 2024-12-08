@@ -25,6 +25,7 @@ const Service = () => {
     const [uploadMessage, setUploadMessage] = useState('');
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [currentDeleteFile, setCurrentDeleteFile] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -54,7 +55,7 @@ const Service = () => {
         };
 
         fetchServices();
-    }, []);
+    }, [refresh]);
 
     const handleFileSelect = (event) => {
         const file = event.target.files?.[0];
@@ -162,6 +163,7 @@ const Service = () => {
 
             setUploadStatuses((prev) => ({ ...prev, [type]: 'success' }));
             setUploadMessage('Upload completed successfully!');
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error uploading file:', error);
             setUploadStatuses((prev) => ({ ...prev, [type]: 'error' }));
@@ -220,6 +222,7 @@ const Service = () => {
                 console.error('Failed to delete file from Spaces:', response.data);
             }
             setShowDeleteConfirmation(false); // Close the confirmation popup
+            setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error deleting banner video:', error);
         }
