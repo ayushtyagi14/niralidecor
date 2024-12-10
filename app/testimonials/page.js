@@ -12,7 +12,7 @@ const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-const page = () => {
+const Page = () => {
     const [mediaUrl, setMediaUrl] = useState(null);
 
     const [reviews, setReviews] = useState([]);
@@ -75,4 +75,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

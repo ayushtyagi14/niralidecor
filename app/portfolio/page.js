@@ -14,7 +14,7 @@ const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-const page = () => {
+const Page = () => {
     const [mediaUrl, setMediaUrl] = useState(null);
 
     const [weddingUrl, setWeddingUrl] = useState(null);
@@ -91,4 +91,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
