@@ -3,51 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const testimonials = [
-    {
-        id: 1,
-        text: "Nirali Decor transformed our wedding into a fairytale. Every little detail was thoughtfully crafted, from the flowers to the lighting. The team went above and beyond to make sure everything was perfect, creating a magical atmosphere that left us and our guests speechless. We couldn't have asked for a better experience!",
-        name: "Priya & Raj",
-        image: "/assets/client1.jpg"
-    },
-    {
-        id: 2,
-        text: "From the initial planning stages to the final setup, Nirali Decor provided exceptional service. The team was attentive, professional, and incredibly creative. They truly brought our vision to life, turning our venue into a stunning spectacle that exceeded all expectations. Our guests were amazed by the attention to detail and the beauty of the arrangements.",
-        name: "Ajay & Simran",
-        image: "/assets/client2.jpg"
-    },
-    {
-        id: 3,
-        text: "Nirali Decor's creativity and professionalism made our anniversary celebration a remarkable experience. The ambiance they created was elegant, warm, and inviting. Every element was perfectly placed, and their dedication to making our event special was evident in every detail. Our friends and family still talk about how beautiful everything looked!",
-        name: "Anjali & Veer",
-        image: "/assets/client3.jpg"
-    },
-];
-
-const Testimonials = () => {
+const Testimonials = ({ reviews }) => {
     const [current, setCurrent] = useState(0);
-
     const router = useRouter();
 
-
     useEffect(() => {
+        if (!reviews || reviews.length === 0) return; // Ensure reviews exist before starting interval
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-        }, 5000); // Change testimonial every 5 seconds
+            setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+        }, 5000); // Change review every 5 seconds
         return () => clearInterval(interval);
-    }, []);
+    }, [reviews]);
 
-    const nextTestimonial = () => {
-        setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    };
-
-    const prevTestimonial = () => {
-        setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    };
-
-    const goToTestimonial = (index) => {
-        setCurrent(index);
-    };
+    if (!reviews || reviews.length === 0) {
+        return <p>Loading reviews...</p>; // Fallback if no reviews are available
+    }
 
     return (
         <motion.div
@@ -79,7 +49,7 @@ const Testimonials = () => {
                 <AnimatePresence>
                     <div>
                         <motion.div
-                            key={testimonials[current].id}
+                            key={reviews[current].id}
                             className='flex flex-col lg:flex-row items-center p-6 shadow-lg bg-[#fed9fe]'
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -87,16 +57,16 @@ const Testimonials = () => {
                             transition={{ duration: 2 }}
                         >
                             <img
-                                src={testimonials[current].image}
-                                alt={testimonials[current].name}
+                                src={reviews[current].mediaUrl}
+                                alt={reviews[current].name}
                                 className='lg:w-[200px] w-full h-[200px] rounded-[12px] object-cover lg:mr-6 mb-4 lg:mb-0'
                             />
                             <div className='text-center lg:text-left'>
                                 <p className='text-[#96034f] mb-2 font-light lg:text-center'>
-                                    <span className='text-[24px]'>&quot;</span> {testimonials[current].text} <span className='text-[24px]'>&quot;</span>
+                                    <span className='text-[24px]'>&quot;</span> {reviews[current].review} <span className='text-[24px]'>&quot;</span>
                                 </p>
                                 <p className='text-gray-600 text-end'>
-                                    - {testimonials[current].name}
+                                    - {reviews[current].name}
                                 </p>
                             </div>
                         </motion.div>

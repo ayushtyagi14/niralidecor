@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const Hero = () => {
+const Hero = ({ bannerUrl }) => {
     const [videoLoaded, setVideoLoaded] = useState(false);
 
     // Function to scroll down when the button is clicked
@@ -24,7 +24,7 @@ const Hero = () => {
             {videoLoaded && (
                 <video
                     className="absolute inset-0 w-full h-full object-cover"
-                    src="https://niralidecor.nyc3.cdn.digitaloceanspaces.com/assets/homepage/banner/hero-video.mp4" // Use a compressed and optimized version
+                    src={bannerUrl} // Use a compressed and optimized version
                     autoPlay
                     muted
                     loop

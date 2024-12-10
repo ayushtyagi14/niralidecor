@@ -51,7 +51,7 @@ const Contact = () => {
             </div>
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3030.738679007284!2d-74.50234262023575!3d40.569447697711865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3b8ca9c778ebb%3A0x2ad6ebf4ef475b2e!2sNirali%20Decor%20-Weddings%20%2BEvents%2BFloral%20Design!5e0!3m2!1sen!2sin!4v1729217912098!5m2!1sen!2sin"
-                allowfullscreen=""
+                allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="rounded-2xl shadow-xl w-full lg:h-full h-[380px]"

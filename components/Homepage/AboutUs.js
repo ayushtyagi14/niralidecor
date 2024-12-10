@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const AboutUs = () => {
+const AboutUs = ({ aboutLeftUrl, aboutRightUrl }) => {
     const router = useRouter();
 
     return (
@@ -30,9 +30,9 @@ const AboutUs = () => {
 
             <div className='grid grid-cols-1 lg:grid-cols-3 my-10 gap-10 items-center font-light'>
                 <motion.img
-                    src="/assets/about1.jpg"
+                    src={aboutLeftUrl}
                     alt="About Nirali Decor"
-                    className='rounded-[24px] h-[450px] shadow-lg'
+                    className='rounded-[24px] w-[450px] object-cover h-[450px] shadow-lg'
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
@@ -55,9 +55,9 @@ const AboutUs = () => {
                     </p>
                 </div>
                 <motion.img
-                    src="/assets/about1.jpg"
+                    src={aboutRightUrl}
                     alt="About Nirali Decor"
-                    className='rounded-[24px] h-[450px] shadow-lg'
+                    className='rounded-[24px] w-[450px] object-cover h-[450px] shadow-lg'
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}

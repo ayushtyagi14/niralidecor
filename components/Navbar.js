@@ -17,7 +17,6 @@ const Navbar = () => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            console.log(scrollPosition); // Debug: Check if this logs
             setScrolled(scrollPosition > 600); // Adjust the value as needed
         };
 

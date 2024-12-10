@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const Service = () => {
+const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) => {
     const router = useRouter();
 
     return (
@@ -37,7 +37,7 @@ const Service = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <img
-                        src="/assets/floral.jpg"
+                        src={floralUrl}
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
                     />
@@ -62,10 +62,20 @@ const Service = () => {
                         playsInline
                         className='object-cover w-full h-full rounded-[24px]'
                     >
-                        <source
-                            src="/assets/vid1.mp4"
-                            type="video/mp4"
-                        />
+                        {centerpieceUrl ? (
+                            <source
+                                src={centerpieceUrl}
+                                type={
+                                    centerpieceUrl.endsWith('.mp4')
+                                        ? 'video/mp4'
+                                        : centerpieceUrl.endsWith('.mov')
+                                            ? 'video/quicktime'
+                                            : 'video/mp4' // Default to mp4 if unknown
+                                }
+                            />
+                        ) : (
+                            <p>Loading video...</p> // Fallback if the URL is not available
+                        )}
                     </video>
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -82,7 +92,7 @@ const Service = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <img
-                        src="/assets/custom.jpg"
+                        src={customDesignUrl}
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
                     />
@@ -101,7 +111,7 @@ const Service = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <img
-                        src="/assets/stage.jpg"
+                        src={stageSetupUrl}
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
                     />

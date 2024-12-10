@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 
-const Founders = () => {
+const Founders = ({ founderUrl }) => {
     return (
         <motion.div
             className='mb-16 mt-10 lg:w-[75%] w-[90%] mx-auto'
@@ -27,7 +27,7 @@ const Founders = () => {
             <motion.div
                 className="grid grid-cols-1 lg:grid-cols-2 mt-12 items-stretch"
             >
-                <motion.img src="/assets/founders.jpg" alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl h-full" />
+                <motion.img src={founderUrl} alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl h-full" />
                 <motion.div
                     className="flex flex-col h-full justify-between font-light"
                 >

@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
 import { deco } from "@/app/layout";
 
-const Gallery = () => {
+const Gallery = ({ mediaItems }) => {
     const [width, setWidth] = useState(null);
     let mobile = false;
 
@@ -23,26 +23,11 @@ const Gallery = () => {
         mobile = false;
     }
 
-    const imgGallery = [
-        { id: 1, src: '/assets/gallery1.jpg' },
-        { id: 2, src: '/assets/gallery2.jpg' },
-        { id: 3, src: '/assets/gallery8.jpg' },
-        { id: 4, src: '/assets/gallery4.jpg' },
-        { id: 5, src: '/assets/gallery5.jpg' },
-        { id: 6, src: '/assets/gallery6.jpg' },
-        { id: 7, src: '/assets/gallery7.jpg' },
-        { id: 8, src: '/assets/gallery3.jpg' },
-        { id: 9, src: '/assets/gallery1.jpg' },
-        { id: 10, src: '/assets/gallery2.jpg' },
-        { id: 11, src: '/assets/gallery8.jpg' },
-        { id: 12, src: '/assets/gallery4.jpg' },
-    ];
-
     const slidesToShow = mobile ? 2.5 : 4.5;
 
     const settings = {
         infinite: true,
-        speed: 2000,
+        speed: 3000,
         slidesToShow: slidesToShow, // Use the conditional value
         slidesToScroll: 1,
         autoplay: true,
@@ -72,11 +57,11 @@ const Gallery = () => {
             </motion.div>
 
             <Slider {...settings}>
-                {imgGallery.map((item) => (
-                    <div key={item.id} className="px-1.5 mt-10">
+                {mediaItems && mediaItems.map((item) => (
+                    <div key={item?.id} className="px-1.5 mt-10">
                         <img
-                            src={item.src}
-                            alt={`Image ${item.id}`}
+                            src={item?.mediaUrl}
+                            alt={`Image ${item?.id}`}
                             className="mx-0 rounded-xl"
                         />
                     </div>

@@ -18,7 +18,7 @@ const Founder = () => {
     const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-        const fetchBanner = async () => {
+        const fetchFounder = async () => {
             try {
                 // Query the Banners table for the homepage banner
                 const { data, error } = await supabase
@@ -39,11 +39,11 @@ const Founder = () => {
                     setMediaUrl(null); // Clear the state if no data is found
                 }
             } catch (error) {
-                console.error('Error fetching banner:', error.message || error);
+                console.error('Error fetching founder:', error.message || error);
             }
         };
 
-        fetchBanner();
+        fetchFounder();
     }, [refresh]);
 
     const handleFileSelect = (event) => {

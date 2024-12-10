@@ -3,18 +3,7 @@ import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const Gallery = () => {
-    const images = [
-        { id: 1, src: '/assets/gallery1.jpg' },
-        { id: 2, src: '/assets/gallery2.jpg' },
-        { id: 3, src: '/assets/gallery8.jpg' },
-        { id: 4, src: '/assets/gallery4.jpg' },
-        { id: 5, src: '/assets/gallery5.jpg' },
-        { id: 6, src: '/assets/gallery6.jpg' },
-        { id: 7, src: '/assets/gallery7.jpg' },
-        { id: 8, src: '/assets/gallery3.jpg' },
-    ];
-
+const Gallery = ({ mediaItems }) => {
     const router = useRouter();
 
     return (
@@ -40,15 +29,15 @@ const Gallery = () => {
                 transition={{ duration: 0.8 }}
             >
                 <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-2 auto-rows-[300px]">
-                    {images.map((item) => (
+                    {mediaItems && mediaItems.map((item) => (
                         <div
-                            key={item.id}
+                            key={item?.id}
                             className="overflow-hidden rounded-[12px] relative group cursor-pointer"
                             onClick={() => router.push('https://www.instagram.com/niralidecor')}
                         >
                             <motion.img
-                                src={item.src}
-                                alt={`Gallery item ${item.id}`}
+                                src={item?.mediaUrl}
+                                alt={`Gallery item ${item?.id}`}
                                 className="w-full h-[300px] object-cover rounded-[12px] transition-transform duration-500 group-hover:scale-105"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ type: 'spring', stiffness: 260, damping: 40 }}

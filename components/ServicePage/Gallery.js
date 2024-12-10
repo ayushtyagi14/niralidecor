@@ -1,24 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const Gallery = () => {
+const Gallery = ({ mediaItems }) => {
     const [selectedImage, setSelectedImage] = useState(null); // To track the selected image
     const [isOpen, setIsOpen] = useState(false); // To manage modal visibility
-
-    const images = [
-        { id: 1, src: '/assets/gallery1.jpg' },
-        { id: 2, src: '/assets/gallery2.jpg' },
-        { id: 3, src: '/assets/gallery8.jpg' },
-        { id: 4, src: '/assets/gallery4.jpg' },
-        { id: 5, src: '/assets/gallery5.jpg' },
-        { id: 6, src: '/assets/gallery6.jpg' },
-        { id: 7, src: '/assets/gallery7.jpg' },
-        { id: 8, src: '/assets/gallery3.jpg' },
-        { id: 9, src: '/assets/gallery1.jpg' },
-        { id: 10, src: '/assets/gallery2.jpg' },
-        { id: 11, src: '/assets/gallery8.jpg' },
-        { id: 12, src: '/assets/gallery4.jpg' },
-    ];
 
     // Open modal with the selected image
     const openModal = (imageSrc) => {
@@ -41,21 +26,21 @@ const Gallery = () => {
                 transition={{ duration: 0.8 }}
             >
                 <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 auto-rows-[300px]">
-                    {images.map((item) => (
+                    {mediaItems && mediaItems.map((item) => (
                         <motion.div
-                            key={item.id}
+                            key={item?.id}
                             className="overflow-hidden rounded-[12px] relative group"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, ease: 'easeOut' }}
                         >
                             <motion.img
-                                src={item.src}
-                                alt={`Gallery item ${item.id}`}
+                                src={item?.mediaUrl}
+                                alt={`Gallery item ${item?.id}`}
                                 className="w-full h-[300px] object-cover rounded-[12px] transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ type: 'spring', stiffness: 260, damping: 40 }}
-                                onClick={() => openModal(item.src)} // Trigger modal on image click
+                                onClick={() => openModal(item?.mediaUrl)} // Trigger modal on image click
                             />
                         </motion.div>
                     ))}

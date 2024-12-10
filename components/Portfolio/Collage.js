@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const Collage = () => {
+const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vidhiHaldiUrl }) => {
     const router = useRouter()
 
     return (
@@ -33,7 +33,7 @@ const Collage = () => {
                     onClick={() => router.push('/service/centerpiece')}
                 >
                     <img
-                        src="/assets/centerpiece.jpg"
+                        src={centerpieceUrl}
                         alt="Nirali Decor"
                         className="object-cover w-full h-full"
                     />
@@ -55,7 +55,7 @@ const Collage = () => {
                         onClick={() => router.push('/service/wedding')}
                     >
                         <img
-                            src="/assets/wedding.jpg"
+                            src={weddingUrl}
                             alt="Nirali Decor"
                             className="object-cover w-full h-full"
                         />
@@ -77,7 +77,7 @@ const Collage = () => {
                             onClick={() => router.push('/service/sangeet-and-garba')}
                         >
                             <img
-                                src="/assets/sangeet.webp"
+                                src={sangeetGarbaUrl}
                                 alt="Nirali Decor"
                                 className="object-cover w-full h-full"
                             />
@@ -97,7 +97,7 @@ const Collage = () => {
                             onClick={() => router.push('/service/vidhi-and-haldi')}
                         >
                             <img
-                                src="/assets/haldi.jpg"
+                                src={vidhiHaldiUrl}
                                 alt="Nirali Decor"
                                 className="object-cover w-full h-full"
                             />
@@ -118,7 +118,7 @@ const Collage = () => {
                         onClick={() => router.push('/service/reception')}
                     >
                         <img
-                            src="/assets/reception.jpg"
+                            src={receptionUrl}
                             alt="Nirali Decor"
                             className="object-cover w-full h-full"
                         />

@@ -3,49 +3,14 @@ import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
 
-const testimonials = [
-    {
-        id: 1,
-        name: "Sophia Brown",
-        review: "The decor was absolutely stunning! Every detail was carefully thought out, making our day extra special. From the color scheme to the intricate flower arrangements, it was everything we hoped for and more. I couldn't believe the transformation of our space. The team truly has an eye for beauty, and we are so grateful!",
-        image: "/assets/client1.jpg",
-    },
-    {
-        id: 2,
-        name: "Liam Wilson",
-        review: "Unforgettable experience! The ambiance created was magical, and our guests loved it. The lights, the flowers, and the overall setup were beyond perfect. Every guest commented on how beautiful everything looked. We were especially impressed with the custom decorations they made to suit our theme, adding a unique touch.",
-        image: "/assets/client2.jpg",
-    },
-    {
-        id: 3,
-        name: "Emma Garcia",
-        review: "Incredible service and exquisite taste in decor. Thank you for making our event so memorable! The team went above and beyond to make sure every detail was in place. It was truly a dream come true. We felt like we were in a fairy tale, and our guests were equally mesmerized. Highly recommend!",
-        image: "/assets/client3.jpg",
-    },
-    {
-        id: 4,
-        name: "Mason Patel",
-        review: "The decor transformed our venue into a beautiful celebration of elegance and class. Highly recommend! We were blown away by the attention to detail, from the centerpieces to the lighting. They managed to create an ambiance that perfectly suited the mood we wanted. Amazing job by an amazing team!",
-        image: "/assets/client1.jpg",
-    },
-    {
-        id: 5,
-        name: "Olivia Johnson",
-        review: "Perfectly curated decor that matched our vision. Couldn't have asked for more! The decor was classy, stylish, and exactly what we wanted. We especially appreciated the personal touches they added based on our initial consultation. It’s rare to find a team that listens so well to your preferences and delivers with such flair!",
-        image: "/assets/client2.jpg",
-    },
-    {
-        id: 6,
-        name: "Noah Martinez",
-        review: "The team's creativity and dedication truly made our event stand out. Thank you! Each section of the venue was thoughtfully designed and executed. From the entrance to the table settings, everything was done to perfection. I would definitely recommend their services to anyone looking to make their event special.",
-        image: "/assets/client3.jpg",
-    }
-];
-
 const weddingWireUrl = "https://www.weddingwire.com/reviews/nirali-decor-piscataway/ff78627bd82a2ee0.html";
 
-const TestimonialData = () => {
+const TestimonialData = ({ reviews }) => {
     const router = useRouter();
+
+    if (!reviews || reviews.length === 0) {
+        return <p>Loading reviews...</p>; // Fallback if no reviews are available
+    }
 
     return (
         <motion.div
@@ -71,9 +36,9 @@ const TestimonialData = () => {
 
             {/* Testimonials Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-                {testimonials.map((testimonial) => (
+                {reviews && reviews.map((item) => (
                     <motion.div
-                        key={testimonial.id}
+                        key={item?.id}
                         className="group relative bg-white rounded-lg shadow-lg overflow-hidden p-6 cursor-pointer transition-all duration-300"
                         onClick={() => window.open(weddingWireUrl, "_blank")}
                         initial={{ opacity: 0, y: 20 }}
@@ -86,8 +51,8 @@ const TestimonialData = () => {
                         {/* Testimonial Image */}
                         <div className="w-full h-[200px] mb-4 overflow-hidden rounded-md">
                             <img
-                                src={testimonial.image}
-                                alt={`${testimonial.name}'s event`}
+                                src={item?.mediaUrl}
+                                alt={`${item?.name}'s event`}
                                 className="w-full h-full object-cover transition-transform duration-500 transform group-hover:scale-105"
                             />
                         </div>
@@ -95,10 +60,10 @@ const TestimonialData = () => {
                         {/* Text Content */}
                         <div>
                             <h3 className="text-[#96034f] text-lg font-semibold mb-2">
-                                {testimonial.name}
+                                {item?.name}
                             </h3>
                             <p className="text-gray-700 text-sm font-light">
-                                {testimonial.review}
+                                {item?.review}
                             </p>
                         </div>
                     </motion.div>

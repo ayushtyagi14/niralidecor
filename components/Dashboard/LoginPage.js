@@ -7,8 +7,8 @@ const LoginPage = ({ onLogin }) => {
   const [error, setError] = useState('');
 
   const handleLogin = () => {
-    const hardcodedEmail = 'admin@example.com';
-    const hardcodedPassword = 'password123';
+    const hardcodedEmail = 'niralidecor@gmail.com';
+    const hardcodedPassword = 'nirali123';
 
     if (email === hardcodedEmail && password === hardcodedPassword) {
       sessionStorage.setItem('isUser', 'true');

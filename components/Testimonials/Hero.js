@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-const Hero = () => {
+const Hero = ({ mediaUrl }) => {
     // Function to scroll down when the button is clicked
     const scrollToContent = () => {
         window.scrollTo({
@@ -10,7 +10,7 @@ const Hero = () => {
     };
 
     return (
-        <div className="relative bg-cover bg-center object-cover h-[60vh]" style={{ backgroundImage: 'url(/assets/testimonials-hero.jpg)' }}>
+        <div className="relative bg-cover bg-center object-cover h-[60vh]" style={{ backgroundImage: `url(${mediaUrl})` }}>
             <div className="absolute inset-0 bg-black bg-opacity-[0.4] flex flex-col items-center justify-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}

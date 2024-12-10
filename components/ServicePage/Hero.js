@@ -2,37 +2,30 @@ import { deco } from '@/app/layout';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const Hero = ({ serviceName }) => {
+const Hero = ({ serviceName, mediaUrl }) => {
 
     const [description, setDescription] = useState('');
-    const [mainImgUrl, setMainImgUrl] = useState('');
 
     useEffect(() => {
         // Dynamically set serviceName based on params.slug
         switch (serviceName) {
             case 'Wedding':
                 setDescription('Experience the elegance and grandeur of your special day with our meticulously designed wedding decor. We create a timeless atmosphere with stunning floral arrangements, luxurious drapery, and soft lighting that captures the essence of your love story. Let us transform your venue into a breathtaking celebration of your union.');
-                setMainImgUrl('/assets/wedding-main.jpg')
                 break;
             case 'Reception':
                 setDescription('Elevate your reception with our chic and sophisticated decor. From stylish lounges and exquisite table settings to ambient lighting and stunning centerpieces, we design spaces that encourage mingling, relaxation, and unforgettable moments, all while keeping the mood lively and elegant.');
-                setMainImgUrl('/assets/reception-main.jpg')
                 break;
             case 'Vidhi & Haldi':
                 setDescription('Infuse your Vidhi and Haldi ceremonies with a burst of warmth and energy. The vibrant yellow tones and delicate floral accents capture the joyous spirit of these pre-wedding rituals. Our decor enhances the cultural richness of the ceremony, creating an atmosphere full of blessings, laughter, and heartfelt moments among family and friends.');
-                setMainImgUrl('/assets/haldi-main.jpg')
                 break;
             case 'Sangeet & Garba':
                 setDescription('Experience the magic of Sangeet & Garba with our expertly crafted decor. We bring the energy of traditional dance nights to life with vibrant colors, elegant lighting, and culturally inspired elements, creating a setting where family and friends can revel in joy and celebration.');
-                setMainImgUrl('/assets/sangeet-main.jpg')
                 break;
             case 'Centerpiece':
                 setDescription("Transform your event tables into works of art with our exquisite centerpieces. Designed to captivate and elevate the overall ambiance, our centerpieces blend elegance with creativity. Whether its a romantic floral arrangement, a bold statement piece, or a unique cultural touch, each centerpiece serves as a focal point that enhances the theme and atmosphere of your celebration.");
-                setMainImgUrl('/assets/centerpiece-main.jpg')
                 break;
             default:
                 setDescription(''); // Fallback if none match
-                setMainImgUrl('')
         }
     }, [serviceName]);
 
@@ -65,7 +58,7 @@ const Hero = ({ serviceName }) => {
 
     return (
         <>
-            <div className="relative bg-cover bg-center object-cover h-[70vh]" style={{ backgroundImage: `url(${mainImgUrl})` }}>
+            <div className="relative bg-cover bg-center object-cover h-[70vh]" style={{ backgroundImage: `url(${mediaUrl})` }}>
                 <div className="absolute inset-0 bg-black bg-opacity-[0.4] flex flex-col items-center justify-center">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
