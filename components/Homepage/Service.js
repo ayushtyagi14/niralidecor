@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) => {
     const router = useRouter();
@@ -36,10 +37,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <img
-                        src={floralUrl}
+                    <Image
+                        src={floralUrl}  // Use Image component from Next.js
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
+                        fill
+                        blurDataURL={`${floralUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                        placeholder="blur"  // Use blur effect while loading
+                        loading="lazy"
                     />
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -91,10 +96,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <img
-                        src={customDesignUrl}
+                    <Image
+                        src={customDesignUrl}  // Use Image component from Next.js
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
+                        fill
+                        blurDataURL={`${customDesignUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                        placeholder="blur"  // Use blur effect while loading
+                        loading="lazy"
                     />
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -110,10 +119,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <img
-                        src={stageSetupUrl}
+                    <Image
+                        src={stageSetupUrl}  // Use Image component from Next.js
                         alt="Nirali Decor"
                         className='object-cover w-full h-full rounded-[24px]'
+                        fill
+                        blurDataURL={`${stageSetupUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                        placeholder="blur"  // Use blur effect while loading
+                        loading="lazy"
                     />
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>

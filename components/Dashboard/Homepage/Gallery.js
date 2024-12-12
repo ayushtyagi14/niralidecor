@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Supabase from '@/lib/supabase';
 
 const Gallery = () => {
     const [mediaItems, setMediaItems] = useState([]);
@@ -23,7 +18,7 @@ const Gallery = () => {
     useEffect(() => {
         const fetchGalleryItems = async () => {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Gallery')
                     .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
                     .eq('page', 'homepage'); // Filter where `page` is `homepage`
@@ -104,7 +99,7 @@ const Gallery = () => {
             const fileUrl = response.data.fileUrl;
             setUploadStatus('success');
 
-            const { error } = await supabase.from('Gallery').insert([
+            const { error } = await Supabase.from('Gallery').insert([
                 {
                     page: 'homepage',
                     mediaUrl: fileUrl,
@@ -138,7 +133,7 @@ const Gallery = () => {
             }
 
             // Step 2: Delete from Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Gallery')
                 .delete()
                 .eq('mediaUrl', currentDeleteFile)

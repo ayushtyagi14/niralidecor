@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Supabase from '@/lib/supabase';
 
 const Reception = () => {
     const [mediaUrl, setMediaUrl] = useState(null);
@@ -26,7 +21,7 @@ const Reception = () => {
         const fetchBanner = async () => {
             try {
                 // Query the Banners table for the homepage banner
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Banners')
                     .select('mediaUrl')
                     .eq('page', 'reception')
@@ -49,7 +44,7 @@ const Reception = () => {
 
         const fetchGalleryItems = async () => {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Gallery')
                     .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
                     .eq('page', 'reception'); // Filter where `page` is `homepage`
@@ -133,7 +128,7 @@ const Reception = () => {
 
             // Insert new banner entry into Supabase
             const fileType = selectedFile.type.startsWith('video') ? 'video' : 'image';
-            const { error } = await supabase.from('Banners').insert([
+            const { error } = await Supabase.from('Banners').insert([
                 {
                     page: 'reception',
                     mediaUrl: fileUrl,
@@ -175,7 +170,7 @@ const Reception = () => {
             const fileUrl = response.data.fileUrl;
             setUploadStatus('success');
 
-            const { error } = await supabase.from('Gallery').insert([
+            const { error } = await Supabase.from('Gallery').insert([
                 {
                     page: 'reception',
                     mediaUrl: fileUrl,
@@ -209,7 +204,7 @@ const Reception = () => {
             }
 
             // Step 2: Delete from Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Gallery')
                 .delete()
                 .eq('mediaUrl', currentDeleteFile)
@@ -256,7 +251,7 @@ const Reception = () => {
             }
 
             // Step 2: Delete from Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Banners')
                 .delete()
                 .eq('mediaUrl', mediaUrl)

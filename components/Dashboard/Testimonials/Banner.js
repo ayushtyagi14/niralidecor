@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Supabase from '@/lib/supabase';
 
 const Banner = () => {
     const [mediaUrl, setMediaUrl] = useState(null);
@@ -21,7 +16,7 @@ const Banner = () => {
         const fetchBanner = async () => {
             try {
                 // Query the Banners table for the homepage banner
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Banners')
                     .select('mediaUrl')
                     .eq('page', 'testimonials')
@@ -108,7 +103,7 @@ const Banner = () => {
 
             // Insert new banner entry into Supabase
             const fileType = selectedFile.type.startsWith('video') ? 'video' : 'image';
-            const { error } = await supabase.from('Banners').insert([
+            const { error } = await Supabase.from('Banners').insert([
                 {
                     page: 'testimonials',
                     mediaUrl: fileUrl,
@@ -142,7 +137,7 @@ const Banner = () => {
             }
 
             // Step 2: Delete from Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Banners')
                 .delete()
                 .eq('mediaUrl', mediaUrl)

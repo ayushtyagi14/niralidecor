@@ -1,26 +1,23 @@
 'use client';
 
-import ContactUs from '@/components/Contact/ContactUs';
-import Hero from '@/components/Contact/Hero';
-import Footer from '@/components/Footer'
-import Contact from '@/components/Homepage/Contact';
-import Navbar from '@/components/Navbar'
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Contact/Hero';
+import ContactUs from '@/components/Contact/ContactUs';
+import Contact from '@/components/Homepage/Contact';
+import Footer from '@/components/Footer';
+import Supabase from '@/lib/supabase';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const Page = () => {
-    const [mediaUrl, setMediaUrl] = useState(null)
+    const [mediaUrl, setMediaUrl] = useState(null);
+    const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
         const fetchBanner = async () => {
             try {
                 // Query the Banners table for the homepage banner
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Banners')
                     .select('mediaUrl')
                     .eq('page', 'contact-us')
@@ -33,16 +30,22 @@ const Page = () => {
                 if (data) {
                     setMediaUrl(data.mediaUrl);
                 } else {
-                    console.warn('No banner found for the portfolio page.');
+                    console.warn('No banner found for the contact-us page.');
                     setMediaUrl(null); // Clear the state if no data is found
                 }
             } catch (error) {
                 console.error('Error fetching banner:', error.message || error);
+            } finally {
+                setLoading(false); // Set loading to false after the data is fetched
             }
         };
 
         fetchBanner();
     }, []);
+
+    if (loading) {
+        return <LoadingScreen />; // Show loading spinner while data is being fetched
+    }
 
     return (
         <>
@@ -52,7 +55,7 @@ const Page = () => {
             <Contact />
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default Page
+export default Page;

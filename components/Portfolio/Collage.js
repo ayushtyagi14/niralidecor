@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vidhiHaldiUrl }) => {
     const router = useRouter()
@@ -32,10 +33,14 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
                     transition={{ duration: 0.6 }}
                     onClick={() => router.push('/service/centerpiece')}
                 >
-                    <img
-                        src={centerpieceUrl}
+                    <Image
+                        src={centerpieceUrl}  // Use Image component from Next.js
                         alt="Nirali Decor"
                         className="object-cover w-full h-full"
+                        fill
+                        blurDataURL={`${centerpieceUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                        placeholder="blur"  // Use blur effect while loading
+                        loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -54,10 +59,14 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
                         transition={{ duration: 0.6 }}
                         onClick={() => router.push('/service/wedding')}
                     >
-                        <img
-                            src={weddingUrl}
+                        <Image
+                            src={weddingUrl}  // Use Image component from Next.js
                             alt="Nirali Decor"
                             className="object-cover w-full h-full"
+                            fill
+                            blurDataURL={`${weddingUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                            placeholder="blur"  // Use blur effect while loading
+                            loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
                             <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -76,10 +85,14 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
                             transition={{ duration: 0.6 }}
                             onClick={() => router.push('/service/sangeet-and-garba')}
                         >
-                            <img
-                                src={sangeetGarbaUrl}
+                            <Image
+                                src={sangeetGarbaUrl}  // Use Image component from Next.js
                                 alt="Nirali Decor"
                                 className="object-cover w-full h-full"
+                                fill
+                                blurDataURL={`${sangeetGarbaUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                                placeholder="blur"  // Use blur effect while loading
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
                                 <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -96,10 +109,14 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
                             transition={{ duration: 0.6 }}
                             onClick={() => router.push('/service/vidhi-and-haldi')}
                         >
-                            <img
-                                src={vidhiHaldiUrl}
+                            <Image
+                                src={vidhiHaldiUrl}  // Use Image component from Next.js
                                 alt="Nirali Decor"
                                 className="object-cover w-full h-full"
+                                fill
+                                blurDataURL={`${vidhiHaldiUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                                placeholder="blur"  // Use blur effect while loading
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
                                 <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
@@ -117,10 +134,14 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
                         transition={{ duration: 0.6 }}
                         onClick={() => router.push('/service/reception')}
                     >
-                        <img
-                            src={receptionUrl}
+                        <Image
+                            src={receptionUrl}  // Use Image component from Next.js
                             alt="Nirali Decor"
                             className="object-cover w-full h-full"
+                            fill
+                            blurDataURL={`${receptionUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                            placeholder="blur"  // Use blur effect while loading
+                            loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
                             <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>

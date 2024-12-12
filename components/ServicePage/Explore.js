@@ -24,7 +24,7 @@ const Explore = ({ serviceName }) => {
         >
             <div className='flex flex-col'>
                 <h1 className={`${deco.className} text-[34px] font-light text-center mb-4 text-[#96034f]`}>Explore Our Other Services:</h1>
-                <div className='flex flex-row w-[80%] mx-auto justify-between'>
+                <div className='lg:flex lg:flex-row grid grid-cols-2 gap-10 lg:w-[80%] mx-auto justify-between'>
                     {filteredServices.map((service, index) => (
                         <Link key={index} href={service.url}>
                             <button className='mx-4 hover-underline uppercase font-light text-[20px]'>

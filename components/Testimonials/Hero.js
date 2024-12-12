@@ -10,7 +10,11 @@ const Hero = ({ mediaUrl }) => {
     };
 
     return (
-        <div className="relative bg-cover bg-center object-cover h-[60vh]" style={{ backgroundImage: `url(${mediaUrl})` }}>
+        <div
+            className="relative bg-cover bg-bottom object-cover h-[60vh]"
+            style={{ backgroundImage: `url(${mediaUrl})` }}
+            loading="lazy"
+        >
             <div className="absolute inset-0 bg-black bg-opacity-[0.4] flex flex-col items-center justify-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}

@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 
 const Hero = ({ bannerUrl }) => {
     return (
-        <div className="relative bg-cover bg-bottom object-cover h-[60vh]" style={{ backgroundImage: `url(${bannerUrl})` }}>
+        <div
+            className="relative bg-cover bg-center object-cover h-[60vh]"
+            style={{ backgroundImage: `url(${bannerUrl})` }}
+            loading="lazy"
+        >
             <div className="absolute inset-0 bg-black bg-opacity-[0.4] flex flex-col items-center justify-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}

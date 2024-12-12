@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Supabase from '@/lib/supabase';
 
 const Service = () => {
     const [floralUrl, setFloralUrl] = useState(null);
@@ -30,7 +25,7 @@ const Service = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Sections')
                     .select('mediaUrl, title')
                     .eq('page', 'homepage');
@@ -150,7 +145,7 @@ const Service = () => {
             // Insert new entry into Supabase with the dynamic title and mediaUrl
             const fileType = selectedFile.type.startsWith('video') ? 'video' : 'image';
 
-            const { error } = await supabase.from('Sections').insert([
+            const { error } = await Supabase.from('Sections').insert([
                 {
                     page: 'homepage',
                     mediaUrl: mediaUrl, // Use the mediaUrl (fileUrl) for each type
@@ -182,7 +177,7 @@ const Service = () => {
 
         try {
             // Step 2: Delete from Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Sections')
                 .delete()
                 .eq('mediaUrl', currentDeleteFile)

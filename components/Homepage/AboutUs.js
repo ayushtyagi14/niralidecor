@@ -36,6 +36,7 @@ const AboutUs = ({ aboutLeftUrl, aboutRightUrl }) => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
+                    loading='lazy'
                 />
                 <div className='flex flex-col items-center gap-4 h-full justify-between'>
                     <p className='text-center font-medium uppercase'>

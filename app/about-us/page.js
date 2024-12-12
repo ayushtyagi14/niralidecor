@@ -8,98 +8,84 @@ import Founders from "@/components/AboutUs/Founders";
 import Gallery from "@/components/AboutUs/Gallery";
 import Timeline from "@/components/Homepage/Timeline";
 
-import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import React, { useState, useEffect } from "react";
+import Supabase from "@/lib/supabase";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Page() {
-    const [mediaUrl, setMediaUrl] = useState(null);
-
-    const [founderUrl, setFounderUrl] = useState(null);
-
-    const [mediaItems, setMediaItems] = useState([]);
+    const [data, setData] = useState({
+        bannerUrl: null,
+        founderUrl: null,
+        mediaItems: [],
+    });
+    const [isLoading, setIsLoading] = useState(true); // Loading state
+    const [error, setError] = useState(null); // Error state
 
     useEffect(() => {
-        const fetchBanner = async () => {
+        const fetchData = async () => {
             try {
-                // Query the Banners table for the homepage banner
-                const { data, error } = await supabase
-                    .from('Banners')
-                    .select('mediaUrl')
-                    .eq('page', 'about-us')
-                    .maybeSingle(); // Allows for no results without throwing an error
+                // Fetch all required data in parallel
+                const [bannerRes, founderRes, galleryRes] = await Promise.all([
+                    Supabase.from("Banners")
+                        .select("mediaUrl")
+                        .eq("page", "about-us")
+                        .maybeSingle(),
+                    Supabase.from("Sections")
+                        .select("mediaUrl, title")
+                        .eq("page", "about-us"),
+                    Supabase.from("Gallery")
+                        .select("id, mediaUrl")
+                        .eq("page", "about-us"),
+                ]);
 
-                if (error) {
-                    throw error;
-                }
+                // Handle errors for each query
+                if (bannerRes.error) throw bannerRes.error;
+                if (founderRes.error) throw founderRes.error;
+                if (galleryRes.error) throw galleryRes.error;
 
-                if (data) {
-                    setMediaUrl(data.mediaUrl);
-                } else {
-                    console.warn('No banner found for the about us.');
-                    setMediaUrl(null); // Clear the state if no data is found
-                }
-            } catch (error) {
-                console.error('Error fetching banner:', error.message || error);
+                // Extract data
+                const bannerUrl = bannerRes.data?.mediaUrl || null;
+                const founder = founderRes.data?.find(
+                    (item) => item.title === "about-founder-image"
+                );
+                const founderUrl = founder ? founder.mediaUrl : null;
+                const mediaItems = galleryRes.data || [];
+
+                // Set data in state
+                setData({
+                    bannerUrl,
+                    founderUrl,
+                    mediaItems,
+                });
+            } catch (err) {
+                console.error("Error fetching data:", err.message || err);
+                setError(err.message || "Failed to fetch data.");
+            } finally {
+                setIsLoading(false); // Stop loading
             }
         };
 
-        const fetchFounder = async () => {
-            try {
-                // Query the Banners table for the homepage banner
-                const { data, error } = await supabase
-                    .from('Sections')
-                    .select('mediaUrl, title')
-                    .eq('page', 'about-us');
-
-                if (error) {
-                    throw error;
-                }
-
-                if (data) {
-                    const founder = data.find(item => item.title === 'about-founder-image');
-
-                    if (founder) setFounderUrl(founder.mediaUrl);
-                } else {
-                    console.warn('No image found for the founders image.');
-                    setFounderUrl(null); // Clear the state if no data is found
-                }
-            } catch (error) {
-                console.error('Error fetching founder:', error.message || error);
-            }
-        };
-
-        const fetchGalleryItems = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('Gallery')
-                    .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                    .eq('page', 'about-us'); // Filter where `page` is `homepage`
-
-                if (error) {
-                    console.error('Error fetching data:', error.message);
-                    return;
-                }
-
-                setMediaItems(data); // Store fetched items in state
-            } catch (error) {
-                console.error('Error fetching gallery items:', error);
-            }
-        };
-
-        fetchGalleryItems();
-        fetchFounder();
-        fetchBanner();
+        fetchData();
     }, []);
+
+    if (isLoading) {
+        return <LoadingScreen />;
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    const { bannerUrl, founderUrl, mediaItems } = data;
 
     return (
         <>
             <Navbar />
-            <Hero bannerUrl={mediaUrl} />
+            <Hero bannerUrl={bannerUrl} />
             <Founders founderUrl={founderUrl} />
             <Timeline />
             <Gallery mediaItems={mediaItems} />

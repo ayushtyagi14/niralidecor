@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Gallery = ({ mediaItems }) => {
     const [selectedImage, setSelectedImage] = useState(null); // To track the selected image
@@ -20,12 +21,12 @@ const Gallery = ({ mediaItems }) => {
     return (
         <>
             <motion.div
-                className='mb-16 lg:w-[75%] w-[90%] mx-auto mt-24'
+                className="mb-16 lg:w-[75%] w-[90%] mx-auto mt-24"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
             >
-                <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 auto-rows-[300px]">
+                <div className="grid gap-3 grid-cols-2 md:grid-cols-3 auto-rows-[300px]">
                     {mediaItems && mediaItems.map((item) => (
                         <motion.div
                             key={item?.id}
@@ -34,14 +35,15 @@ const Gallery = ({ mediaItems }) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, ease: 'easeOut' }}
                         >
-                            <motion.img
-                                src={item?.mediaUrl}
+                            {/* <div className="relative w-full h-[300px]"> */}
+                            <img
+                                src={item?.mediaUrl}  // Use Image component from Next.js
                                 alt={`Gallery item ${item?.id}`}
-                                className="w-full h-[300px] object-cover rounded-[12px] transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ type: 'spring', stiffness: 260, damping: 40 }}
-                                onClick={() => openModal(item?.mediaUrl)} // Trigger modal on image click
+                                className="object-cover w-full h-[300px] rounded-[12px] transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                                onClick={() => openModal(item?.mediaUrl)}  // Trigger modal on image click
+                                loading="lazy"  // Ensure lazy loading of images for better performance
                             />
+                            {/* </div> */}
                         </motion.div>
                     ))}
                 </div>
@@ -73,6 +75,7 @@ const Gallery = ({ mediaItems }) => {
                             src={selectedImage}
                             alt="Full screen"
                             className="max-w-[90vw] max-h-[90vh] object-contain"
+                            loading='lazy'
                         />
                     </motion.div>
                 </motion.div>

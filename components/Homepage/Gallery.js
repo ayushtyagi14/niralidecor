@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Gallery = ({ mediaItems }) => {
     const router = useRouter();
@@ -35,12 +36,14 @@ const Gallery = ({ mediaItems }) => {
                             className="overflow-hidden rounded-[12px] relative group cursor-pointer"
                             onClick={() => router.push('https://www.instagram.com/niralidecor')}
                         >
-                            <motion.img
-                                src={item?.mediaUrl}
+                            <Image
+                                src={item?.mediaUrl}  // Use Image component from Next.js
                                 alt={`Gallery item ${item?.id}`}
                                 className="w-full h-[300px] object-cover rounded-[12px] transition-transform duration-500 group-hover:scale-105"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ type: 'spring', stiffness: 260, damping: 40 }}
+                                fill
+                                blurDataURL={`${item?.mediaUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                                placeholder="blur"  // Use blur effect while loading
+                                loading="lazy"  // Ensure lazy loading of images for better performance
                             />
                             {/* Background overlay layer */}
                             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-[12px]"></div>

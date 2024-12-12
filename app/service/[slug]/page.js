@@ -2,268 +2,83 @@
 
 import Footer from '@/components/Footer';
 import Contact from '@/components/Homepage/Contact';
+import LoadingScreen from '@/components/LoadingScreen';
 import Navbar from '@/components/Navbar';
 import Explore from '@/components/ServicePage/Explore';
 import Gallery from '@/components/ServicePage/Gallery';
 import Hero from '@/components/ServicePage/Hero';
+import Supabase from '@/lib/supabase';
 
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export default function Page({ params }) {
     const [serviceName, setServiceName] = useState('');
-
     const [mediaUrl, setMediaUrl] = useState(null);
     const [mediaItems, setMediaItems] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);  // For loading state
 
-    const fetchWeddingBanner = async () => {
+    // Fetch banner and gallery items for a given page type
+    const fetchMediaData = async (pageType) => {
         try {
-            // Query the Banners table for the homepage banner
-            const { data, error } = await supabase
-                .from('Banners')
-                .select('mediaUrl')
-                .eq('page', 'wedding')
-                .maybeSingle(); // Allows for no results without throwing an error
+            setIsLoading(true);
+            // Fetch both the banner and gallery items in parallel
+            const [bannerResponse, galleryResponse] = await Promise.all([
+                Supabase.from('Banners').select('mediaUrl').eq('page', pageType).maybeSingle(),
+                Supabase.from('Gallery').select('id, mediaUrl').eq('page', pageType)
+            ]);
 
-            if (error) {
-                throw error;
-            }
-
-            if (data) {
-                setMediaUrl(data.mediaUrl);
+            // Check if the banner data exists
+            if (bannerResponse.error) throw bannerResponse.error;
+            if (bannerResponse.data) {
+                setMediaUrl(bannerResponse.data.mediaUrl);
             } else {
-                console.warn('No banner found for the wedding.');
-                setMediaUrl(null); // Clear the state if no data is found
+                setMediaUrl(null);
             }
+
+            // Check if gallery data exists
+            if (galleryResponse.error) throw galleryResponse.error;
+            setMediaItems(galleryResponse.data || []);
+
         } catch (error) {
-            console.error('Error fetching banner:', error.message || error);
+            console.error('Error fetching media data:', error.message || error);
+            setMediaUrl(null);  // Reset the state in case of an error
+            setMediaItems([]);
+        } finally {
+            setIsLoading(false);  // Set loading state to false when fetching is complete
         }
     };
 
-    const fetchWeddingGalleryItems = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('Gallery')
-                .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                .eq('page', 'wedding'); // Filter where `page` is `homepage`
-
-            if (error) {
-                console.error('Error fetching data:', error.message);
-                return;
-            }
-
-            setMediaItems(data); // Store fetched items in state
-        } catch (error) {
-            console.error('Error fetching gallery items:', error);
-        }
-    };
-
-    const fetchReceptionBanner = async () => {
-        try {
-            // Query the Banners table for the homepage banner
-            const { data, error } = await supabase
-                .from('Banners')
-                .select('mediaUrl')
-                .eq('page', 'reception')
-                .maybeSingle(); // Allows for no results without throwing an error
-
-            if (error) {
-                throw error;
-            }
-
-            if (data) {
-                setMediaUrl(data.mediaUrl);
-            } else {
-                console.warn('No banner found for the reception.');
-                setMediaUrl(null); // Clear the state if no data is found
-            }
-        } catch (error) {
-            console.error('Error fetching banner:', error.message || error);
-        }
-    };
-
-    const fetchReceptionGalleryItems = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('Gallery')
-                .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                .eq('page', 'reception'); // Filter where `page` is `homepage`
-
-            if (error) {
-                console.error('Error fetching data:', error.message);
-                return;
-            }
-
-            setMediaItems(data); // Store fetched items in state
-        } catch (error) {
-            console.error('Error fetching gallery items:', error);
-        }
-    };
-
-    const fetchCenterpieceBanner = async () => {
-        try {
-            // Query the Banners table for the homepage banner
-            const { data, error } = await supabase
-                .from('Banners')
-                .select('mediaUrl')
-                .eq('page', 'centerpiece')
-                .maybeSingle(); // Allows for no results without throwing an error
-
-            if (error) {
-                throw error;
-            }
-
-            if (data) {
-                setMediaUrl(data.mediaUrl);
-            } else {
-                console.warn('No banner found for the centerpiece.');
-                setMediaUrl(null); // Clear the state if no data is found
-            }
-        } catch (error) {
-            console.error('Error fetching banner:', error.message || error);
-        }
-    };
-
-    const fetchCenterpieceGalleryItems = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('Gallery')
-                .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                .eq('page', 'centerpiece'); // Filter where `page` is `homepage`
-
-            if (error) {
-                console.error('Error fetching data:', error.message);
-                return;
-            }
-
-            setMediaItems(data); // Store fetched items in state
-        } catch (error) {
-            console.error('Error fetching gallery items:', error);
-        }
-    };
-
-    const fetchSangeetGarbaBanner = async () => {
-        try {
-            // Query the Banners table for the homepage banner
-            const { data, error } = await supabase
-                .from('Banners')
-                .select('mediaUrl')
-                .eq('page', 'sangeet-garba')
-                .maybeSingle(); // Allows for no results without throwing an error
-
-            if (error) {
-                throw error;
-            }
-
-            if (data) {
-                setMediaUrl(data.mediaUrl);
-            } else {
-                console.warn('No banner found for the sangeet-garba.');
-                setMediaUrl(null); // Clear the state if no data is found
-            }
-        } catch (error) {
-            console.error('Error fetching banner:', error.message || error);
-        }
-    };
-
-    const fetchSangeetGarbaGalleryItems = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('Gallery')
-                .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                .eq('page', 'sangeet-garba'); // Filter where `page` is `homepage`
-
-            if (error) {
-                console.error('Error fetching data:', error.message);
-                return;
-            }
-
-            setMediaItems(data); // Store fetched items in state
-        } catch (error) {
-            console.error('Error fetching gallery items:', error);
-        }
-    };
-
-    const fetchVidhiHaldiBanner = async () => {
-        try {
-            // Query the Banners table for the homepage banner
-            const { data, error } = await supabase
-                .from('Banners')
-                .select('mediaUrl')
-                .eq('page', 'vidhi-haldi')
-                .maybeSingle(); // Allows for no results without throwing an error
-
-            if (error) {
-                throw error;
-            }
-
-            if (data) {
-                setMediaUrl(data.mediaUrl);
-            } else {
-                console.warn('No banner found for the vidhi-haldi.');
-                setMediaUrl(null); // Clear the state if no data is found
-            }
-        } catch (error) {
-            console.error('Error fetching banner:', error.message || error);
-        }
-    };
-
-    const fetchVidhiHaldiGalleryItems = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('Gallery')
-                .select('id, mediaUrl') // Fetch `id` and `mediaUrl`
-                .eq('page', 'vidhi-haldi'); // Filter where `page` is `homepage`
-
-            if (error) {
-                console.error('Error fetching data:', error.message);
-                return;
-            }
-
-            setMediaItems(data); // Store fetched items in state
-        } catch (error) {
-            console.error('Error fetching gallery items:', error);
-        }
-    };
-
-
+    // Set the service name and fetch data based on params.slug
     useEffect(() => {
-        // Dynamically set serviceName based on params.slug
         switch (params.slug) {
             case 'wedding':
                 setServiceName('Wedding');
-                fetchWeddingBanner();
-                fetchWeddingGalleryItems();
+                fetchMediaData('wedding');
                 break;
             case 'reception':
                 setServiceName('Reception');
-                fetchReceptionBanner();
-                fetchReceptionGalleryItems();
+                fetchMediaData('reception');
                 break;
             case 'vidhi-and-haldi':
                 setServiceName('Vidhi & Haldi');
-                fetchVidhiHaldiBanner();
-                fetchVidhiHaldiGalleryItems();
+                fetchMediaData('vidhi-haldi');
                 break;
             case 'sangeet-and-garba':
                 setServiceName('Sangeet & Garba');
-                fetchSangeetGarbaBanner();
-                fetchSangeetGarbaGalleryItems();
+                fetchMediaData('sangeet-garba');
                 break;
             case 'centerpiece':
                 setServiceName('Centerpiece');
-                fetchCenterpieceBanner();
-                fetchCenterpieceGalleryItems();
+                fetchMediaData('centerpiece');
                 break;
             default:
-                setServiceName(''); // Fallback if none match
+                setServiceName('');  // Fallback if no match
         }
     }, [params.slug]);
+
+    if (isLoading) {
+        return <LoadingScreen />; // Show loading screen while fetching data
+    }
 
     return (
         <div>

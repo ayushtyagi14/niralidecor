@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/app/layout';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const weddingWireUrl = "https://www.weddingwire.com/reviews/nirali-decor-piscataway/ff78627bd82a2ee0.html";
 
@@ -49,11 +50,16 @@ const TestimonialData = ({ reviews }) => {
                         <div className="absolute inset-0 border-2 border-transparent rounded-lg group-hover:border-[#96034f] transition-all duration-700"></div>
 
                         {/* Testimonial Image */}
-                        <div className="w-full h-[200px] mb-4 overflow-hidden rounded-md">
-                            <img
-                                src={item?.mediaUrl}
+                        <div className="relative w-full h-[200px] mb-4 overflow-hidden rounded-md">
+                            <Image
+                                src={item?.mediaUrl}  // Use Image component from Next.js
                                 alt={`${item?.name}'s event`}
                                 className="w-full h-full object-cover transition-transform duration-500 transform group-hover:scale-105"
+                                width={500}  // Specify a fixed width or calculate dynamically
+                                height={200} // Specify the fixed height
+                                blurDataURL={`${item?.mediaUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                                placeholder="blur"  // Use blur effect while loading
+                                loading="lazy"
                             />
                         </div>
 

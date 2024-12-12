@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import Supabase from '@/lib/supabase';
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -31,7 +26,7 @@ const Reviews = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await Supabase
                     .from('Reviews')
                     .select('id, mediaUrl, name, review')
                     .eq('page', 'homepage');
@@ -53,7 +48,7 @@ const Reviews = () => {
     // Update specific review field
     const updateReviewField = async (id, field, newValue) => {
         try {
-            const { error } = await supabase
+            const { error } = await Supabase
                 .from('Reviews')
                 .update({ [field]: newValue })
                 .eq('id', id);
@@ -137,7 +132,7 @@ const Reviews = () => {
             console.log(fileUrl);
 
             // Check if the review with the given id exists and if the mediaUrl is empty
-            const { data, error: fetchError } = await supabase
+            const { data, error: fetchError } = await Supabase
                 .from('Reviews')
                 .select('id, mediaUrl')
                 .eq('id', id)
@@ -154,7 +149,7 @@ const Reviews = () => {
                 }
 
                 // Update the review with the new file URL
-                const { error: updateError } = await supabase
+                const { error: updateError } = await Supabase
                     .from('Reviews')
                     .update({ mediaUrl: fileUrl })
                     .eq('id', id);
@@ -210,7 +205,7 @@ const Reviews = () => {
             }
 
             // Insert the new review into the Supabase table
-            const { error } = await supabase
+            const { error } = await Supabase
                 .from('Reviews')
                 .insert([{ page: 'homepage', mediaUrl, name, review }]);
 
@@ -250,7 +245,7 @@ const Reviews = () => {
 
         try {
             // Step 1: Remove `mediaUrl` field from the row in Supabase
-            const { data, error } = await supabase
+            const { data, error } = await Supabase
                 .from('Reviews')
                 .update({ mediaUrl: null }) // Set `mediaUrl` to null
                 .eq('mediaUrl', currentDeleteFile)
@@ -291,7 +286,7 @@ const Reviews = () => {
         }
 
         try {
-            const { error } = await supabase
+            const { error } = await Supabase
                 .from('Reviews')
                 .delete()
                 .eq('id', currentId);
