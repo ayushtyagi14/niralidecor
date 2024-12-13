@@ -8,6 +8,50 @@ import Image from 'next/image';
 const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) => {
     const router = useRouter();
 
+    // Helper function to determine if URL is an image
+    const isImage = (url) => url?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+
+    // Helper function to determine if URL is a video
+    const isVideo = (url) => url?.match(/\.(mp4|mov|avi|webm)$/i);
+
+    // Render media (image or video) dynamically
+    const renderMedia = (url, altText) => {
+        if (isImage(url)) {
+            return (
+                <Image
+                    src={url}
+                    alt={altText}
+                    className="object-cover w-full h-full rounded-[24px]"
+                    fill
+                    blurDataURL={`${url}?w=10&h=10&fit=crop`}
+                    placeholder="blur"
+                    loading="lazy"
+                />
+            );
+        } else if (isVideo(url)) {
+            return (
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="object-cover w-full h-full rounded-[24px]"
+                >
+                    <source
+                        src={url}
+                        type={
+                            url.endsWith('.mp4') ? 'video/mp4' :
+                                url.endsWith('.mov') ? 'video/quicktime' :
+                                    'video/mp4' // Default to mp4 if unknown
+                        }
+                    />
+                    Your browser does not support the video tag.
+                </video>
+            );
+        }
+        return null; // Fallback if URL is not valid
+    };
+
     return (
         <motion.div
             className='mt-24 lg:w-[75%] w-[90%] mx-auto'
@@ -30,22 +74,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
             </motion.div>
 
             <div className='grid grid-cols-2 grid-rows-2 gap-2 lg:gap-10 mt-10'>
-                {/* Horizontal Image */}
+                {/* Floral Decoration */}
                 <motion.div
                     className='relative row-span-1 col-span-1 h-[250px] group'
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <Image
-                        src={floralUrl}  // Use Image component from Next.js
-                        alt="Nirali Decor"
-                        className='object-cover w-full h-full rounded-[24px]'
-                        fill
-                        blurDataURL={`${floralUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
-                        placeholder="blur"  // Use blur effect while loading
-                        loading="lazy"
-                    />
+                    {renderMedia(floralUrl, "Floral Decoration")}
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
                             Floral Decoration
@@ -53,35 +89,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     </div>
                 </motion.div>
 
-                {/* Vertical Video */}
+                {/* Centerpieces */}
                 <motion.div
                     className='relative row-span-1 col-span-1 h-[450px] group'
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className='object-cover w-full h-full rounded-[24px]'
-                    >
-                        {centerpieceUrl ? (
-                            <source
-                                src={centerpieceUrl}
-                                type={
-                                    centerpieceUrl.endsWith('.mp4')
-                                        ? 'video/mp4'
-                                        : centerpieceUrl.endsWith('.mov')
-                                            ? 'video/quicktime'
-                                            : 'video/mp4' // Default to mp4 if unknown
-                                }
-                            />
-                        ) : (
-                            <p>Loading video...</p> // Fallback if the URL is not available
-                        )}
-                    </video>
+                    {renderMedia(centerpieceUrl, "Centerpieces")}
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
                             Centerpieces
@@ -89,22 +104,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     </div>
                 </motion.div>
 
-                {/* Vertical Image */}
+                {/* Custom Design */}
                 <motion.div
                     className='relative row-span-2 col-span-1 h-[450px] -mt-[12.4rem] group'
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <Image
-                        src={customDesignUrl}  // Use Image component from Next.js
-                        alt="Nirali Decor"
-                        className='object-cover w-full h-full rounded-[24px]'
-                        fill
-                        blurDataURL={`${customDesignUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
-                        placeholder="blur"  // Use blur effect while loading
-                        loading="lazy"
-                    />
+                    {renderMedia(customDesignUrl, "Custom Design")}
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
                             Custom Design
@@ -112,22 +119,14 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     </div>
                 </motion.div>
 
-                {/* Horizontal Image */}
+                {/* Stage Setup */}
                 <motion.div
                     className='relative row-span-2 col-span-1 h-[250px] group'
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <Image
-                        src={stageSetupUrl}  // Use Image component from Next.js
-                        alt="Nirali Decor"
-                        className='object-cover w-full h-full rounded-[24px]'
-                        fill
-                        blurDataURL={`${stageSetupUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
-                        placeholder="blur"  // Use blur effect while loading
-                        loading="lazy"
-                    />
+                    {renderMedia(stageSetupUrl, "Stage Setup")}
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
                             Stage Setup
