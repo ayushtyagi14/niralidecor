@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const Hero = ({ mediaUrl }) => {
     return (
         <div
-            className="relative bg-cover bg-bottom object-cover h-[60vh]"
+            className="relative bg-cover bg-center object-cover h-[60vh]"
             style={{ backgroundImage: `url(${mediaUrl})` }}
             loading="lazy"
         >
