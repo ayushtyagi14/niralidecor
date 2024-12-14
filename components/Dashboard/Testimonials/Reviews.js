@@ -101,7 +101,11 @@ const Reviews = () => {
                 return;
             }
 
-            setSelectedFile(file);
+            const sanitizedFile = new File([
+                file
+            ], file.name.replace(/\s+/g, '-'), { type: file.type });
+
+            setSelectedFile(sanitizedFile);
         }
     };
 

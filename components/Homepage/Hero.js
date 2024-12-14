@@ -3,38 +3,49 @@ import { motion } from 'framer-motion';
 
 const Hero = ({ bannerUrl }) => {
     const [videoLoaded, setVideoLoaded] = useState(false);
+    const imageExtensions = [
+        '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.tiff', '.svg', '.heic', '.heif', '.raw', '.cr2', '.nef', '.orf', '.sr2'
+    ];
 
-    // Function to scroll down when the button is clicked
+    const isImage = (url) => {
+        return imageExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+    };
+
     const scrollToContent = () => {
         window.scrollTo({
-            top: window.innerHeight, // Scrolls down by one viewport height
-            behavior: 'smooth' // Smooth scrolling effect
+            top: window.innerHeight,
+            behavior: 'smooth',
         });
     };
 
     useEffect(() => {
-        // Optional: Lazy load the video by setting loaded state
-        const timer = setTimeout(() => setVideoLoaded(true), 500); // Delay to improve initial load
+        const timer = setTimeout(() => setVideoLoaded(true), 500);
         return () => clearTimeout(timer);
     }, []);
 
     return (
         <div className="relative h-[90vh] lg:min-h-screen overflow-hidden">
-            {/* Video Background with fallback poster and preloading */}
-            {videoLoaded && (
-                <video
+            {isImage(bannerUrl) ? (
+                <img
+                    src={bannerUrl}
+                    alt="Hero Banner"
                     className="absolute inset-0 w-full h-full object-cover"
-                    src={bannerUrl} // Use a compressed and optimized version
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    onLoadedData={() => setVideoLoaded(true)}
-                ></video>
+                />
+            ) : (
+                videoLoaded && (
+                    <video
+                        className="absolute inset-0 w-full h-full object-cover"
+                        src={bannerUrl}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        onLoadedData={() => setVideoLoaded(true)}
+                    ></video>
+                )
             )}
 
-            {/* Overlay and Content */}
             <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -45,7 +56,6 @@ const Hero = ({ bannerUrl }) => {
                     {/* Optional Content */}
                 </motion.div>
 
-                {/* Arrow Button */}
                 <div
                     className="absolute bottom-12 left-[45%] md:left-[47%] 2xl:left-[49%] cursor-pointer"
                     onClick={scrollToContent}

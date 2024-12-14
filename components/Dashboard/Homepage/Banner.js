@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Supabase from '@/lib/supabase';
 
@@ -15,12 +15,11 @@ const Banner = () => {
     useEffect(() => {
         const fetchBanner = async () => {
             try {
-                // Query the Banners table for the homepage banner
                 const { data, error } = await Supabase
                     .from('Banners')
                     .select('mediaUrl')
                     .eq('page', 'homepage')
-                    .maybeSingle(); // Allows for no results without throwing an error
+                    .maybeSingle();
 
                 if (error) {
                     throw error;
@@ -29,8 +28,7 @@ const Banner = () => {
                 if (data) {
                     setMediaUrl(data.mediaUrl);
                 } else {
-                    console.warn('No banner found for the homepage.');
-                    setMediaUrl(null); // Clear the state if no data is found
+                    setMediaUrl(null);
                 }
             } catch (error) {
                 console.error('Error fetching banner:', error.message || error);
@@ -44,7 +42,6 @@ const Banner = () => {
         const file = event.target.files?.[0];
         if (file) {
             const allowedTypes = [
-                // Image types
                 'image/jpeg',
                 'image/png',
                 'image/gif',
@@ -52,7 +49,6 @@ const Banner = () => {
                 'image/svg+xml',
                 'image/bmp',
                 'image/tiff',
-                // Video types
                 'video/mp4',
                 'video/mov',
                 'video/avi',
@@ -60,7 +56,7 @@ const Banner = () => {
                 'video/ogg',
                 'video/mkv',
             ];
-            const maxSize = 50 * 1024 * 1024; // 50MB limit
+            const maxSize = 50 * 1024 * 1024;
 
             if (!allowedTypes.includes(file.type)) {
                 alert(`Invalid file type. Supported types are: ${allowedTypes.join(', ')}`);
@@ -72,7 +68,11 @@ const Banner = () => {
                 return;
             }
 
-            setSelectedFile(file);
+            const sanitizedFile = new File([
+                file
+            ], file.name.replace(/\s+/g, '-'), { type: file.type });
+
+            setSelectedFile(sanitizedFile);
             setUploadStatus('idle');
         }
     };
@@ -101,7 +101,6 @@ const Banner = () => {
             setMediaUrl(fileUrl);
             setUploadStatus('success');
 
-            // Insert new banner entry into Supabase
             const fileType = selectedFile.type.startsWith('video') ? 'video' : 'image';
             const { error } = await Supabase.from('Banners').insert([
                 {
@@ -113,7 +112,6 @@ const Banner = () => {
 
             if (error) throw error;
 
-            // Refresh the page after successful upload
             setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Upload error:', error);
@@ -128,7 +126,6 @@ const Banner = () => {
         }
 
         try {
-            // Step 1: Parse the key from the media URL
             const url = new URL(mediaUrl);
             const key = url.pathname.startsWith('/') ? url.pathname.slice(1) : url.pathname;
 
@@ -136,22 +133,18 @@ const Banner = () => {
                 throw new Error('Invalid file key.');
             }
 
-            // Step 2: Delete from Supabase
             const { data, error } = await Supabase
                 .from('Banners')
                 .delete()
                 .eq('mediaUrl', mediaUrl)
-                .eq('page', 'homepage'); // Ensure only the relevant entry is deleted
+                .eq('page', 'homepage');
 
             if (error) {
                 throw error;
             }
 
-            console.log('Deleted from Supabase:', data);
-
-            // Step 3: Delete from DigitalOcean Spaces
             const response = await axios.delete('/api/assets/delete', {
-                data: { key }, // Send the file key as per your API requirement
+                data: { key },
             });
 
             if (response.status === 200) {
@@ -160,8 +153,8 @@ const Banner = () => {
                 console.error('Failed to delete file from Spaces:', response.data);
             }
 
-            setMediaUrl(null); // Clear the media URL
-            setShowConfirmDelete(false); // Close the confirmation popup
+            setMediaUrl(null);
+            setShowConfirmDelete(false);
             setRefresh((prev) => !prev);
         } catch (error) {
             console.error('Error deleting banner video:', error);
@@ -182,7 +175,7 @@ const Banner = () => {
                         <img src={mediaUrl} alt="Banner" className="rounded-md shadow w-[50%]" />
                     )}
                     <button
-                        onClick={() => setShowConfirmDelete(true)} // Show the confirmation popup
+                        onClick={() => setShowConfirmDelete(true)}
                         className="mt-2 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
                     >
                         Delete Banner
@@ -198,15 +191,13 @@ const Banner = () => {
                     />
                     <button
                         onClick={uploadFile}
-                        className={`py-2 px-4 rounded ${uploadStatus === 'uploading' ? 'bg-gray-400' : 'bg-blue-500 text-white hover:bg-blue-600'
-                            }`}
+                        className={`py-2 px-4 rounded ${uploadStatus === 'uploading' ? 'bg-gray-400' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                     >
                         {uploadStatus === 'uploading' ? `Uploading... ${uploadProgress}%` : 'Upload File'}
                     </button>
                 </div>
             )}
 
-            {/* Confirmation Popup */}
             {showConfirmDelete && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] text-center">
@@ -218,7 +209,7 @@ const Banner = () => {
                             Yes, Delete
                         </button>
                         <button
-                            onClick={() => setShowConfirmDelete(false)} // Close the popup without deleting
+                            onClick={() => setShowConfirmDelete(false)}
                             className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
                         >
                             Cancel
