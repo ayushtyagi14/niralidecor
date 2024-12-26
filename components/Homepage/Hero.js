@@ -8,6 +8,10 @@ const Hero = ({ bannerUrl }) => {
     ];
 
     const isImage = (url) => {
+        if (!url || typeof url !== 'string') {
+            console.error('Invalid banner URL:', url); // Debug log for invalid URLs
+            return false;
+        }
         return imageExtensions.some((ext) => url.toLowerCase().endsWith(ext));
     };
 
@@ -32,7 +36,7 @@ const Hero = ({ bannerUrl }) => {
                     className="absolute inset-0 w-full h-full object-cover"
                 />
             ) : (
-                videoLoaded && (
+                videoLoaded && bannerUrl && (
                     <video
                         className="absolute inset-0 w-full h-full object-cover"
                         src={bannerUrl}
