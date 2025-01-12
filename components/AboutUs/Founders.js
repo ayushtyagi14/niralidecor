@@ -29,7 +29,7 @@ const Founders = ({ founderUrl }) => {
             >
                 <motion.img src={founderUrl} alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl h-full" />
                 <motion.div
-                    className="flex flex-col h-full justify-between font-light lg:gap-0 gap-4"
+                    className="flex flex-col h-full justify-between font-light gap-4"
                 >
                     <h1 className='text-[24px] font-medium'>
                         Hello! Namaste! Kemcho!
