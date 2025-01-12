@@ -9,31 +9,31 @@ import { deco } from '@/app/layout';
 const TimelineData = [
     {
         id: 1,
-        niraliTitle: "We Learn About You",
-        niraliContent: "In our initial discussion, we get to learn all the gorgeous details about you, your event, and your vision.",
+        niraliTitle: "We Find Out About You",
+        niraliContent: "Fill out the contact us form and provide information about your event.",
         clientTitle: "You Learn About Us",
-        clientContent: "With your initial interest comes a meeting with a team who will work on capturing your vision and making it happen."
+        clientContent: "We schedule an initial session with you to help us understand your vision."
     },
     {
         id: 2,
         niraliTitle: "Planning and Designing",
-        niraliContent: "We create a detailed design plan that reflects your vision and incorporates our expertise in event decor.",
-        clientTitle: "Provide Your Input",
-        clientContent: "You review our proposed designs, share your thoughts, and ensure everything aligns with your expectations."
+        niraliContent: "After viewing our portfolio and previous work, we will provide assistance depending on your choices.",
+        clientTitle: "Give Your Thoughts",
+        clientContent: "You look over our portfolio and let us know what complements your concept."
     },
     {
         id: 3,
-        niraliTitle: "Preparation and Setup",
-        niraliContent: "Our team begins the preparation, from sourcing materials to setting up the decor, ensuring everything is perfect.",
-        clientTitle: "Final Approvals",
-        clientContent: "You give us the final go-ahead, and we take care of the rest, keeping you updated every step of the way."
+        niraliTitle: "Get Ready and Set Up",
+        niraliContent: "Together, we create an estimate that breaks out all of your events and specifics.",
+        clientTitle: "Finalize Approvals",
+        clientContent: "After reviewing and providing input, the contract is finalized, bringing you closer to the big day."
     },
     {
         id: 4,
-        niraliTitle: "The Grand Event",
-        niraliContent: "We execute the plan seamlessly, creating a breathtaking experience for you and your guests.",
-        clientTitle: "Enjoy Your Special Day",
-        clientContent: "Relax and enjoy the beautiful event we have put together for you, making lasting memories."
+        niraliTitle: "Final Day",
+        niraliContent: "A committed team and a point of contact will carry out every detail that was discussed.",
+        clientTitle: "Cheers to Your Happy Day!",
+        clientContent: "Take it easy and enjoy the lovely event we have planned for you, creating lifelong memories."
     },
 ];
 

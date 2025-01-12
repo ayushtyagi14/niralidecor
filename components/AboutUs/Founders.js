@@ -25,20 +25,43 @@ const Founders = ({ founderUrl }) => {
             </motion.div>
 
             <motion.div
-                className="grid grid-cols-1 lg:grid-cols-2 mt-12 items-stretch"
+                className="grid grid-cols-1 lg:grid-cols-2 mt-12 items-stretch gap-20"
             >
                 <motion.img src={founderUrl} alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl h-full" />
                 <motion.div
-                    className="flex flex-col h-full justify-between font-light"
+                    className="flex flex-col h-full justify-between font-light lg:gap-0 gap-4"
                 >
+                    <h1 className='text-[24px] font-medium'>
+                        Hello! Namaste! Kemcho!
+                    </h1>
+
                     <p>
-                        Since its establishment in 2011, Nirali Decor has been driven by a passion for turning dream celebrations into unforgettable experiences. Our journey began with a vision to redefine wedding and event decor by blending tradition, elegance, and innovation. Over the years, we have had the honor of bringing countless visions to life, from intimate ceremonies to grand celebrations, each crafted with an unwavering attention to detail.
+                        We are Nirali & Pradip, founders of Nirali Decor.
                     </p>
                     <p>
-                        As founders, our inspiration comes from the joy and smiles we see on our clients&apos; faces. We believe that the beauty of a celebration lies in the little details and the magic that happens when every element comes together perfectly. Our talented team is dedicated to creating decor that reflects the heart of your story, while elevating your special moments into memories that last a lifetime.
+                        In 2011, we started this business from scratch and have built it since from ground up.
                     </p>
                     <p>
-                        Thank you for entrusting us to be a part of your journey. We are excited to continue crafting meaningful celebrations with love, passion, and the artistry that defines Nirali Decor.
+
+                        Nirali has a background of Paralegal but always had the creative interest in designing and has always loved playing with colors. Initially she thought she would go into clothing design but came across this opportunity beforehand. Pradip has a background of auto technician and has always been good with building things.
+                    </p>
+                    <p>
+                        Pradip is a dreamer by his nature. Nirali is practical by her nature. Both  visionary and have one philosophy- If you are going to do something, do it full whole heartedly.
+                    </p>
+                    <p>
+                        Like many entrepreneurs, we faced countless challenges. We didn&apos;t have a blueprint, but we had grit, creativity, and the unwavering belief that we could build something that would make a difference.
+                    </p>
+                    <p>
+                        There were moments of doubt, countless sleepless nights, and plenty of lessons learned the hard way. But through it all, our commitment to creating something meaningful  kept us moving forward.
+                    </p>
+                    <p>
+                        Overtime, we have grown professionally and personally to withstand any challenges that may arise.
+                    </p>
+                    <p>
+                        Today, we&apos;re proud of what we&apos;ve built over the years, but we know this is just the beginning of a much larger journey. Our story is a testament to the power of persistence, innovation, and the courage to take the first step—even when the path ahead isn&apos;t clear.
+                    </p>
+                    <p>
+                        We are forever greatfull for all the past clients who have given us that one chance and put their trust in us. We will continue forward with the same grit and passion for our future clients as well!
                     </p>
                 </motion.div>
             </motion.div>
