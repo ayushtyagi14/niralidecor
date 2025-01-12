@@ -320,7 +320,7 @@ const Service = () => {
 
                 {customDesignUrl ? (
                     <div className='h-[500px]'>
-                        <h1 className='text-[20px] font-bold uppercase mb-4'>Custom Design Service Image</h1>
+                        <h1 className='text-[20px] font-bold uppercase mb-4'>Traditional Design Service Image</h1>
                         {customDesignUrl && (customDesignUrl.endsWith('.mp4') || customDesignUrl.endsWith('.mov')) ? (
                             <video controls className="rounded-md shadow h-[80%]">
                                 <source src={customDesignUrl} type="video/mp4" />

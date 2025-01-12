@@ -114,7 +114,7 @@ const Service = ({ floralUrl, centerpieceUrl, customDesignUrl, stageSetupUrl }) 
                     {renderMedia(customDesignUrl, "Custom Design")}
                     <div className='absolute inset-0 bg-black opacity-50 group-hover:opacity-0 transition-opacity duration-500 rounded-[24px] flex items-center justify-center hover:cursor-pointer'>
                         <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
-                            Custom Design
+                            Traditional Design
                         </h1>
                     </div>
                 </motion.div>
