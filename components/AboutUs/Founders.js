@@ -27,7 +27,7 @@ const Founders = ({ founderUrl }) => {
             <motion.div
                 className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-20"
             >
-                <motion.img src={founderUrl} alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl h-full" />
+                <motion.img src={founderUrl} alt="Nirali Decor Founders" className="rounded-[24px] shadow-xl" />
                 <motion.div
                     className="flex flex-col h-full justify-between font-light gap-4"
                 >
