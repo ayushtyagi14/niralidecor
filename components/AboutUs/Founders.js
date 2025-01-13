@@ -32,7 +32,7 @@ const Founders = ({ founderUrl }) => {
                     className="flex flex-col h-full justify-between font-light gap-4"
                 >
                     <h1 className='text-[24px] font-medium'>
-                        Hello! Namaste! Kemcho!
+                        Hello!
                     </h1>
 
                     <p>
@@ -42,17 +42,16 @@ const Founders = ({ founderUrl }) => {
                         In 2011, we started this business from scratch and have built it since from ground up.
                     </p>
                     <p>
-
-                        Nirali has a background of Paralegal but always had the creative interest in designing and has always loved playing with colors. Initially she thought she would go into clothing design but came across this opportunity beforehand. Pradip has a background of auto technician and has always been good with building things.
+                        Nirali has a background of Paralegal but always had the creative interest in designing and has always loved playing with colors. Initially she thought she would go into clothing design but came across this opportunity beforehand as we were also planning our own wedding decor. Pradip has a background in auto mechanical technician and has always been good with building and fabricating things.
                     </p>
                     <p>
-                        Pradip is a dreamer by his nature. Nirali is practical by her nature. Both  visionary and have one philosophy- If you are going to do something, do it full whole heartedly.
+                        Pradip is a dreamer by his nature. Nirali is practical by her nature. Both visionary and have one philosophy - If you are going to do something, do it full wholeheartedly. As Pradip always says, &quot;Just do the work and the rest will follow&quot;.
                     </p>
                     <p>
                         Like many entrepreneurs, we faced countless challenges. We didn&apos;t have a blueprint, but we had grit, creativity, and the unwavering belief that we could build something that would make a difference.
                     </p>
                     <p>
-                        There were moments of doubt, countless sleepless nights, and plenty of lessons learned the hard way. But through it all, our commitment to creating something meaningful  kept us moving forward.
+                        There were moments of doubt, countless sleepless nights, and plenty of lessons learned the hard way. But through it all, our commitment to creating something meaningful kept us moving forward.
                     </p>
                     <p>
                         Overtime, we have grown professionally and personally to withstand any challenges that may arise.
@@ -61,7 +60,10 @@ const Founders = ({ founderUrl }) => {
                         Today, we&apos;re proud of what we&apos;ve built over the years, but we know this is just the beginning of a much larger journey. Our story is a testament to the power of persistence, innovation, and the courage to take the first step—even when the path ahead isn&apos;t clear.
                     </p>
                     <p>
-                        We are forever greatfull for all the past clients who have given us that one chance and put their trust in us. We will continue forward with the same grit and passion for our future clients as well!
+                        We are forever grateful for our family, friends, and our dedicated team of staff who have helped us build Nirali Decor.
+                    </p>
+                    <p>
+                        We are also very grateful for our past clients who have given us that one chance and put their trust in us.
                     </p>
                 </motion.div>
             </motion.div>
