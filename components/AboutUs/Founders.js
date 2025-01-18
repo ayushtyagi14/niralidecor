@@ -36,34 +36,34 @@ const Founders = ({ founderUrl }) => {
                     </h1>
 
                     <p>
-                        We are Nirali & Pradip, founders of Nirali Decor.
+                        We are Nirali and Pradip, the founders of Nirali Decor.
                     </p>
                     <p>
-                        In 2011, we started this business from scratch and have built it since from ground up.
+                        In 2011, we started this business from the ground up.
                     </p>
                     <p>
-                        Nirali has a background of Paralegal but always had the creative interest in designing and has always loved playing with colors. Initially she thought she would go into clothing design but came across this opportunity beforehand as we were also planning our own wedding decor. Pradip has a background in auto mechanical technician and has always been good with building and fabricating things.
+                        Nirali has a background in paralegal work but has always had a creative interest in design and a love for playing with colors. Initially, she considered pursuing clothing design, but an opportunity arose while we were planning our wedding decor, which shifted her focus. Pradip, on the other hand, has a background as an automotive mechanical technician and has always excelled in building and fabricating things.
                     </p>
                     <p>
-                        Pradip is a dreamer by his nature. Nirali is practical by her nature. Both visionary and have one philosophy - If you are going to do something, do it full wholeheartedly. As Pradip always says, &quot;Just do the work and the rest will follow&quot;.
+                        Pradip is a dreamer by nature, while Nirali is practical. Both of us are visionaries with a shared philosophy: if you&apos;re going to do something, do it wholeheartedly. As Pradip often says, &quot;Just do the work, and the rest will follow.&quot;
                     </p>
                     <p>
-                        Like many entrepreneurs, we faced countless challenges. We didn&apos;t have a blueprint, but we had grit, creativity, and the unwavering belief that we could build something that would make a difference.
+                        Like many entrepreneurs, we faced countless challenges along the way. We didn&apos;t have a blueprint, but we possessed grit, creativity, and an unwavering belief that we could build something that would make a difference.
                     </p>
                     <p>
-                        There were moments of doubt, countless sleepless nights, and plenty of lessons learned the hard way. But through it all, our commitment to creating something meaningful kept us moving forward.
+                        There were moments of doubt, numerous sleepless nights, and many lessons learned the hard way. Yet, our commitment to creating something meaningful kept us moving forward.
                     </p>
                     <p>
-                        Overtime, we have grown professionally and personally to withstand any challenges that may arise.
+                        Over time, we grew both professionally and personally, developing the resilience to withstand any challenges that came our way.
                     </p>
                     <p>
-                        Today, we&apos;re proud of what we&apos;ve built over the years, but we know this is just the beginning of a much larger journey. Our story is a testament to the power of persistence, innovation, and the courage to take the first step—even when the path ahead isn&apos;t clear.
+                        Today, we are proud of what we have built over the years, but this is just the beginning of a much larger journey. Our story stands as a testament to the power of persistence, innovation, and the courage to take the first step—even when the path ahead is unclear.
                     </p>
                     <p>
-                        We are forever grateful for our family, friends, and our dedicated team of staff who have helped us build Nirali Decor.
+                        We are forever grateful to our family, friends, and our dedicated team who have supported us in building Nirali Decor.
                     </p>
                     <p>
-                        We are also very grateful for our past clients who have given us that one chance and put their trust in us.
+                        We also extend our heartfelt thanks to our past clients who took a chance on us and placed their trust in our vision.
                     </p>
                 </motion.div>
             </motion.div>
