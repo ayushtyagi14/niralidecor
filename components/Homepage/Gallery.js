@@ -15,7 +15,7 @@ const Gallery = ({ mediaItems }) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <h1 className={`uppercase font-extrabold lg:text-[78px] text-[44px] text-[#96034f] text-center`}>
+                <h1 className={`uppercase font-extrabold lg:text-[78px] text-[38px] text-[#96034f] text-center`}>
                     The Magic is in the Details.
                 </h1>
                 <p className='text-end mr-10 italic'>
