@@ -24,7 +24,7 @@ export default function AdminPage() {
     const loginSubmit = (e) => {
         e.preventDefault();
         setError('');
-        const valid = username === 'admin' && password === 'admin123';
+        const valid = username === 'admin' && password === 'Niralidecor@2025';
         if (!valid) {
             setError('Invalid credentials');
             return;
