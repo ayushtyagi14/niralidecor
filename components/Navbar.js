@@ -42,21 +42,27 @@ const Navbar = () => {
                             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                         />
                     </Link>
-                    <div className={`hidden lg:flex items-center space-x-4 ${scrolled ? 'text-[16px] font-semibold' : 'text-[18px]'} tracking-widest ${deco.className}`}>
+                    <div className={`hidden lg:flex items-center space-x-3 ${scrolled ? 'text-[13px] font-semibold' : 'text-[14px]'} tracking-wide ${deco.className}`}>
                         <Link href="/">
                             <h1 className="hover-underline">Home</h1>
                         </Link>
                         <Link href="/about-us">
-                            <h1 className="hover-underline">About Us</h1>
+                            <h1 className="hover-underline">About</h1>
                         </Link>
                         <Link href="/portfolio">
                             <h1 className="hover-underline">Portfolio</h1>
                         </Link>
+                        <Link href="/blog">
+                            <h1 className="hover-underline">Blog</h1>
+                        </Link>
                         <Link href="/testimonials">
                             <h1 className="hover-underline">Testimonials</h1>
                         </Link>
+                        <Link href="/faq">
+                            <h1 className="hover-underline">FAQ</h1>
+                        </Link>
                         <Link href="/contact-us">
-                            <h1 className="hover-underline">Contact Us</h1>
+                            <h1 className="hover-underline">Contact</h1>
                         </Link>
                         <div className='flex flex-row items-center gap-2'>
                             <img
@@ -100,16 +106,22 @@ const Navbar = () => {
                         <h1 onClick={toggleMenu}>Home</h1>
                     </Link>
                     <Link href="/about-us">
-                        <h1 onClick={toggleMenu}>About Us</h1>
+                        <h1 onClick={toggleMenu}>About</h1>
                     </Link>
                     <Link href="/portfolio">
                         <h1 onClick={toggleMenu}>Portfolio</h1>
                     </Link>
+                    <Link href="/blog">
+                        <h1 onClick={toggleMenu}>Blog</h1>
+                    </Link>
                     <Link href="/testimonials">
                         <h1 onClick={toggleMenu}>Testimonials</h1>
                     </Link>
+                    <Link href="/faq">
+                        <h1 onClick={toggleMenu}>FAQ</h1>
+                    </Link>
                     <Link href="/contact-us">
-                        <h1 onClick={toggleMenu}>Contact Us</h1>
+                        <h1 onClick={toggleMenu}>Contact</h1>
                     </Link>
                     <div className='flex flex-row items-center gap-2'>
                         <img
