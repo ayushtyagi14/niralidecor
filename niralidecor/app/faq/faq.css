@@ -1,0 +1,275 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --text: #000000;
+    --muted: #555555;
+    --brand: #96034f;
+    --brand-strong: #7b0241;
+    --border: #e9e2ea;
+    --surface: #ffffff;
+
+    --font-ranade: "Poppins", Inter, sans-serif;
+    --font-cinzel: "Cinzel Decorative", serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-ranade);
+    color: var(--text);
+    background: var(--bg);
+}
+
+.muted {
+    color: var(--text);
+    font-family: var(--font-ranade);
+}
+
+/* FAQ Page Layout */
+.faq-page {
+    padding: 0 clamp(12px, 3vw, 24px) clamp(32px, 6vw, 72px);
+}
+
+.page-banner {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    height: clamp(220px, 35vw, 420px);
+    margin-bottom: clamp(24px, 4vw, 48px);
+    margin-top: 0;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.page-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-content {
+    text-align: center;
+    color: #fff;
+    padding: clamp(20px, 3vw, 40px);
+    max-width: min(800px, 90%);
+}
+
+.banner-content .headline {
+    color: #fff;
+    margin-bottom: clamp(8px, 1.2vw, 12px);
+    font-size: clamp(22px, 3vw + 10px, 32px);
+    font-family: var(--font-cinzel);
+    margin: 0;
+}
+
+.banner-content .lead {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: clamp(14px, 2vw, 20px);
+    font-family: var(--font-ranade);
+}
+
+.page-header {
+    text-align: center;
+    padding: clamp(24px, 4vw, 48px) clamp(12px, 3vw, 24px);
+    background: var(--bg);
+    margin-bottom: clamp(24px, 4vw, 48px);
+}
+
+.page-header .headline {
+    color: var(--brand);
+    margin-bottom: clamp(8px, 1.2vw, 16px);
+    font-size: clamp(28px, 4vw, 42px);
+    font-family: var(--font-cinzel);
+    margin: 0;
+    font-weight: 700;
+}
+
+.page-header .lead {
+    color: var(--muted);
+    font-size: clamp(14px, 2vw, 18px);
+    font-family: var(--font-ranade);
+    max-width: 65ch;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+.faq-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    width: min(1200px, 100%);
+    margin: 0 auto;
+}
+
+@media (min-width: 1000px) {
+    .faq-container {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}
+
+.faq-content {
+    display: grid;
+    gap: clamp(12px, 2vw, 20px);
+}
+
+.faq-image {
+    position: sticky;
+    top: clamp(80px, 13vw, 104px);
+    border-radius: clamp(12px, 2vw, 18px);
+    overflow: hidden;
+    height: fit-content;
+}
+
+.faq-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: clamp(12px, 2vw, 18px);
+    object-fit: cover;
+}
+
+@media (max-width: 999px) {
+    .faq-image {
+        position: static;
+        order: -1;
+    }
+}
+
+/* Modern Accordion with Animations */
+.accordion {
+    display: grid;
+    gap: clamp(12px, 2vw, 20px);
+}
+
+.accordion-item {
+    background: #fff;
+    border: none;
+    border-radius: clamp(12px, 2vw, 18px);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    box-shadow: 0 clamp(2px, 0.5vw, 4px) clamp(8px, 1.5vw, 16px) rgba(0, 0, 0, 0.08);
+}
+
+.accordion-item.active {
+    box-shadow: 0 clamp(4px, 0.8vw, 8px) clamp(12px, 2vw, 20px) rgba(150, 3, 79, 0.15);
+}
+
+.accordion-trigger {
+    width: 100%;
+    text-align: left;
+    padding: clamp(16px, 2.5vw, 24px) clamp(18px, 3vw, 28px);
+    background: transparent;
+    color: #000;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: clamp(15px, 2vw, 18px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: var(--font-ranade);
+}
+
+.accordion-trigger:hover {
+    background: #faf6fb;
+}
+
+.accordion-trigger:focus {
+    outline: 2px solid var(--brand);
+    outline-offset: -2px;
+    border-radius: clamp(12px, 2vw, 18px);
+}
+
+.accordion-item.active .accordion-trigger {
+    background: #faf6fb;
+    color: var(--brand);
+    border: none;
+}
+
+.accordion-question {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.accordion-panel-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 clamp(18px, 3vw, 28px);
+    background: #fff;
+}
+
+.accordion-panel-wrapper.open {
+    max-height: 500px;
+    padding-top: clamp(16px, 2.5vw, 24px);
+    padding-bottom: clamp(16px, 2.5vw, 24px);
+}
+
+.accordion-panel {
+    color: #000;
+    font-family: var(--font-ranade);
+    font-size: clamp(14px, 1.8vw, 16px);
+    line-height: 1.7;
+    animation: fadeIn 0.3s ease 0.1s forwards;
+}
+
+.accordion-panel p {
+    margin: 0;
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--brand);
+    flex-shrink: 0;
+    margin-left: clamp(12px, 2vw, 16px);
+}
+
+.accordion-item.active .chevron {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
