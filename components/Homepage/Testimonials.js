@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 import { useRouter } from 'next/navigation';
 
 const Testimonials = ({ reviews }) => {

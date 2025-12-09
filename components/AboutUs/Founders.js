@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion';
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 
 const Founders = ({ founderUrl }) => {
     return (

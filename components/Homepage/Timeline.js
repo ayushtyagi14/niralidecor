@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules'
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 
 const TimelineData = [
     {

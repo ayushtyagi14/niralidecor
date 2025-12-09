@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { deco } from '@/app/layout'
+import { deco } from '@/lib/fonts'
 import { useRouter } from 'next/navigation'
 
 const LocationCard = ({ title, lines = [], iframeSrc }) => {

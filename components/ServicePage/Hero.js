@@ -1,4 +1,4 @@
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 

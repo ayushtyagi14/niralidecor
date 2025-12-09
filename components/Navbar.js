@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);

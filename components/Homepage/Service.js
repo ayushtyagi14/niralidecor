@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { deco } from '@/app/layout';
+import { deco } from '@/lib/fonts';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
