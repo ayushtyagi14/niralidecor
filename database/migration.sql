@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS blogs (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Create admin_users table
+CREATE TABLE IF NOT EXISTS admin_users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create case_studies table
 CREATE TABLE IF NOT EXISTS case_studies (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

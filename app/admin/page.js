@@ -21,18 +21,30 @@ export default function AdminPage() {
         }
     }, []);
 
-    const loginSubmit = (e) => {
+    const loginSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        const valid = username === 'admin' && password === 'Niralidecor@2025';
-        if (!valid) {
-            setError('Invalid credentials');
-            return;
+
+        try {
+            const res = await fetch('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data?.token) {
+                setError(data?.error || 'Invalid credentials');
+                return;
+            }
+
+            localStorage.setItem('adminToken', data.token);
+            setToken(data.token);
+            setIsAuthenticated(true);
+        } catch (err) {
+            setError('Login failed. Please try again.');
         }
-        const t = 'secret123';
-        localStorage.setItem('adminToken', t);
-        setToken(t);
-        setIsAuthenticated(true);
     };
 
     const logout = () => {
