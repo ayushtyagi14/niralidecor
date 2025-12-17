@@ -177,6 +177,16 @@ function BlogSection({ token }) {
     const [uploadingCover, setUploadingCover] = useState(false);
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
+    const normalizeSlug = (value) => {
+        if (!value) return '';
+        return value
+            .toString()
+            .trim()
+            .replace(/^\/+/, '')
+            .replace(/\s+/g, '-')
+            .toLowerCase();
+    };
+
     const refresh = useCallback(() => {
         fetch('/api/blogs', { headers: { 'x-admin-token': token } })
             .then((r) => r.json())
@@ -256,7 +266,15 @@ function BlogSection({ token }) {
                 headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
                 body: JSON.stringify(payload),
             });
-            const data = await res.json();
+            const contentType = res.headers.get('content-type') || '';
+            let data;
+
+            if (contentType.includes('application/json')) {
+                data = await res.json();
+            } else {
+                const text = await res.text();
+                throw new Error(`Server returned ${res.status} ${res.statusText} instead of JSON: ${text.slice(0, 200)}`);
+            }
             if (res.ok) {
                 setStatus('Saved!');
                 setForm({
@@ -278,7 +296,7 @@ function BlogSection({ token }) {
                 refresh();
             } else {
                 console.error('Error response:', data);
-                setStatus(`Error: ${data.error || 'Unknown error'}`);
+                setStatus(`Error: ${data?.error || `${res.status} ${res.statusText}` || 'Unknown error'}`);
             }
         } catch (err) {
             console.error('Submit error:', err);
