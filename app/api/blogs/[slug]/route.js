@@ -33,7 +33,7 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { slug } = params;
+        const { slug } = await params;
         const body = await request.json();
 
         const updateData = {
@@ -80,7 +80,7 @@ export async function DELETE(request, { params }) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { slug } = params;
+        const { slug } = await params;
 
         const { data, error } = await supabaseAdmin
             .from('blogs')

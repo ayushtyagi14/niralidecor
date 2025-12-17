@@ -1,6 +1,15 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { NextRequest } from 'next/server';
 
+export const runtime = 'nodejs';
+
+export const config = {
+    api: {
+        bodyParser: false,
+        sizeLimit: '50mb',
+    },
+};
+
 const s3Client = new S3Client({
     region: 'nyc3',
     endpoint: 'https://nyc3.digitaloceanspaces.com',
