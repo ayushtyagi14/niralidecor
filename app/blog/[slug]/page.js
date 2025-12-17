@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import '../blog.css';
 
 export default function BlogDetailPage() {
@@ -54,17 +56,25 @@ export default function BlogDetailPage() {
 
     if (error || !post) {
         return (
-            <div className="blog-detail-container">
-                <div className="muted">
-                    <h2>Blog post not found</h2>
-                    <Link href="/blog" className="back-link">← Back to Blog</Link>
-                </div>
-            </div>
+            <>
+                <Navbar />
+                <section className="blog-detail-page">
+                    <div className="blog-detail-container">
+                        <div className="muted">
+                            <h2>Blog post not found</h2>
+                            <Link href="/blog" className="back-link">← Back to Blog</Link>
+                        </div>
+                    </div>
+                </section>
+                <Footer />
+            </>
         );
     }
 
     return (
-        <section className="blog-detail-page">
+        <>
+            <Navbar />
+            <section className="blog-detail-page">
             <nav className="breadcrumbs">
                 <Link href="/">Home</Link>
                 <span>›</span>
@@ -102,7 +112,7 @@ export default function BlogDetailPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="blog-share-icons">
+                        {/* <div className="blog-share-icons">
                             <button
                                 className="share-icon-btn"
                                 title="Share on Twitter"
@@ -127,7 +137,7 @@ export default function BlogDetailPage() {
                                 <span className="share-icon">💬</span>
                                 <span className="share-label">WhatsApp</span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </header>
 
@@ -176,5 +186,7 @@ export default function BlogDetailPage() {
                 </div>
             </article>
         </section>
+        <Footer />
+        </>
     );
 }

@@ -159,6 +159,7 @@ function BlogSection({ token }) {
     const [list, setList] = useState([]);
     const [editing, setEditing] = useState(null);
     const [form, setForm] = useState({
+        slug: '',
         title: '',
         excerpt: '',
         content: '',
@@ -259,6 +260,7 @@ function BlogSection({ token }) {
             if (res.ok) {
                 setStatus('Saved!');
                 setForm({
+                    slug: '',
                     title: '',
                     excerpt: '',
                     content: '',
@@ -305,6 +307,7 @@ function BlogSection({ token }) {
                                     setEditing(item);
                                     setForm({
                                         ...item,
+                                        slug: item.slug || '',
                                         tags: (item.tags || []).join(', '),
                                         status: item.status || 'published',
                                         coverImage: item.cover_image || '',
@@ -357,6 +360,14 @@ function BlogSection({ token }) {
                             placeholder="Title *"
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
+                            className="form-input"
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Slug (used in URL, e.g. my-blog-post) *"
+                            value={form.slug}
+                            onChange={(e) => setForm({ ...form, slug: e.target.value })}
                             className="form-input"
                             required
                         />
@@ -551,6 +562,7 @@ function BlogSection({ token }) {
                             onClick={() => {
                                 setEditing(null);
                                 setForm({
+                                    slug: '',
                                     title: '',
                                     excerpt: '',
                                     content: '',

@@ -4,7 +4,7 @@ import supabaseAdmin from '@/lib/supabaseAdmin';
 // GET single blog by slug
 export async function GET(request, { params }) {
     try {
-        const { slug } = params;
+        const { slug } = await params;
         const isAdmin = request.headers.get('x-admin-token') === process.env.ADMIN_TOKEN;
 
         let query = supabaseAdmin.from('blogs').select('*').eq('slug', slug).single();
@@ -37,6 +37,7 @@ export async function PUT(request, { params }) {
         const body = await request.json();
 
         const updateData = {
+            slug: body.slug || slug,
             title: body.title,
             excerpt: body.excerpt,
             content: body.content,

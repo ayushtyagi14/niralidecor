@@ -423,8 +423,9 @@ body {
 .breadcrumbs span { color: #000; }
 
 /* Blog Detail Page */
-.blog-detail-page { padding: clamp(20px, 4vw, 48px) clamp(12px, 3vw, 24px) clamp(32px, 6vw, 72px); }
-@media (max-width: 320px) { .blog-detail-page { padding: clamp(16px, 3vw, 20px) clamp(8px, 2vw, 12px) clamp(24px, 5vw, 32px); } }
+/* Top padding roughly equals navbar height so content starts just under it */
+.blog-detail-page { padding: clamp(96px, 8vw, 112px) clamp(12px, 3vw, 24px) clamp(32px, 6vw, 72px); }
+@media (max-width: 320px) { .blog-detail-page { padding: clamp(80px, 7vw, 96px) clamp(8px, 2vw, 12px) clamp(24px, 5vw, 32px); } }
 .blog-detail-page .breadcrumbs { width: min(1100px, 92%); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); margin-bottom: clamp(16px, 2.5vw, 28px); }
 @media (max-width: 320px) { .blog-detail-page .breadcrumbs { padding: 0 clamp(8px, 2vw, 12px); } }
 .blog-article { width: min(1100px, 92%); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); }

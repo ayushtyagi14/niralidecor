@@ -37,14 +37,11 @@ export async function POST(request) {
         }
 
         const body = await request.json();
-        const { title, excerpt, content, author, coverImage, avatarImage, tags, category, status, seoTitle, seoDescription, seoKeywords } = body;
+        const { slug, title, excerpt, content, author, coverImage, avatarImage, tags, category, status, seoTitle, seoDescription, seoKeywords } = body;
 
-        if (!title || !content) {
-            return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
+        if (!slug || !title || !content) {
+            return NextResponse.json({ error: 'Slug, title and content are required' }, { status: 400 });
         }
-
-        // Generate slug from title
-        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
         const blogData = {
             slug,
