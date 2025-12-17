@@ -60,7 +60,7 @@ const Footer = () => {
               <div className="footer-links-column">
                 <Link href="/portfolio" className="footer-link">Portfolio</Link>
                 <Link href="/service/wedding-decor" className="footer-link">Services</Link>
-                <Link href="/faq" className="footer-link">FAQ's</Link>
+                <Link href="/faq" className="footer-link">{"FAQ's"}</Link>
                 <Link href="/testimonials" className="footer-link">Testimonials</Link>
               </div>
             </div>
