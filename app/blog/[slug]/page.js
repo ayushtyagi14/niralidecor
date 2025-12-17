@@ -38,12 +38,21 @@ export default function BlogDetailPage() {
 
     const formatContent = (text) => {
         if (!text) return '';
-        return text
-            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-            .replace(/_(.+?)_/g, '<em>$1</em>')
-            .replace(/`(.+?)`/g, '<code>$1</code>')
-            .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-            .replace(/\n/g, '<br/>');
+
+        const paragraphs = text.split(/\n{2,}/); // split on blank lines into paragraphs
+
+        const htmlParagraphs = paragraphs.map((para) => {
+            const withMarkup = para
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1<\/strong>')
+                .replace(/_(.+?)_/g, '<em>$1<\/em>')
+                .replace(/`(.+?)`/g, '<code>$1<\/code>')
+                .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>')
+                .replace(/\n/g, '<br\/>'); // single newlines inside a paragraph
+
+            return `<p>${withMarkup}<\/p>`;
+        });
+
+        return htmlParagraphs.join('');
     };
 
     if (loading) {
@@ -146,9 +155,8 @@ export default function BlogDetailPage() {
                         <Image
                             src={post.cover_image}
                             alt={post.title}
-                            width={1200}
-                            height={500}
-                            style={{ width: '100%', height: 'auto' }}
+                            fill
+                            style={{ objectFit: 'cover' }}
                             priority
                         />
                     </div>
