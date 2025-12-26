@@ -33,7 +33,7 @@ export async function POST(request) {
         }
 
         const body = await request.json();
-        const { title, client, year, heroImage, summary, metrics, tags, category, status, seoTitle, seoDescription, seoKeywords } = body;
+        const { title, client, year, heroImage, summary, metrics, tags, categories, status, seoTitle, seoDescription, seoKeywords } = body;
 
         if (!title || !client) {
             return NextResponse.json({ error: 'Title and client are required' }, { status: 400 });
@@ -47,7 +47,7 @@ export async function POST(request) {
             summary: summary || '',
             metrics: metrics || [],
             tags: tags || [],
-            category: category || 'General',
+            categories: categories || [],
             status: status || 'published',
             seo_title: seoTitle || '',
             seo_description: seoDescription || '',

@@ -13,6 +13,20 @@ export default function BlogPage() {
     const [q, setQ] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
 
+    // Helper to get normalized categories for a post
+    const getPostCategories = (post) => {
+        if (Array.isArray(post.categories) && post.categories.length) {
+            return post.categories.filter(Boolean).map((c) => c.trim());
+        }
+        if (post.category) {
+            return post.category
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean);
+        }
+        return [];
+    };
+
     const fetchPosts = async () => {
         try {
             const res = await fetch('/api/blogs');
@@ -36,12 +50,28 @@ export default function BlogPage() {
         fetchPosts();
     }, []);
 
-    const categories = useMemo(() => ['All', ...Array.from(new Set(posts.map(p => p.category)))], [posts]);
+    // Build category list from both legacy `category` (comma-separated) and new `categories` array
+    const categories = useMemo(() => {
+        const set = new Set();
+        set.add('All');
+
+        posts.forEach((p) => {
+            getPostCategories(p).forEach((c) => {
+                if (c) set.add(c);
+            });
+        });
+
+        return Array.from(set);
+    }, [posts]);
 
     const filtered = useMemo(() => {
         const term = q.toLowerCase();
         return posts.filter(p => {
-            const inCat = activeCategory === 'All' || p.category === activeCategory;
+            const postCats = getPostCategories(p);
+            const inCat =
+                activeCategory === 'All'
+                    ? true
+                    : postCats.includes(activeCategory);
             const inText = `${p.title} ${p.excerpt} ${p.content} ${p.tags?.join(' ')}`.toLowerCase().includes(term);
             return inCat && inText;
         });
@@ -86,20 +116,18 @@ export default function BlogPage() {
                             </div>
                             <div className="filter-group">
                                 <div className="filter-title">Category</div>
-                                <div className="chipset">
-                                    {categories.map(c => {
-                                        const displayCategory = c.length > 12 ? c.substring(0, 12) + '...' : c;
-                                        return (
-                                            <button
-                                                key={c}
-                                                className={`chip ${activeCategory === c ? 'active' : ''}`}
-                                                onClick={() => setActiveCategory(c)}
-                                                title={c}
-                                            >
-                                                {displayCategory}
-                                            </button>
-                                        );
-                                    })}
+                                <div className="select-wrapper">
+                                    <select
+                                        value={activeCategory}
+                                        onChange={(e) => setActiveCategory(e.target.value)}
+                                        className="category-select"
+                                    >
+                                        {categories.map((c) => (
+                                            <option key={c} value={c}>
+                                                {c}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                         </aside>

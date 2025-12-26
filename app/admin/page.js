@@ -167,7 +167,7 @@ function BlogSection({ token }) {
         coverImage: '',
         avatarImage: '',
         tags: '',
-        category: '',
+        categories: '',
         status: 'published',
         seoTitle: '',
         seoDescription: '',
@@ -256,6 +256,7 @@ function BlogSection({ token }) {
         const payload = {
             ...form,
             tags: form.tags ? form.tags.split(',').map((s) => s.trim()).filter(Boolean) : [],
+            categories: form.categories ? form.categories.split(',').map((s) => s.trim()).filter(Boolean) : [],
             status: form.status || 'published',
         };
         const method = editing ? 'PUT' : 'POST';
@@ -286,7 +287,7 @@ function BlogSection({ token }) {
                     coverImage: '',
                     avatarImage: '',
                     tags: '',
-                    category: '',
+                    categories: '',
                     status: 'published',
                     seoTitle: '',
                     seoDescription: '',
@@ -311,7 +312,7 @@ function BlogSection({ token }) {
                     <div key={item.id} className="item-card">
                         <div className="item-title">{item.title}</div>
                         <div className="item-meta">
-                            {item.category} • {item.author}
+                            {(item.categories || []).join(', ')} • {item.author}
                         </div>
                         <div className="item-status">
                             <span className={`status-badge ${item.status === 'published' ? 'published' : 'draft'}`}>
@@ -327,6 +328,10 @@ function BlogSection({ token }) {
                                         ...item,
                                         slug: item.slug || '',
                                         tags: (item.tags || []).join(', '),
+                                        categories:
+                                            Array.isArray(item.categories) && item.categories.length
+                                                ? item.categories.join(', ')
+                                                : item.category || '',
                                         status: item.status || 'published',
                                         coverImage: item.cover_image || '',
                                         avatarImage: item.avatar_image || '',
@@ -398,9 +403,9 @@ function BlogSection({ token }) {
                         />
                         <input
                             type="text"
-                            placeholder="Category"
-                            value={form.category}
-                            onChange={(e) => setForm({ ...form, category: e.target.value })}
+                            placeholder="Categories (comma separated)"
+                            value={form.categories}
+                            onChange={(e) => setForm({ ...form, categories: e.target.value })}
                             className="form-input"
                         />
                     </div>
@@ -588,7 +593,7 @@ function BlogSection({ token }) {
                                     coverImage: '',
                                     avatarImage: '',
                                     tags: '',
-                                    category: '',
+                                    categories: '',
                                     status: 'published',
                                     seoTitle: '',
                                     seoDescription: '',
@@ -617,7 +622,7 @@ function CaseSection({ token }) {
         summary: '',
         metrics: '',
         tags: '',
-        category: '',
+        categories: '',
         status: 'published',
         seoTitle: '',
         seoDescription: '',
@@ -696,6 +701,7 @@ function CaseSection({ token }) {
             year: form.year ? Number(form.year) : undefined,
             metrics,
             tags: form.tags ? form.tags.split(',').map((s) => s.trim()).filter(Boolean) : [],
+            categories: form.categories ? form.categories.split(',').map((s) => s.trim()).filter(Boolean) : [],
             status: form.status || 'published',
         };
         const method = editing ? 'PUT' : 'POST';
@@ -717,7 +723,7 @@ function CaseSection({ token }) {
                     summary: '',
                     metrics: '',
                     tags: '',
-                    category: '',
+                    categories: '',
                     status: 'published',
                     seoTitle: '',
                     seoDescription: '',
@@ -756,6 +762,10 @@ function CaseSection({ token }) {
                                     setEditing(item);
                                     setForm({
                                         ...item,
+                                        categories:
+                                            Array.isArray(item.categories) && item.categories.length
+                                                ? item.categories.join(', ')
+                                                : item.category || '',
                                         tags: (item.tags || []).join(', '),
                                         metrics: (item.metrics || [])
                                             .map((m) => (m.value ? `${m.label}: ${m.value}` : m.label))
@@ -900,9 +910,9 @@ function CaseSection({ token }) {
 
                     <input
                         type="text"
-                        placeholder="Category"
-                        value={form.category}
-                        onChange={(e) => setForm({ ...form, category: e.target.value })}
+                        placeholder="Categories (comma separated)"
+                        value={form.categories}
+                        onChange={(e) => setForm({ ...form, categories: e.target.value })}
                         className="form-input"
                     />
 
@@ -985,7 +995,7 @@ function CaseSection({ token }) {
                                     summary: '',
                                     metrics: '',
                                     tags: '',
-                                    category: '',
+                                    categories: '',
                                     status: 'published',
                                     seoTitle: '',
                                     seoDescription: '',

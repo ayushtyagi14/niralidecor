@@ -37,7 +37,7 @@ export async function POST(request) {
         }
 
         const body = await request.json();
-        const { slug, title, excerpt, content, author, coverImage, avatarImage, tags, category, status, seoTitle, seoDescription, seoKeywords } = body;
+        const { slug, title, excerpt, content, author, coverImage, avatarImage, tags, categories, status, seoTitle, seoDescription, seoKeywords } = body;
 
         if (!slug || !title || !content) {
             return NextResponse.json({ error: 'Slug, title and content are required' }, { status: 400 });
@@ -52,7 +52,7 @@ export async function POST(request) {
             cover_image: coverImage || '',
             avatar_image: avatarImage || '',
             tags: tags || [],
-            category: category || 'General',
+            categories: categories || [],
             status: status || 'published',
             seo_title: seoTitle || '',
             seo_description: seoDescription || '',

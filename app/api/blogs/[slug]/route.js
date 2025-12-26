@@ -4,7 +4,8 @@ import supabaseAdmin from '@/lib/supabaseAdmin';
 // GET single blog by slug
 export async function GET(request, { params }) {
     try {
-        const { slug } = await params;
+        const { slug: rawSlug } = await params;
+        const slug = rawSlug.toString().toLowerCase();
         const isAdmin = request.headers.get('x-admin-token') === process.env.ADMIN_TOKEN;
 
         let query = supabaseAdmin.from('blogs').select('*').eq('slug', slug).single();
@@ -33,7 +34,8 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { slug } = await params;
+        const { slug: rawSlug } = await params;
+        const slug = rawSlug.toString().toLowerCase();
         const body = await request.json();
 
         const updateData = {

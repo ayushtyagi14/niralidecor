@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { FaWhatsapp, FaXTwitter, FaFacebookF, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa6';
+import { FiLink } from 'react-icons/fi';
 import '../blog.css';
 
 export default function BlogDetailPage() {
@@ -22,7 +24,8 @@ export default function BlogDetailPage() {
 
     const fetchPost = async () => {
         try {
-            const res = await fetch(`/api/blogs/${params.slug}`);
+            const slug = params.slug?.toString().toLowerCase();
+            const res = await fetch(`/api/blogs/${slug}`);
             if (!res.ok) {
                 throw new Error('Blog post not found');
             }
@@ -84,20 +87,150 @@ export default function BlogDetailPage() {
         <>
             <Navbar />
             <section className="blog-detail-page">
-            <nav className="breadcrumbs">
-                <Link href="/">Home</Link>
-                <span>›</span>
-                <Link href="/blog">Blog</Link>
-                <span>›</span>
-                <span>{post.title}</span>
-            </nav>
+                <nav className="breadcrumbs">
+                    <Link href="/">Home</Link>
+                    <span>›</span>
+                    <Link href="/blog">Blog</Link>
+                    <span>›</span>
+                    <span>{post.title}</span>
+                </nav>
 
-            <article className="blog-article">
-                <header className="blog-article-header">
-                    <div className="blog-category">{post.category}</div>
-                    <h1 className="blog-article-title">{post.title}</h1>
-                    <div className="blog-meta">
-                        <div className="blog-author-info">
+                <article className="blog-article">
+                    <header className="blog-article-header">
+                        <div className="blog-category">{post.category}</div>
+                        <h1 className="blog-article-title">{post.title}</h1>
+                        <div className="blog-meta">
+                            <div className="blog-author-info">
+                                {post.avatar_image ? (
+                                    <Image
+                                        src={post.avatar_image}
+                                        alt={post.author}
+                                        width={52}
+                                        height={52}
+                                        className="blog-avatar"
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                ) : (
+                                    <div className="blog-avatar" />
+                                )}
+                                <div>
+                                    <div className="blog-author-name">{post.author}</div>
+                                    <div className="blog-date">
+                                        {new Date(post.created_at).toLocaleDateString('en-US', {
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="blog-share-icons">
+                                <button
+                                    className="share-icon-btn"
+                                    title="Share on WhatsApp"
+                                    onClick={() => {
+                                        const url = encodeURIComponent(window.location.href);
+                                        const text = encodeURIComponent(`${post.title} - ${url}`);
+                                        window.open(`https://wa.me/?text=${text}`, '_blank');
+                                    }}
+                                >
+                                    <span className="share-icon"><FaWhatsapp /></span>
+                                    <span className="share-label">WhatsApp</span>
+                                </button>
+                                <button
+                                    className="share-icon-btn"
+                                    title="Share on X (Twitter)"
+                                    onClick={() => {
+                                        const url = encodeURIComponent(window.location.href);
+                                        const text = encodeURIComponent(post.title);
+                                        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=550,height=420');
+                                    }}
+                                >
+                                    <span className="share-icon"><FaXTwitter /></span>
+                                    <span className="share-label">X</span>
+                                </button>
+                                <button
+                                    className="share-icon-btn"
+                                    title="Share on Facebook"
+                                    onClick={() => {
+                                        const url = encodeURIComponent(window.location.href);
+                                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=550,height=420');
+                                    }}
+                                >
+                                    <span className="share-icon"><FaFacebookF /></span>
+                                    <span className="share-label">Facebook</span>
+                                </button>
+                                <button
+                                    className="share-icon-btn"
+                                    title="Share on LinkedIn"
+                                    onClick={() => {
+                                        const url = encodeURIComponent(window.location.href);
+                                        const title = encodeURIComponent(post.title);
+                                        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank', 'width=750,height=600');
+                                    }}
+                                >
+                                    <span className="share-icon"><FaLinkedinIn /></span>
+                                    <span className="share-label">LinkedIn</span>
+                                </button>
+                                <button
+                                    className="share-icon-btn"
+                                    title="Share on Reddit"
+                                    onClick={() => {
+                                        const url = encodeURIComponent(window.location.href);
+                                        const title = encodeURIComponent(post.title);
+                                        window.open(`https://www.reddit.com/submit?url=${url}&title=${title}`, '_blank', 'width=900,height=650');
+                                    }}
+                                >
+                                    <span className="share-icon"><FaRedditAlien /></span>
+                                    <span className="share-label">Reddit</span>
+                                </button>
+                                <button
+                                    className="share-icon-btn"
+                                    title="Copy link"
+                                    onClick={() => {
+                                        const currentUrl = window.location.href;
+                                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                                            navigator.clipboard.writeText(currentUrl).then(() => {
+                                                alert('Link copied to clipboard');
+                                            }).catch(() => {
+                                                window.prompt('Copy this link:', currentUrl);
+                                            });
+                                        } else {
+                                            window.prompt('Copy this link:', currentUrl);
+                                        }
+                                    }}
+                                >
+                                    <span className="share-icon"><FiLink /></span>
+                                    <span className="share-label">Copy link</span>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {post.cover_image && (
+                        <div className="blog-featured-image">
+                            <Image
+                                src={post.cover_image}
+                                alt={post.title}
+                                fill
+                                style={{ objectFit: 'cover' }}
+                                priority
+                            />
+                        </div>
+                    )}
+
+                    <div className="blog-article-content">
+                        <div className="blog-excerpt">{post.excerpt}</div>
+                        <div className="blog-body" dangerouslySetInnerHTML={{ __html: formatContent(post.content) }} />
+
+                        <div className="blog-tags-section">
+                            <h4>Tags</h4>
+                            <div className="tags">
+                                {post.tags?.map(t => <span key={t} className="tag">{t}</span>)}
+                            </div>
+                        </div>
+
+                        <div className="blog-author-card">
                             {post.avatar_image ? (
                                 <Image
                                     src={post.avatar_image}
@@ -111,90 +244,14 @@ export default function BlogDetailPage() {
                                 <div className="blog-avatar" />
                             )}
                             <div>
-                                <div className="blog-author-name">{post.author}</div>
-                                <div className="blog-date">
-                                    {new Date(post.created_at).toLocaleDateString('en-US', {
-                                        month: 'long',
-                                        day: 'numeric',
-                                        year: 'numeric'
-                                    })}
-                                </div>
+                                <h4>{post.author}</h4>
+                                <p>Decor Specialist at Nirali Decor</p>
                             </div>
                         </div>
-                        {/* <div className="blog-share-icons">
-                            <button
-                                className="share-icon-btn"
-                                title="Share on Twitter"
-                                onClick={() => {
-                                    const url = encodeURIComponent(window.location.href);
-                                    const text = encodeURIComponent(post.title);
-                                    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=550,height=420');
-                                }}
-                            >
-                                <span className="share-icon">𝕏</span>
-                                <span className="share-label">Twitter</span>
-                            </button>
-                            <button
-                                className="share-icon-btn"
-                                title="Share on WhatsApp"
-                                onClick={() => {
-                                    const url = encodeURIComponent(window.location.href);
-                                    const text = encodeURIComponent(`${post.title} - ${url}`);
-                                    window.open(`https://wa.me/?text=${text}`, '_blank');
-                                }}
-                            >
-                                <span className="share-icon">💬</span>
-                                <span className="share-label">WhatsApp</span>
-                            </button>
-                        </div> */}
                     </div>
-                </header>
-
-                {post.cover_image && (
-                    <div className="blog-featured-image">
-                        <Image
-                            src={post.cover_image}
-                            alt={post.title}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                            priority
-                        />
-                    </div>
-                )}
-
-                <div className="blog-article-content">
-                    <div className="blog-excerpt">{post.excerpt}</div>
-                    <div className="blog-body" dangerouslySetInnerHTML={{ __html: formatContent(post.content) }} />
-
-                    <div className="blog-tags-section">
-                        <h4>Tags</h4>
-                        <div className="tags">
-                            {post.tags?.map(t => <span key={t} className="tag">{t}</span>)}
-                        </div>
-                    </div>
-
-                    <div className="blog-author-card">
-                        {post.avatar_image ? (
-                            <Image
-                                src={post.avatar_image}
-                                alt={post.author}
-                                width={52}
-                                height={52}
-                                className="blog-avatar"
-                                style={{ objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div className="blog-avatar" />
-                        )}
-                        <div>
-                            <h4>{post.author}</h4>
-                            <p>Decor Specialist at Nirali Decor</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-        <Footer />
+                </article>
+            </section>
+            <Footer />
         </>
     );
 }
