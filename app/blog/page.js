@@ -96,7 +96,7 @@ export default function BlogPage() {
 
                 <div className="page-header">
                     <h2 className="headline">Decor Blog</h2>
-                    <p className="lead">Wedding, sangeet, and corporate decor inspiration.</p>
+                    <p className="lead">Wedding, sangeet and luxury decor inspiration.</p>
                 </div>
 
                 {loading ? (
