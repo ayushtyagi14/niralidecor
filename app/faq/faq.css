@@ -33,6 +33,7 @@ body {
 
 /* FAQ Page Layout */
 .faq-page {
+    /* Match blog layout: banner goes behind transparent navbar */
     padding: 0 clamp(12px, 3vw, 24px) clamp(32px, 6vw, 72px);
 }
 
@@ -87,7 +88,7 @@ body {
 
 .page-header {
     text-align: center;
-    padding: clamp(24px, 4vw, 48px) clamp(12px, 3vw, 24px);
+    padding: clamp(32px, 5vw, 56px) clamp(12px, 3vw, 24px);
     background: var(--bg);
     margin-bottom: clamp(24px, 4vw, 48px);
 }
@@ -99,6 +100,33 @@ body {
     font-family: var(--font-cinzel);
     margin: 0;
     font-weight: 700;
+}
+
+.faq-cta-wrapper {
+    margin-top: clamp(16px, 2.5vw, 24px);
+}
+
+.faq-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(360px, 100%);
+    padding: 10px 20px;
+    margin: 0 auto;
+    border-radius: 999px;
+    border: 2px solid var(--brand);
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--font-ranade);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.faq-cta-button:hover {
+    background-color: var(--brand);
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 .page-header .lead {
@@ -114,20 +142,28 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: clamp(24px, 4vw, 48px);
-    width: min(1200px, 100%);
+    width: min(900px, 100%);
     margin: 0 auto;
-}
-
-@media (min-width: 1000px) {
-    .faq-container {
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-    }
 }
 
 .faq-content {
     display: grid;
     gap: clamp(12px, 2vw, 20px);
+}
+
+/* FAQ grouped section styling */
+.faq-section-group {
+    margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.section-title {
+    font-family: var(--font-cinzel);
+    font-size: clamp(18px, 2.4vw, 22px);
+    color: var(--brand-strong);
+    text-align: center;
+    margin: 0 0 clamp(12px, 2vw, 18px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .faq-image {

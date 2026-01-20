@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
@@ -12,6 +12,11 @@ export default function BlogPage() {
     const [loading, setLoading] = useState(true);
     const [q, setQ] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
+    const chipsetRef = useRef(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 9;
 
     // Helper to get normalized categories for a post
     const getPostCategories = (post) => {
@@ -31,19 +36,27 @@ export default function BlogPage() {
         try {
             const res = await fetch('/api/blogs');
             const data = await res.json();
-            if (Array.isArray(data)) {
-                const published = data.filter(p => (p.status || 'published') === 'published');
-                setPosts(published);
-            } else {
-                console.error('API did not return an array:', data);
-                setPosts([]);
-            }
-        } catch (error) {
-            console.error('Error fetching posts:', error);
-            setPosts([]);
+            setPosts(data || []);
+        } catch (err) {
+            console.error('Failed to fetch posts', err);
         } finally {
             setLoading(false);
         }
+    };
+
+    const updateScrollState = () => {
+        const el = chipsetRef.current;
+        if (!el) return;
+        const maxScrollLeft = el.scrollWidth - el.clientWidth;
+        setCanScrollLeft(el.scrollLeft > 4);
+        setCanScrollRight(el.scrollLeft < maxScrollLeft - 4);
+    };
+
+    const handleScroll = (direction) => {
+        const el = chipsetRef.current;
+        if (!el) return;
+        const scrollAmount = Math.max(220, el.clientWidth * 0.6);
+        el.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     };
 
     useEffect(() => {
@@ -64,6 +77,19 @@ export default function BlogPage() {
         return Array.from(set);
     }, [posts]);
 
+    useEffect(() => {
+        const el = chipsetRef.current;
+        if (!el) return;
+        updateScrollState();
+        const handleResize = () => updateScrollState();
+        el.addEventListener('scroll', updateScrollState);
+        window.addEventListener('resize', handleResize);
+        return () => {
+            el.removeEventListener('scroll', updateScrollState);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [categories.length]);
+
     const filtered = useMemo(() => {
         const term = q.toLowerCase();
         return posts.filter(p => {
@@ -77,8 +103,23 @@ export default function BlogPage() {
         });
     }, [posts, q, activeCategory]);
 
-    const featured = filtered[0];
-    const rest = filtered.slice(1);
+    // Calculate pagination
+    const totalPosts = filtered.length;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = filtered.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = useCallback((pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
+    // Reset to first page when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [q, activeCategory]);
 
     return (
         <>
@@ -102,10 +143,41 @@ export default function BlogPage() {
                 {loading ? (
                     <div className="muted">Loading posts…</div>
                 ) : (
-                    <div className="layout">
-                        <aside className="sidebar">
-                            <div className="filter-group">
-                                <div className="filter-title">Search</div>
+                    <div className="blog-page-inner">
+                        <div className="blog-filters-bar">
+                            <div className="chipset-wrap">
+                                <button
+                                    type="button"
+                                    className={`scroll-arrow left ${!canScrollLeft ? 'disabled' : ''}`}
+                                    onClick={() => handleScroll(-1)}
+                                    disabled={!canScrollLeft}
+                                    aria-label="Scroll categories left"
+                                >
+                                    ‹
+                                </button>
+                                <div className="chipset-scroll" ref={chipsetRef}>
+                                    {categories.map((c) => (
+                                        <button
+                                            key={c}
+                                            type="button"
+                                            className={`chip ${activeCategory === c ? 'active' : ''}`}
+                                            onClick={() => setActiveCategory(c)}
+                                        >
+                                            {c}
+                                        </button>
+                                    ))}
+                                </div>
+                                <button
+                                    type="button"
+                                    className={`scroll-arrow right ${!canScrollRight ? 'disabled' : ''}`}
+                                    onClick={() => handleScroll(1)}
+                                    disabled={!canScrollRight}
+                                    aria-label="Scroll categories right"
+                                >
+                                    ›
+                                </button>
+                            </div>
+                            <div className="search-inline">
                                 <div className="search">
                                     <input
                                         value={q}
@@ -114,87 +186,114 @@ export default function BlogPage() {
                                     />
                                 </div>
                             </div>
-                            <div className="filter-group">
-                                <div className="filter-title">Category</div>
-                                <div className="select-wrapper">
-                                    <select
-                                        value={activeCategory}
-                                        onChange={(e) => setActiveCategory(e.target.value)}
-                                        className="category-select"
-                                    >
-                                        {categories.map((c) => (
-                                            <option key={c} value={c}>
-                                                {c}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                        </aside>
-                        <div className="blog-content">
-                            {featured && (
-                                <div className="featured-post">
-                                    <Link href={`/blog/${featured.slug}`} className="featured-card">
-                                        {featured.cover_image && (
-                                            <div className="featured-media">
+                        </div>
+
+                        <div className="blog-grid">
+                            {currentPosts.length > 0 ? (
+                                currentPosts.map(post => {
+                                const truncatedTitle = post.title.length > 60 ? post.title.substring(0, 60) + '...' : post.title;
+                                const truncatedExcerpt = post.excerpt?.length > 120 ? post.excerpt.substring(0, 120) + '...' : post.excerpt;
+                                const postCats = getPostCategories(post);
+                                const primaryCategory = postCats[0] || '';
+                                return (
+                                    <Link href={`/blog/${post.slug}`} key={post.id} className="card">
+                                        {post.cover_image && (
+                                            <div className="card-media">
                                                 <Image
-                                                    src={featured.cover_image}
-                                                    alt={featured.title}
+                                                    src={post.cover_image}
+                                                    alt={post.title}
                                                     fill
                                                     style={{ objectFit: 'cover' }}
                                                 />
-                                                <div className="featured-badge">{featured.category}</div>
                                             </div>
                                         )}
-                                        <div className="featured-body">
-                                            <h3 className="featured-title">
-                                                {featured.title.length > 70 ? featured.title.substring(0, 70) + '...' : featured.title}
-                                            </h3>
-                                            <p className="featured-excerpt">
-                                                {featured.excerpt?.length > 150 ? featured.excerpt.substring(0, 150) + '...' : featured.excerpt}
-                                            </p>
-                                            <div className="featured-meta">
-                                                <span>{featured.author}</span>
-                                                <span>•</span>
-                                                <span>{new Date(featured.created_at).toLocaleDateString()}</span>
+                                        <div className="card-body">
+                                            <div className="card-meta-line">
+                                                {primaryCategory && (
+                                                    <span className="card-category">{primaryCategory}</span>
+                                                )}
                                             </div>
+                                            <h3 className="card-title">{truncatedTitle}</h3>
+                                            <p className="muted">{truncatedExcerpt}</p>
                                         </div>
                                     </Link>
+                                );
+                                })
+                            ) : (
+                                <div className="no-results">
+                                    <p>No blog posts found matching your criteria.</p>
                                 </div>
                             )}
-                            <div className="blog-grid">
-                                {rest.map(post => {
-                                    const truncatedTitle = post.title.length > 60 ? post.title.substring(0, 60) + '...' : post.title;
-                                    const truncatedExcerpt = post.excerpt?.length > 120 ? post.excerpt.substring(0, 120) + '...' : post.excerpt;
+                        </div>
+
+                        {/* Pagination */}
+                        {totalPages > 1 && (
+                            <div className="pagination">
+                                <button 
+                                    onClick={() => paginate(1)} 
+                                    disabled={currentPage === 1}
+                                    className="pagination-arrow"
+                                    aria-label="First page"
+                                >
+                                    «
+                                </button>
+                                <button 
+                                    onClick={() => paginate(currentPage - 1)} 
+                                    disabled={currentPage === 1}
+                                    className="pagination-arrow"
+                                    aria-label="Previous page"
+                                >
+                                    ‹
+                                </button>
+                                
+                                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                    // Show current page in the middle when possible
+                                    let pageNum;
+                                    if (totalPages <= 5) {
+                                        pageNum = i + 1;
+                                    } else if (currentPage <= 3) {
+                                        pageNum = i + 1;
+                                    } else if (currentPage >= totalPages - 2) {
+                                        pageNum = totalPages - 4 + i;
+                                    } else {
+                                        pageNum = currentPage - 2 + i;
+                                    }
+                                    
                                     return (
-                                        <Link href={`/blog/${post.slug}`} key={post.id} className="card">
-                                            {post.cover_image && (
-                                                <div className="card-media">
-                                                    <Image
-                                                        src={post.cover_image}
-                                                        alt={post.title}
-                                                        fill
-                                                        style={{ objectFit: 'cover' }}
-                                                    />
-                                                </div>
-                                            )}
-                                            <div className="card-body">
-                                                <h3 className="card-title">{truncatedTitle}</h3>
-                                                <div className="card-subtitle">
-                                                    {post.author} • {new Date(post.created_at).toLocaleDateString()}
-                                                </div>
-                                                <p className="muted">{truncatedExcerpt}</p>
-                                                <div className="tags">
-                                                    {post.tags?.slice(0, 3).map(t => (
-                                                        <span key={t} className="tag">{t}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </Link>
+                                        <button
+                                            key={pageNum}
+                                            onClick={() => paginate(pageNum)}
+                                            className={`pagination-number ${currentPage === pageNum ? 'active' : ''}`}
+                                            aria-label={`Page ${pageNum}`}
+                                            aria-current={currentPage === pageNum ? 'page' : undefined}
+                                        >
+                                            {pageNum}
+                                        </button>
                                     );
                                 })}
+                                
+                                <button 
+                                    onClick={() => paginate(currentPage + 1)} 
+                                    disabled={currentPage === totalPages}
+                                    className="pagination-arrow"
+                                    aria-label="Next page"
+                                >
+                                    ›
+                                </button>
+                                <button 
+                                    onClick={() => paginate(totalPages)} 
+                                    disabled={currentPage === totalPages}
+                                    className="pagination-arrow"
+                                    aria-label="Last page"
+                                >
+                                    »
+                                </button>
+                                
+                                <div className="pagination-info">
+                                    Page {currentPage} of {totalPages}
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 )}
             </section>

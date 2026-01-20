@@ -1,6 +1,7 @@
 import "./globals.css";
 import { deco, ranade } from "@/lib/fonts";
 import Script from "next/script";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export const metadata = {
   // Home page title; other routes (like /blog and /blog/[slug])
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         {children}
+        <ScrollToTopButton />
       </body>
     </html>
   );

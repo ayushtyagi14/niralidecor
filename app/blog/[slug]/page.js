@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { FaWhatsapp, FaXTwitter, FaFacebookF, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa6';
+import { FaFacebookF, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa6';
 import { FiLink } from 'react-icons/fi';
 import '../blog.css';
 
@@ -69,7 +69,7 @@ export default function BlogDetailPage() {
     if (error || !post) {
         return (
             <>
-                <Navbar />
+                <Navbar forceScrolled />
                 <section className="blog-detail-page">
                     <div className="blog-detail-container">
                         <div className="muted">
@@ -85,7 +85,7 @@ export default function BlogDetailPage() {
 
     return (
         <>
-            <Navbar />
+            <Navbar forceScrolled />
             <section className="blog-detail-page">
                 <nav className="breadcrumbs">
                     <Link href="/">Home</Link>
@@ -115,40 +115,10 @@ export default function BlogDetailPage() {
                                 )}
                                 <div>
                                     <div className="blog-author-name">{post.author}</div>
-                                    <div className="blog-date">
-                                        {new Date(post.created_at).toLocaleDateString('en-US', {
-                                            month: 'long',
-                                            day: 'numeric',
-                                            year: 'numeric'
-                                        })}
-                                    </div>
+                                    <div className="blog-date">Decor Specialist at Nirali Decor</div>
                                 </div>
                             </div>
                             <div className="blog-share-icons">
-                                <button
-                                    className="share-icon-btn"
-                                    title="Share on WhatsApp"
-                                    onClick={() => {
-                                        const url = encodeURIComponent(window.location.href);
-                                        const text = encodeURIComponent(`${post.title} - ${url}`);
-                                        window.open(`https://wa.me/?text=${text}`, '_blank');
-                                    }}
-                                >
-                                    <span className="share-icon"><FaWhatsapp /></span>
-                                    <span className="share-label">WhatsApp</span>
-                                </button>
-                                <button
-                                    className="share-icon-btn"
-                                    title="Share on X (Twitter)"
-                                    onClick={() => {
-                                        const url = encodeURIComponent(window.location.href);
-                                        const text = encodeURIComponent(post.title);
-                                        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=550,height=420');
-                                    }}
-                                >
-                                    <span className="share-icon"><FaXTwitter /></span>
-                                    <span className="share-label">X</span>
-                                </button>
                                 <button
                                     className="share-icon-btn"
                                     title="Share on Facebook"

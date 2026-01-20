@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaInstagram, FaFacebook, FaPinterest, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaTiktok } from 'react-icons/fa6';
 import './Footer.css';
 
 
@@ -68,16 +69,19 @@ const Footer = () => {
             <div className="footer-social-section">
               <h4 className="footer-social-heading">Follow Us</h4>
               <div className="footer-social-icons">
-                <a href="https://www.instagram.com/niralidecor" target="_blank" rel="noopener noreferrer" className="footer-social-link instagram" aria-label="Instagram">
-                  <FaInstagram />
-                </a>
                 <a href="https://www.facebook.com/niraliweddingandeventdesigns/" target="_blank" rel="noopener noreferrer" className="footer-social-link facebook" aria-label="Facebook">
                   <FaFacebook />
                 </a>
-                <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="footer-social-link pinterest" aria-label="Pinterest">
+                <a href="https://www.instagram.com/niralidecor" target="_blank" rel="noopener noreferrer" className="footer-social-link instagram" aria-label="Instagram">
+                  <FaInstagram />
+                </a>
+                <a href="https://in.pinterest.com/Niralidecorweddings/" target="_blank" rel="noopener noreferrer" className="footer-social-link pinterest" aria-label="Pinterest">
                   <FaPinterest />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-link youtube" aria-label="YouTube">
+                <a href="https://www.tiktok.com/@niralidecor" target="_blank" rel="noopener noreferrer" className="footer-social-link tiktok" aria-label="TikTok">
+                  <FaTiktok />
+                </a>
+                <a href="https://www.youtube.com/@NiraliDecor" target="_blank" rel="noopener noreferrer" className="footer-social-link youtube" aria-label="YouTube">
                   <FaYoutube />
                 </a>
               </div>
@@ -122,28 +126,21 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Newsletter Section */}
+          {/* Facebook Embed Section (replaces newsletter) */}
           <div className="footer-section">
-            <h3 className="footer-heading">Stay Inspired</h3>
-            <p className="footer-newsletter-text">
-              Subscribe to get decor ideas & wedding inspiration delivered to your inbox.
-            </p>
-            <form onSubmit={handleSubscribe} className="footer-newsletter-form">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="footer-newsletter-input"
-                required
+            <h3 className="footer-heading">Facebook Feeds</h3>
+            <div className="footer-facebook-embed">
+              <iframe
+                title="Nirali Decor Facebook Page"
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fniraliweddingandeventdesigns%2F&tabs=timeline&width=340&height=300&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+                width="100%"
+                height="340"
+                style={{ border: 'none', overflow: 'hidden', borderRadius: '12px' }}
+                scrolling="no"
+                frameBorder="0"
+                allow="encrypted-media; picture-in-picture; clipboard-write"
               />
-              <button type="submit" className="footer-newsletter-button">
-                Subscribe
-              </button>
-            </form>
-            {subscribeStatus && (
-              <p className="footer-subscribe-status">{subscribeStatus}</p>
-            )}
+            </div>
           </div>
         </div>
       </div>

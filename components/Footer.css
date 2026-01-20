@@ -1,11 +1,10 @@
-/* ============================================
-   FOOTER STYLES
-   ============================================ */
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
 
 .footer-container {
   width: 100%;
   background: linear-gradient(135deg, #f4c7ffca 0%, #e8b4f8 100%);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; Removed to inherit Ranade */
 }
 
 /* Main Footer Content */
@@ -30,6 +29,7 @@
 }
 
 .footer-heading {
+  font-family: 'Cinzel Decorative', serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #96034f;
@@ -69,7 +69,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
-  padding-left: 1rem;
+  padding-left: 1.1rem;
   width: fit-content;
 }
 
@@ -78,14 +78,13 @@
   position: absolute;
   left: 0;
   opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
   color: #96034f;
 }
 
 .footer-link:hover {
   color: #96034f;
-  transform: translateX(8px);
 }
 
 .footer-link:hover::before {
@@ -163,6 +162,8 @@
   border: 2px solid rgba(150, 3, 79, 0.2);
   border-radius: 8px;
   font-size: 1rem;
+  font-family: inherit;
+  /* Inherit Ranade */
   background: white;
   color: #4a1a3a;
   transition: all 0.3s ease;
@@ -186,6 +187,8 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
+  font-family: inherit;
+  /* Inherit Ranade */
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(150, 3, 79, 0.3);
@@ -209,6 +212,26 @@
   background: rgba(150, 3, 79, 0.1);
   border-radius: 6px;
   text-align: center;
+}
+
+/* Facebook embed card */
+.footer-facebook-embed {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 0.75rem;
+  border: 1px solid rgba(150, 3, 79, 0.12);
+  box-shadow: 0 4px 12px rgba(150, 3, 79, 0.1);
+  height: 320px; /* align visually with other columns */
+  display: flex;
+  align-items: stretch;
+}
+
+.footer-facebook-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* Social Media Section */

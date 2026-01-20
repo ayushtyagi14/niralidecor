@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { deco } from '@/lib/fonts';
 
-const Navbar = () => {
+const Navbar = ({ forceScrolled = false }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
@@ -15,20 +15,26 @@ const Navbar = () => {
     };
 
     useEffect(() => {
+        if (forceScrolled) {
+            setScrolled(true);
+            return;
+        }
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            setScrolled(scrollPosition > 600); // Adjust the value as needed
+            setScrolled(scrollPosition > 300); // Trigger navbar background after 300px
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [forceScrolled]);
 
     return (
         <nav className="fixed w-full z-50 transition-all duration-300">
             <div
                 className={`
-                    ${scrolled ? 'bg-[#f4c7ffca] text-[#96034f]' : 'lg:bg-[#00000015] bg-[#f9e1ffbe] text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
+                    ${scrolled
+                        ? 'bg-[#f4c7ff] text-[#96034f] shadow-md'
+                        : 'bg-transparent text-white lg:w-full w-[90%] rounded-full lg:rounded-none mt-4 lg:mt-0 lg:py-4'} 
                     mx-auto lg:px-28 px-5 transition-all duration-300
                 `}
             >
@@ -59,7 +65,7 @@ const Navbar = () => {
                             <h1 className="hover-underline">Testimonials</h1>
                         </Link>
                         <Link href="/faq">
-                            <h1 className="hover-underline">FAQ</h1>
+                            <h1 className="hover-underline">FAQs</h1>
                         </Link>
                         <Link href="/contact-us">
                             <h1 className="hover-underline">Contact</h1>
@@ -118,7 +124,7 @@ const Navbar = () => {
                         <h1 onClick={toggleMenu}>Testimonials</h1>
                     </Link>
                     <Link href="/faq">
-                        <h1 onClick={toggleMenu}>FAQ</h1>
+                        <h1 onClick={toggleMenu}>FAQs</h1>
                     </Link>
                     <Link href="/contact-us">
                         <h1 onClick={toggleMenu}>Contact</h1>
