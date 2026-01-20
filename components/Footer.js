@@ -69,7 +69,7 @@ const Footer = () => {
             <div className="footer-social-section">
               <h4 className="footer-social-heading">Follow Us</h4>
               <div className="footer-social-icons">
-                <a href="https://www.facebook.com/niraliweddingandeventdesigns/" target="_blank" rel="noopener noreferrer" className="footer-social-link facebook" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=61587084800669" target="_blank" rel="noopener noreferrer" className="footer-social-link facebook" aria-label="Facebook">
                   <FaFacebook />
                 </a>
                 <a href="https://www.instagram.com/niralidecor" target="_blank" rel="noopener noreferrer" className="footer-social-link instagram" aria-label="Instagram">

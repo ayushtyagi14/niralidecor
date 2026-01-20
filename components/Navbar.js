@@ -81,7 +81,7 @@ const Navbar = ({ forceScrolled = false }) => {
                                 src={scrolled ? "/assets/facebook-pink.png" : "/assets/facebook-white.png"}
                                 alt="Facebook"
                                 className='cursor-pointer hover:scale-110 duration-300 transition-all'
-                                onClick={() => router.push('https://www.facebook.com/niraliweddingandeventdesigns/')}
+                                onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                             />
                         </div>
                     </div>
@@ -140,7 +140,7 @@ const Navbar = ({ forceScrolled = false }) => {
                             src={"/assets/facebook-pink.png"}
                             alt="Facebook"
                             className='cursor-pointer hover:scale-110 duration-300 transition-all'
-                            onClick={() => router.push('https://instagram.com/niralidecor')}
+                            onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                         />
                     </div>
                 </div>

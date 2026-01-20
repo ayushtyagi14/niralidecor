@@ -127,10 +127,10 @@ export default function BlogPage() {
             <section className="blog-layout">
                 <div className="page-banner">
                     <Image
-                        src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1600&q=80"
+                        src="/assets/blog_banner.png"
                         alt="Blog Banner"
                         fill
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'cover', objectPosition: 'center bottom' }}
                         priority
                     />
                 </div>
