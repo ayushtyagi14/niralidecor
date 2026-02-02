@@ -172,6 +172,28 @@ const Footer = () => {
               alt="wedding wire nirali decor 2018 award"
               className="footer-award-badge"
             />
+            <a
+              href="https://cdn1.weddingwire.com/img/badges/2026/badge-weddingawards_en_US.png"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <img
+                src="/assets/badge-weddingawards_en_US.png"
+                alt=", 2026 WeddingWire Couples' Choice Awards winner"
+                className="footer-award-badge"
+              />
+            </a>
+            <a
+              href="http://www.maharaniweddings.com/platinum-vendor-guide/"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <img
+                src="/assets/MW_Badge_PG_2013.png"
+                alt="PLATINUM GUIDE VENDOR - MAHARANI WEDDINGS"
+                className="footer-award-badge"
+              />
+            </a>
           </div>
         </div>
         <h1 className="footer-copyright lg:hidden block">
