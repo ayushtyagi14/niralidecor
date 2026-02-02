@@ -9,6 +9,9 @@ export const metadata = {
   title: "Elegant Indian Wedding Decor Services | Nirali Decor",
   description:
     "Indian wedding decor services in New Jersey and Atlanta, GA by Nirali Decor. We create elegant, creative, and traditional designs for your perfect celebration.",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
