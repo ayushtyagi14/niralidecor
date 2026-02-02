@@ -157,21 +157,25 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Nirali Decor. All Rights Reserved.
           </h1>
           <div className="footer-awards-group">
-            <img
-              src="https://cdn1.weddingwire.com/img/badges/2025/badge-weddingawards_en_US.png"
-              alt="wedding wire nirali decor 2025 award"
-              className="footer-award-badge"
-            />
-            <img
-              src="https://cdn1.weddingwire.com/img/badges/2023/badge-weddingawards_en_US.png"
-              alt="wedding wire nirali decor 2023 award"
-              className="footer-award-badge"
-            />
+            {/* 2018 */}
             <img
               src="https://cdn1.weddingwire.com/img/badges/2018/badge-weddingawards_en_US.png"
               alt="wedding wire nirali decor 2018 award"
               className="footer-award-badge"
             />
+            {/* 2023 */}
+            <img
+              src="https://cdn1.weddingwire.com/img/badges/2023/badge-weddingawards_en_US.png"
+              alt="wedding wire nirali decor 2023 award"
+              className="footer-award-badge"
+            />
+            {/* 2025 */}
+            <img
+              src="https://cdn1.weddingwire.com/img/badges/2025/badge-weddingawards_en_US.png"
+              alt="wedding wire nirali decor 2025 award"
+              className="footer-award-badge"
+            />
+            {/* 2026 (local asset wrapped with link) */}
             <a
               href="https://cdn1.weddingwire.com/img/badges/2026/badge-weddingawards_en_US.png"
               target="_blank"
@@ -183,6 +187,7 @@ const Footer = () => {
                 className="footer-award-badge"
               />
             </a>
+            {/* Maharani Weddings Platinum Guide badge last */}
             <a
               href="http://www.maharaniweddings.com/platinum-vendor-guide/"
               target="_blank"
