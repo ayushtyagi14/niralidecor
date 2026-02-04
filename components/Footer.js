@@ -148,11 +148,24 @@ const Footer = () => {
       {/* Awards/Badges Section */}
       <div className="footer-awards">
         <div className="footer-awards-content">
-          <img
-            src="https://www.maharaniweddings.com/images/Badges/MW_Badge_2013.png"
-            alt="maharani wedding badge nirali decor"
-            className="footer-award-badge"
-          />
+          <div className="footer-awards-group">
+            <img
+              src="https://www.maharaniweddings.com/images/Badges/MW_Badge_2013.png"
+              alt="maharani wedding badge nirali decor"
+              className="footer-award-badge"
+            />
+            <a
+              href="http://www.maharaniweddings.com/platinum-vendor-guide/"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <img
+                src="/assets/MW_Badge_PG_2013.png"
+                alt="PLATINUM GUIDE VENDOR - MAHARANI WEDDINGS"
+                className="footer-award-badge"
+              />
+            </a>
+          </div>
           <h1 className="footer-copyright lg:block hidden">
             &copy; {new Date().getFullYear()} Nirali Decor. All Rights Reserved.
           </h1>
@@ -187,18 +200,7 @@ const Footer = () => {
                 className="footer-award-badge"
               />
             </a>
-            {/* Maharani Weddings Platinum Guide badge last */}
-            <a
-              href="http://www.maharaniweddings.com/platinum-vendor-guide/"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-            >
-              <img
-                src="/assets/MW_Badge_PG_2013.png"
-                alt="PLATINUM GUIDE VENDOR - MAHARANI WEDDINGS"
-                className="footer-award-badge"
-              />
-            </a>
+
           </div>
         </div>
         <h1 className="footer-copyright lg:hidden block">
