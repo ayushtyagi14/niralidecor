@@ -59,17 +59,17 @@ const specializations = [
     {
         title: "Indian Wedding Stage Decoration",
         desc: "Mandap & pheras stage design with floral, fabric & crystal backdrops. Traditional and contemporary styles tailored to your vision.",
-        img: "/assets/Indian Wedding Stage Decoration.jpg"
+        img: "/assets/indian-wedding-stage-decoration.jpg"
     },
     {
         title: "Reception Stage Decoration",
         desc: "Luxury concepts with LED walls, floral arches, and statement props. Elegant seating for the couple that makes a grand statement.",
-        img: "/assets/Reception Stage Decoration.jpg"
+        img: "/assets/reception-stage-decoration.jpg"
     },
     {
         title: "Custom Wedding Decor Themes",
         desc: "From Royal and Floral to Minimalist and Modern. Color-coordinated Indian wedding decoration designed for a unique atmosphere.",
-        img: "/assets/Custom Wedding Decor Themes.JPG"
+        img: "/assets/custom-wedding-decor-themes.jpg"
     }
 ];
 
@@ -91,9 +91,9 @@ const fallbackReviews = [
 const regions = ["New York", "Atlanta, Georgia", "New Jersey", "Connecticut", "Maryland", "North Carolina", "South Carolina", "Tennessee", "Virginia", "Florida", "Delaware", "Alabama", "Boston, Massachusetts", "Pennsylvania", "Ohio"];
 
 const galleryItems = [
-    { id: 1, mediaUrl: "/assets/image left.JPG" },
-    { id: 2, mediaUrl: "/assets/image center.JPG" },
-    { id: 3, mediaUrl: "/assets/image right.jpg" }
+    { id: 1, mediaUrl: "/assets/image-left.jpg" },
+    { id: 2, mediaUrl: "/assets/image-center.jpg" },
+    { id: 3, mediaUrl: "/assets/image-right.jpg" }
 ];
 
 export default function WeddingDecorClientPage() {
@@ -126,7 +126,7 @@ export default function WeddingDecorClientPage() {
             {/* 1. HERO */}
             <div className="relative h-[60vh] md:h-[75vh] w-full overflow-hidden bg-black">
                 <Image
-                    src="/assets/Service banner.jpg"
+                    src="/assets/service-banner.jpg"
                     alt="Wedding Decor Banner"
                     fill
                     priority
@@ -241,7 +241,7 @@ export default function WeddingDecorClientPage() {
                 </motion.div>
                 <div className="relative group overflow-hidden rounded-[24px]">
                     <motion.img
-                        src="/assets/Crafting Your Vision.JPG"
+                        src="/assets/crafting-your-vision.jpg"
                         className="rounded-[24px] shadow-2xl w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                         alt="Vision"
                         {...fadeIn}
@@ -401,10 +401,10 @@ export default function WeddingDecorClientPage() {
                     <motion.h2 className={`${deco.className} lg:text-[40px] text-[30px] text-center text-[#96034f] mb-12`} {...fadeIn}>Explore Our Other Services</motion.h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { name: 'Wedding', url: '/service/wedding', img: '/assets/Wedding.jpg' },
-                            { name: 'Reception', url: '/service/reception', img: '/assets/Reception.jpg' },
-                            { name: 'Vidhi & Haldi', url: '/service/vidhi-and-haldi', img: '/assets/Vidhi & Haldi.jpg' },
-                            { name: 'Centerpiece', url: '/service/centerpiece', img: '/assets/Centerpiece.jpg' },
+                            { name: 'Wedding', url: '/service/wedding', img: '/assets/wedding.jpg' },
+                            { name: 'Reception', url: '/service/reception', img: '/assets/reception.jpg' },
+                            { name: 'Vidhi & Haldi', url: '/service/vidhi-and-haldi', img: '/assets/vidhi-and-haldi.jpg' },
+                            { name: 'Centerpiece', url: '/service/centerpiece', img: '/assets/centerpiece.jpg' },
                         ].map((s, i) => (
                             <Link href={s.url} key={i}>
                                 <motion.div

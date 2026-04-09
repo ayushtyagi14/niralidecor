@@ -9,31 +9,31 @@ const couplesData = [
   {
     id: 1,
     text: "Overwhelmed by unfiltered online inspiration",
-    image: "/assets/Overwhelmed by unfiltered online inspiration.jpg",
+    image: "/assets/overwhelmed-inspiration.jpg",
     position: "object-center",
   },
   {
     id: 2,
     text: "Uncertain how to unify multiple wedding events",
-    image: "/assets/Uncertain how to unify multiple wedding events.jpg",
+    image: "/assets/unify-events.jpg",
     position: "object-center",
   },
   {
     id: 3,
     text: "Torn between tradition and modern design",
-    image: "/assets/Torn between tradition and modern design.jpg",
+    image: "/assets/torn-tradition.jpg",
     position: "object-center",
   },
   {
     id: 4,
     text: "Concerned about managing décor across venues",
-    image: "/assets/Concerned about managing décor across venues.JPG",
+    image: "/assets/managing-decor.jpg",
     position: "object-center",
   },
   {
     id: 5,
     text: "Seeking meaning rather than excess",
-    image: "/assets/Seeking meaning rather than excess.jpg",
+    image: "/assets/seeking-meaning.jpg",
     position: "object-center",
   },
 ];

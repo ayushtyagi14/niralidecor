@@ -8,7 +8,7 @@ import { deco } from "@/lib/fonts";
 const approachSections = [
   {
     id: 1,
-    image: "/assets/Our Approach.jpeg",
+    image: "/assets/our-approach.jpg",
     title: "Our Approach",
     subtitle: "Where Vision Meets Precision",
     phases: [
@@ -61,7 +61,7 @@ const approachSections = [
   },
   {
     id: 2,
-    image: "/assets/More Than Décor.jpg",
+    image: "/assets/more-than-decor.jpg",
     title: "Our Process",
     subtitle: "Here's what working with us looks like",
     phases: [
@@ -125,7 +125,7 @@ const approachSections = [
   },
   {
     id: 3,
-    image: "/assets/More Than Décor.jpg",
+    image: "/assets/more-than-decor.jpg",
     title: "More Than Décor",
     content: `At Nirali Decor, our work is rooted in more than design, it's about creating the setting where your most meaningful moments unfold. We understand how much this celebration represents, and we approach each wedding with care, intention, and personal investment.
  

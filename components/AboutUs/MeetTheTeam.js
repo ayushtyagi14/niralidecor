@@ -8,7 +8,7 @@ import { deco } from "@/lib/fonts";
 const sections = [
   {
     id: 1,
-    image: "/assets/Founders.jpeg",
+    image: "/assets/founders.jpg",
     position: "object-[50%_25%]",
     title: "Meet the Founders",
     content: `Nirali Decor is led by Nirali and Pradip, a husband-and-wife team who believe your wedding should feel like you, authentic, elevated, and unforgettable. Nirali is the creative mind behind the designs. She loves turning your Pinterest boards, outfit colors, and ideas into cohesive, statement-worthy spaces that feel fresh, stylish, and personal. Pradip is the one who brings it all to life. He leads the builds and installations, making sure every detail, from the mandap to the stage, is executed flawlessly so you can be fully present and enjoy your moment.
@@ -18,14 +18,14 @@ They're not just designing your wedding, they're helping you create moments you'
   },
   {
     id: 2,
-    image: "/assets/Experience.jpg",
+    image: "/assets/experience.jpg",
     position: "object-center",
     title: "Our Experience",
     content: `Since 2011, Nirali Decor has designed Indian weddings across New Jersey and surrounding areas, creating celebrations in luxury hotel ballrooms, premier wedding venues, banquet halls, and outdoor ceremony spaces. Over the years, the team has designed more than 1,300 weddings and multi-day celebrations, each approached with the same care, creativity, and attention to detail. Much of Nirali Decor's work comes through referrals from past clients and families, something they consider their most meaningful accomplishment and greatest trust.`,
   },
   {
     id: 3,
-    image: "/assets/WhyWeChoseThis.jpg",
+    image: "/assets/why-we-chose-this.jpg",
     position: "object-center",
     title: "Why We Chose This Work",
     content: `Nirali was drawn to how design could completely change the feeling of a space, using florals, color, and texture to create something beautiful and personal. Pradip found his passion in bringing those ideas to life, building environments where families could gather and celebrate. What made it truly meaningful was seeing a couple's reaction when they walked into their wedding for the first time.
