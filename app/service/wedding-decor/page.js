@@ -401,10 +401,10 @@ export default function WeddingDecorClientPage() {
                     <motion.h2 className={`${deco.className} lg:text-[40px] text-[30px] text-center text-[#96034f] mb-12`} {...fadeIn}>Explore Our Other Services</motion.h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { name: 'Wedding', url: '/service/wedding', img: '/assets/wedding.jpg' },
-                            { name: 'Reception', url: '/service/reception', img: '/assets/reception.jpg' },
+                            { name: 'Wedding', url: '/service/wedding', img: '/assets/wedding-service.jpg' },
+                            { name: 'Reception', url: '/service/reception', img: '/assets/reception-service.jpg' },
                             { name: 'Vidhi & Haldi', url: '/service/vidhi-and-haldi', img: '/assets/vidhi-and-haldi.jpg' },
-                            { name: 'Centerpiece', url: '/service/centerpiece', img: '/assets/centerpiece.jpg' },
+                            { name: 'Centerpiece', url: '/service/centerpiece', img: '/assets/centerpiece-service.jpg' },
                         ].map((s, i) => (
                             <Link href={s.url} key={i}>
                                 <motion.div

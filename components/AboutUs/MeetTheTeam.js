@@ -18,7 +18,7 @@ They're not just designing your wedding, they're helping you create moments you'
   },
   {
     id: 2,
-    image: "/assets/experience.jpg",
+    image: "/assets/our-experience.jpg",
     position: "object-center",
     title: "Our Experience",
     content: `Since 2011, Nirali Decor has designed Indian weddings across New Jersey and surrounding areas, creating celebrations in luxury hotel ballrooms, premier wedding venues, banquet halls, and outdoor ceremony spaces. Over the years, the team has designed more than 1,300 weddings and multi-day celebrations, each approached with the same care, creativity, and attention to detail. Much of Nirali Decor's work comes through referrals from past clients and families, something they consider their most meaningful accomplishment and greatest trust.`,
