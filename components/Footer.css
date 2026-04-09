@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  height: 100%;
 }
 
 .footer-heading {
@@ -214,24 +215,25 @@
   text-align: center;
 }
 
-/* Facebook embed card */
-.footer-facebook-embed {
+/* TikTok embed card */
+.footer-tiktok-embed {
   width: 100%;
   max-width: 420px;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid rgba(150, 3, 79, 0.12);
   box-shadow: 0 4px 12px rgba(150, 3, 79, 0.1);
-  height: 320px; /* align visually with other columns */
+  min-height: 400px;
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center; /* Center the feed vertically if there's extra space */
 }
 
-.footer-facebook-embed iframe {
-  display: block;
-  width: 100%;
-  height: 100%;
+.footer-tiktok-embed blockquote {
+  margin: 0 !important;
+  width: 100% !important;
 }
 
 /* Social Media Section */

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaInstagram, FaFacebook, FaPinterest, FaYoutube, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { FaTiktok } from 'react-icons/fa6';
+import Script from 'next/script';
 import './Footer.css';
 
 
@@ -126,20 +127,24 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Facebook Embed Section (replaces newsletter) */}
+          {/* TikTok Embed Section */}
           <div className="footer-section">
-            <h3 className="footer-heading">Facebook Feeds</h3>
-            <div className="footer-facebook-embed">
-              <iframe
-                title="Nirali Decor Facebook Page"
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fniraliweddingandeventdesigns%2F&tabs=timeline&width=340&height=300&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
-                width="100%"
-                height="340"
-                style={{ border: 'none', overflow: 'hidden', borderRadius: '12px' }}
-                scrolling="no"
-                frameBorder="0"
-                allow="encrypted-media; picture-in-picture; clipboard-write"
-              />
+            <h3 className="footer-heading">TikTok Feed</h3>
+            <div className="footer-tiktok-embed">
+              <blockquote
+                className="tiktok-embed"
+                cite="https://www.tiktok.com/@niralidecor"
+                data-unique-id="niralidecor"
+                data-embed-type="creator"
+                style={{ maxWidth: '100%', minWidth: '288px' }}
+              >
+                <section>
+                  <a target="_blank" rel="noreferrer" href="https://www.tiktok.com/@niralidecor?refer=creator_embed">
+                    @niralidecor
+                  </a>
+                </section>
+              </blockquote>
+              <Script async src="https://www.tiktok.com/embed.js" strategy="lazyOnload" />
             </div>
           </div>
         </div>
@@ -149,11 +154,17 @@ const Footer = () => {
       <div className="footer-awards">
         <div className="footer-awards-content">
           <div className="footer-awards-group">
-            <img
-              src="https://www.maharaniweddings.com/images/Badges/MW_Badge_2013.png"
-              alt="maharani wedding badge nirali decor"
-              className="footer-award-badge"
-            />
+            <a
+              href="https://nirali-decor.maharaniweddings.com/"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <img
+                src="https://www.maharaniweddings.com/images/Badges/MW_Badge_2013.png"
+                alt="maharani wedding badge nirali decor"
+                className="footer-award-badge"
+              />
+            </a>
             <a
               href="http://www.maharaniweddings.com/platinum-vendor-guide/"
               target="_blank"

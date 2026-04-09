@@ -1,19 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function ScrollToTopButton() {
-  const [visible, setVisible] = useState(false);
-  const [progress, setProgress] = useState(0); // 0 to 1
+  const [show, setShow] = useState(false);
+  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const lastScrollTop = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const percentage = scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
 
-      setProgress(ratio);
-      setVisible(scrollTop > 200); // show after slight scroll
+      setScrollPercentage(percentage);
+
+      // Show the button when scrolling down or up
+      if (currentScroll > 100) {
+        setShow(true);
+      } else {
+        setShow(false);
+      }
+
+      lastScrollTop.current = currentScroll <= 0 ? 0 : currentScroll;
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -21,63 +30,93 @@ export default function ScrollToTopButton() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (!visible) return null;
-
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const size = 44;
-  const strokeWidth = 3;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference * (1 - progress);
+  // Calculate opacity based on scroll speed
+  const getOpacity = () => {
+    if (!show) return 0;
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollDiff = Math.abs(currentScroll - lastScrollTop.current);
+    return scrollDiff > 20 ? 1 : 0.3;
+  };
 
   return (
-    <button
-      type="button"
-      className="scroll-to-top"
-      onClick={handleClick}
-      aria-label="Scroll to top"
-    >
-      <svg
-        className="scroll-to-top-ring"
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
+    <>
+      <style jsx>{`
+        .scroll-to-top {
+          position: fixed;
+          bottom: 77px;
+          right: 10px;
+          background: #96034f;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          padding: 15px;
+          font-size: 16px;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.5s ease, transform 0.3s ease;
+          text-align: center;
+          font-weight: bold;
+          font-family: Arial, sans-serif;
+          z-index: 9999;
+          width: 55px;
+          height: 55px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .scroll-to-top.show {
+          opacity: ${getOpacity()};
+        }
+
+        .scroll-to-top:hover {
+          opacity: 1 !important;
+          transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+          .scroll-to-top {
+            bottom: 70px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .scroll-to-top {
+            bottom: 70px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            padding: 8px;
+          }
+        }
+      `}</style>
+      <button
+        type="button"
+        className={`scroll-to-top ${show ? 'show' : ''}`}
+        onClick={handleClick}
+        aria-label="Scroll to top"
+        style={{ opacity: show ? getOpacity() : 0 }}
       >
-        <circle
-          className="scroll-to-top-ring-bg"
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-        />
-        <circle
-          className="scroll-to-top-ring-progress"
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
-      </svg>
-      <span className="scroll-to-top-arrow">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 5l-5 5m5-5l5 5m-5-5v14"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-    </button>
+        <span style={{ color: 'white', fontSize: '14px', fontWeight: 'bold' }}>
+          {scrollPercentage >= 95 ? (
+            <img 
+              src="https://mrpaanwala.com/wp-content/uploads/2025/02/arrow3-1.png" 
+              alt="Scroll to Top" 
+              style={{ width: '24px', height: '24px', verticalAlign: 'middle' }} 
+            />
+          ) : (
+            `${Math.round(scrollPercentage)}%`
+          )}
+        </span>
+      </button>
+    </>
   );
 }

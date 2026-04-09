@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { FaTiktok } from 'react-icons/fa6';
 import { deco } from '@/lib/fonts';
 
 const Navbar = ({ forceScrolled = false }) => {
@@ -55,7 +56,7 @@ const Navbar = ({ forceScrolled = false }) => {
                             <h1 className="hover-underline">Home</h1>
                         </Link>
                         <Link href="/about-us">
-                            <h1 className="hover-underline">About</h1>
+                            <h1 className="hover-underline">About Us</h1>
                         </Link>
                         <Link href="/portfolio">
                             <h1 className="hover-underline">Portfolio</h1>
@@ -85,6 +86,12 @@ const Navbar = ({ forceScrolled = false }) => {
                                 className='cursor-pointer hover:scale-110 duration-300 transition-all'
                                 onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                             />
+                            <div 
+                                className={`${scrolled ? 'bg-[#96034f] text-white' : 'bg-white text-black'} p-[4px] rounded-[7px] cursor-pointer hover:scale-110 duration-300 transition-all flex items-center justify-center w-[26px] h-[26px]`}
+                                onClick={() => router.push('https://www.tiktok.com/@niralidecor')}
+                            >
+                                <FaTiktok size={15} />
+                            </div>
                         </div>
                     </div>
                     <div className="lg:hidden block">
@@ -114,7 +121,7 @@ const Navbar = ({ forceScrolled = false }) => {
                         <h1 onClick={toggleMenu}>Home</h1>
                     </Link>
                     <Link href="/about-us">
-                        <h1 onClick={toggleMenu}>About</h1>
+                        <h1 onClick={toggleMenu}>About Us</h1>
                     </Link>
                     <Link href="/portfolio">
                         <h1 onClick={toggleMenu}>Portfolio</h1>
@@ -144,6 +151,12 @@ const Navbar = ({ forceScrolled = false }) => {
                             className='cursor-pointer hover:scale-110 duration-300 transition-all'
                             onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                         />
+                        <div 
+                            className={`bg-[#96034f] text-white p-[5px] rounded-[8px] cursor-pointer hover:scale-110 duration-300 transition-all flex items-center justify-center w-[28px] h-[28px]`}
+                            onClick={() => router.push('https://www.tiktok.com/@niralidecor')}
+                        >
+                            <FaTiktok size={16} />
+                        </div>
                     </div>
                 </div>
             </motion.div>

@@ -7,13 +7,15 @@ import Navbar from '@/components/Navbar';
 import Explore from '@/components/ServicePage/Explore';
 import dynamic from 'next/dynamic';
 import Supabase from '@/lib/supabase';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 
 // Dynamically import components for better performance
 const Hero = dynamic(() => import('@/components/ServicePage/Hero'));
 const Gallery = dynamic(() => import('@/components/ServicePage/Gallery'));
 
 export default function Page({ params }) {
+    const resolvedParams = use(params);
+    const slug = resolvedParams.slug;
     const [serviceName, setServiceName] = useState('');
     const [mediaUrl, setMediaUrl] = useState(null);
     const [mediaItems, setMediaItems] = useState(null);
@@ -43,7 +45,7 @@ export default function Page({ params }) {
     };
 
     useEffect(() => {
-        switch (params.slug) {
+        switch (slug) {
             case 'wedding':
                 setServiceName('Wedding');
                 fetchMediaData('wedding');
@@ -64,10 +66,14 @@ export default function Page({ params }) {
                 setServiceName('Centerpiece');
                 fetchMediaData('centerpiece');
                 break;
+            case 'couple':
+                setServiceName('Couple');
+                fetchMediaData('couple', '/assets/couple.jpg');
+                break;
             default:
                 setServiceName('');
         }
-    }, [params.slug]);
+    }, [slug]);
 
     if (isLoading) {
         return <LoadingScreen />;

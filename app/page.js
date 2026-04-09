@@ -12,6 +12,7 @@ import Gallery from "@/components/Homepage/Gallery";
 import Contact from "@/components/Homepage/Contact";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Create a loading screen component
+import Script from "next/script";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -71,6 +72,54 @@ export default function Home() {
 
   return (
     <>
+      <Script
+        id="local-business-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Nirali Decor",
+            "image": "https://www.niralidecor.com/assets/logo.png",
+            "@id": "https://www.niralidecor.com/",
+            "url": "https://www.niralidecor.com/",
+            "telephone": "+1-609-703-5879",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "500 Lincoln Blvd",
+              "addressLocality": "Middlesex",
+              "addressRegion": "NJ",
+              "postalCode": "08846",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 40.5694478,
+              "longitude": -74.49747169999999
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "18:00"
+            },
+            "sameAs": [
+              "https://www.instagram.com/niralidecor/",
+              "https://www.facebook.com/niraliweddingandeventdesigns/",
+              "https://in.pinterest.com/Niralidecorweddings/",
+              "https://www.youtube.com/@NiraliDecor",
+              "https://www.niralidecor.com/"
+            ]
+          }),
+        }}
+      />
       <Navbar />
       <Hero bannerUrl={data.bannerUrl} />
       <AboutUs aboutLeftUrl={data.aboutLeftUrl} aboutRightUrl={data.aboutRightUrl} />

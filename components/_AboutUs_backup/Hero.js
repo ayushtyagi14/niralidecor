@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { deco } from '@/lib/fonts';
 
 const Hero = ({ bannerUrl }) => {
     return (
