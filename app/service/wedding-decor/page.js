@@ -107,7 +107,7 @@ export default function WeddingDecorClientPage() {
                 .from("Reviews")
                 .select("id, mediaUrl, name, review")
                 .limit(20); // Fetch more to allow for deduplication
-            
+
             if (!error && data && data.length > 0) {
                 // Deduplicate reviews by name (trim and lowercase for robust matching)
                 const uniqueReviews = Array.from(
@@ -130,7 +130,6 @@ export default function WeddingDecorClientPage() {
                     alt="Wedding Decor Banner"
                     fill
                     priority
-                    quality={100}
                     className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-[0.05] flex items-center justify-center transition-opacity duration-500 hover:bg-opacity-0" />
@@ -358,10 +357,10 @@ export default function WeddingDecorClientPage() {
 
                                         <div className="flex items-center mb-8">
                                             <div className="relative w-16 h-16 mr-4">
-                                                <img 
-                                                    src={rev.mediaUrl} 
-                                                    className="w-full h-full rounded-full object-cover border-2 border-[#96034f]/10 p-1" 
-                                                    alt={rev.name} 
+                                                <img
+                                                    src={rev.mediaUrl}
+                                                    className="w-full h-full rounded-full object-cover border-2 border-[#96034f]/10 p-1"
+                                                    alt={rev.name}
                                                 />
                                             </div>
                                             <div>
@@ -385,10 +384,10 @@ export default function WeddingDecorClientPage() {
                         {/* Navigation Buttons */}
                         <div className="flex justify-center gap-6 mt-4">
                             <button className="prev-btn w-12 h-12 rounded-full border border-[#f3d4e5] flex items-center justify-center text-[#96034f] hover:bg-[#96034f] hover:text-white transition-all duration-300 shadow-sm cursor-pointer">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
                             </button>
                             <button className="next-btn w-12 h-12 rounded-full border border-[#f3d4e5] flex items-center justify-center text-[#96034f] hover:bg-[#96034f] hover:text-white transition-all duration-300 shadow-sm cursor-pointer">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                             </button>
                         </div>
                     </div>

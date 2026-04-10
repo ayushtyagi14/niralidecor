@@ -48,11 +48,11 @@ export default function DesignPhilosophy() {
     <section ref={containerRef} className="relative bg-white py-24 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           style={{ y, opacity }}
           className="absolute -right-20 top-20 w-96 h-96 bg-[#fef7ff] rounded-full blur-3xl"
         />
-        <motion.div 
+        <motion.div
           style={{ y: useTransform(scrollYProgress, [0, 1], [-50, 50]), opacity }}
           className="absolute -left-20 bottom-20 w-80 h-80 bg-[#f4c7ff]/30 rounded-full blur-3xl"
         />
@@ -120,7 +120,7 @@ export default function DesignPhilosophy() {
             <div className="absolute -top-8 -left-4 text-[#96034f]/10 text-[200px] font-serif leading-none select-none">
               &quot;
             </div>
-            
+
             <div className="relative z-10 p-8 lg:p-12">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -130,11 +130,11 @@ export default function DesignPhilosophy() {
                 className="text-2xl md:text-3xl lg:text-4xl text-gray-800 leading-relaxed font-light"
               >
                 Every celebration begins with{" "}
-                <span className="text-[#96034f] font-medium">listening</span>.
+                <span className="text-[#96034f]">listening</span>.
                 We take time to understand your{" "}
-                <span className="text-[#96034f] font-medium">story</span>,{" "}
-                <span className="text-[#96034f] font-medium">traditions</span>, and{" "}
-                <span className="text-[#96034f] font-medium">priorities</span> so the design feels{" "}
+                <span className="text-[#96034f]">story</span>,{" "}
+                <span className="text-[#96034f]">traditions</span>, and{" "}
+                <span className="text-[#96034f]">priorities</span> so the design feels{" "}
                 <span className="italic text-[#96034f]">personal</span> and{" "}
                 <span className="italic text-[#96034f]">intentional</span>.
               </motion.p>
