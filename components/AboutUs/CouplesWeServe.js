@@ -57,8 +57,7 @@ export default function CouplesWeServe() {
     return () => unsubscribe();
   }, [cardIndex]);
 
-  const centerCard = couplesData[activeIndex];
-  const rightCards = couplesData.filter((_, idx) => idx !== activeIndex);
+  // Removed filtering to keep all images in DOM for instant switching
 
   return (
     <section
@@ -85,34 +84,39 @@ export default function CouplesWeServe() {
 
               {/* Large Center Card - Aligned Left */}
               <div className="flex-1 flex items-center justify-start py-2 flex-grow">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full"
-                >
-                  <div className="relative overflow-hidden rounded-3xl shadow-2xl h-[300px] md:h-[380px] lg:h-[450px]">
-                    {/* Background Image */}
-                    <Image
-                      src={centerCard.image}
-                      alt={centerCard.text}
-                      fill
-                      className={`object-cover ${centerCard.position}`}
-                      quality={80}
-                      sizes="(max-width: 1024px) 100vw, 70vw"
-                    />
-                    {/* Neutral Gradient Overlay for legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-                    
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-8 z-20">
-                      <p className="text-white text-lg md:text-2xl font-medium leading-relaxed drop-shadow-lg">
-                        {centerCard.text}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl h-[300px] md:h-[380px] lg:h-[450px] w-full">
+                  {couplesData.map((card, idx) => (
+                    <motion.div
+                      key={card.id}
+                      initial={false}
+                      animate={{ 
+                        opacity: activeIndex === idx ? 1 : 0,
+                        scale: activeIndex === idx ? 1 : 1.05
+                      }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="absolute inset-0"
+                      style={{ pointerEvents: activeIndex === idx ? 'auto' : 'none' }}
+                    >
+                      <Image
+                        src={card.image}
+                        alt={card.text}
+                        fill
+                        className={`object-cover ${card.position}`}
+                        priority
+                        sizes="(max-width: 1024px) 70vw, 100vw"
+                      />
+                      {/* Neutral Gradient Overlay for legibility */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                      
+                      {/* Content */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-8 z-20">
+                        <p className="text-white text-lg md:text-2xl font-medium leading-relaxed drop-shadow-lg">
+                          {card.text}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
 
               {/* Fixed Quote at Bottom */}
@@ -125,23 +129,30 @@ export default function CouplesWeServe() {
 
             {/* RIGHT - Fixed width sidebar */}
             <div className="lg:w-[320px] flex flex-col justify-center items-center flex-shrink-0">
-              <div className="space-y-3">
-                {rightCards.map((card, idx) => (
+              <div className="space-y-3 w-full">
+                {couplesData.map((card, idx) => (
                   <motion.div
-                    key={`${activeIndex}-${card.id}`}
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    onClick={() => setActiveIndex(card.id - 1)}
-                    className="cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-white flex h-[90px]"
+                    key={card.id}
+                    initial={false}
+                    animate={{ 
+                      opacity: activeIndex === idx ? 0 : 1,
+                      height: activeIndex === idx ? 0 : "90px",
+                      marginBottom: activeIndex === idx ? 0 : "12px",
+                      overflow: "hidden"
+                    }}
+                    transition={{ duration: 0.4 }}
+                    onClick={() => setActiveIndex(idx)}
+                    className="cursor-pointer rounded-xl shadow-md hover:shadow-lg transition-shadow bg-white flex"
+                    style={{ pointerEvents: activeIndex === idx ? "none" : "auto" }}
                   >
                     {/* Image */}
-                    <div className="w-[90px] h-full flex-shrink-0 relative">
+                    <div className="w-[90px] h-[90px] flex-shrink-0 relative">
                       <Image
                         src={card.image}
                         alt={card.text}
                         fill
                         className={`object-cover ${card.position}`}
+                        priority
                         sizes="90px"
                       />
                       <div className="absolute inset-0 bg-black/10" />

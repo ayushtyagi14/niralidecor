@@ -134,30 +134,33 @@ export default function MeetTheTeam() {
             <motion.div
               className="lg:sticky lg:top-32 h-[60vh] lg:h-[70vh] relative rounded-2xl overflow-hidden shadow-2xl"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeImage}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{
-                    duration: 0.6,
-                    ease: "easeOut",
-                  }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={sections[activeImage].image}
-                    alt={sections[activeImage].title}
-                    fill
-                    className={`object-cover ${sections[activeImage].position}`}
-                    priority={activeImage === 0}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  {/* Enhanced gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
-                </motion.div>
-              </AnimatePresence>
+                {sections.map((section, index) => (
+                  <motion.div
+                    key={section.id}
+                    initial={false}
+                    animate={{ 
+                      opacity: activeImage === index ? 1 : 0,
+                      x: activeImage === index ? 0 : (activeImage > index ? 20 : -20)
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeOut",
+                    }}
+                    className="absolute inset-0"
+                    style={{ pointerEvents: activeImage === index ? "auto" : "none" }}
+                  >
+                    <Image
+                      src={section.image}
+                      alt={section.title}
+                      fill
+                      className={`object-cover ${section.position}`}
+                      priority
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {/* Enhanced gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                  </motion.div>
+                ))}
 
               {/* Progress dots */}
               <div className="absolute bottom-4 right-4 flex gap-2">
