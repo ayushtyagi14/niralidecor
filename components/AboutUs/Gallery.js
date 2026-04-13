@@ -3,32 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { deco } from "@/lib/fonts";
 
 const Gallery = ({ mediaItems }) => {
-    const [width, setWidth] = useState(null);
-    let mobile = false;
-
-    useEffect(() => {
-        setWidth(window.innerWidth);
-        window.addEventListener("resize", () => setWidth(window.innerWidth));
-        return () => {
-            window.removeEventListener("resize", () => setWidth(window.innerWidth));
-        };
-    }, []);
-
-    if (width < 1000) {
-        mobile = true;
-    } else {
-        mobile = false;
-    }
-
-    const slidesToShow = mobile ? 2.5 : 4.5;
-
     const settings = {
         infinite: true,
         speed: 3000,
-        slidesToShow: slidesToShow, // Use the conditional value
+        slidesToShow: 4.5,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 0,
@@ -36,7 +18,29 @@ const Gallery = ({ mediaItems }) => {
         pauseOnHover: false,
         prevArrow: false,
         nextArrow: false,
+        lazyLoad: 'progressive',
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3.5,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2.5,
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1.5,
+                }
+            }
+        ]
     };
+
 
     return (
         <motion.div
@@ -59,11 +63,15 @@ const Gallery = ({ mediaItems }) => {
             <Slider {...settings}>
                 {mediaItems && mediaItems.map((item) => (
                     <div key={item?.id} className="px-1.5 mt-10">
-                        <img
-                            src={item?.mediaUrl}
-                            alt={`Image ${item?.id}`}
-                            className="mx-0 rounded-xl"
-                        />
+                        <div className="relative h-[300px] w-full rounded-xl overflow-hidden">
+                            <Image
+                                src={item?.mediaUrl}
+                                alt={`Behind the scenes gallery image ${item?.id}`}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 40vw, 20vw"
+                            />
+                        </div>
                     </div>
                 ))}
             </Slider>
@@ -72,3 +80,4 @@ const Gallery = ({ mediaItems }) => {
 };
 
 export default Gallery;
+

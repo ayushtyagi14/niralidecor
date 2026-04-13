@@ -10,6 +10,7 @@ const Hero = ({ serviceName, mediaUrl }) => {
         // Dynamically set serviceName based on params.slug
         switch (serviceName) {
             case 'Wedding':
+            case 'Couple':
                 setDescription('Experience the elegance and grandeur of your special day with our meticulously designed wedding decor. We create a timeless atmosphere with stunning floral arrangements, luxurious drapery, and soft lighting that captures the essence of your love story. Let us transform your venue into a breathtaking celebration of your union.');
                 break;
             case 'Reception':
@@ -36,6 +37,10 @@ const Hero = ({ serviceName, mediaUrl }) => {
             description: `At Nirali Decor, we understand that the Sangeet and Garba nights are vibrant and full of energy. We bring tradition, rhythm, and joy together with stunning decor, from colorful stage designs to beautiful, dance-friendly layouts. Let us help you create an unforgettable night where music and dance blend in perfect harmony.`,
         },
         "Wedding": {
+            title: "Your Dream Wedding Comes to Life",
+            description: `Make your wedding day as magical as your love story with our luxurious and elegant wedding decorations. From intricate floral setups to grand mandaps, Nirali Decor turns your vision into reality. Every detail is designed to create a romantic and enchanting atmosphere for your special day.`,
+        },
+        "Couple": {
             title: "Your Dream Wedding Comes to Life",
             description: `Make your wedding day as magical as your love story with our luxurious and elegant wedding decorations. From intricate floral setups to grand mandaps, Nirali Decor turns your vision into reality. Every detail is designed to create a romantic and enchanting atmosphere for your special day.`,
         },

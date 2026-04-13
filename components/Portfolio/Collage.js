@@ -4,7 +4,7 @@ import { deco } from '@/lib/fonts';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vidhiHaldiUrl }) => {
+const Collage = ({ weddingUrl, centerpieceUrl, coupleUrl, receptionUrl, sangeetGarbaUrl, vidhiHaldiUrl }) => {
     const router = useRouter()
 
     return (
@@ -25,29 +25,57 @@ const Collage = ({ weddingUrl, centerpieceUrl, receptionUrl, sangeetGarbaUrl, vi
             </motion.div>
 
             <div className="flex flex-col-reverse gap-4 mt-16 lg:w-[75%] w-[90%] mx-auto">
-                {/* Large Bottom Horizontal Image */}
-                <motion.div
-                    className="relative h-[300px] w-full group"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    onClick={() => router.push('/service/centerpiece')}
-                >
-                    <Image
-                        src={centerpieceUrl}  // Use Image component from Next.js
-                        alt="Nirali Decor"
-                        className="object-cover w-full h-full"
-                        fill
-                        blurDataURL={`${centerpieceUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
-                        placeholder="blur"  // Use blur effect while loading
-                        loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
-                        <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
-                            Centerpiece
-                        </h1>
-                    </div>
-                </motion.div>
+                {/* Large Bottom Horizontal Image (Couple) */}
+                {coupleUrl && (
+                    <motion.div
+                        className="relative h-[300px] w-full group"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        onClick={() => router.push('/service/couple')}
+                    >
+                        <Image
+                            src={coupleUrl}  // Use Image component from Next.js
+                            alt="Nirali Decor Couple"
+                            className="object-cover w-full h-full"
+                            fill
+                            blurDataURL={`${coupleUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                            placeholder="blur"  // Use blur effect while loading
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
+                            <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
+                                Couple
+                            </h1>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Large Horizontal Image (Centerpiece) */}
+                {centerpieceUrl && (
+                    <motion.div
+                        className="relative h-[300px] w-full group"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        onClick={() => router.push('/service/centerpiece')}
+                    >
+                        <Image
+                            src={centerpieceUrl}  // Use Image component from Next.js
+                            alt="Nirali Decor Centerpiece"
+                            className="object-cover w-full h-full"
+                            fill
+                            blurDataURL={`${centerpieceUrl}?w=10&h=10&fit=crop`}  // Small version of the image for the blur effect
+                            placeholder="blur"  // Use blur effect while loading
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-500 flex items-center justify-center hover:cursor-pointer">
+                            <h1 className={`${deco.className} text-white text-center lg:text-[32px] font-bold`}>
+                                Centerpiece
+                            </h1>
+                        </div>
+                    </motion.div>
+                )}
 
                 {/* Container for Images */}
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">

@@ -56,10 +56,6 @@ export default function Page() {
         fetchData();
     }, []);
 
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
-
     if (error) {
         return (
             <div className="flex items-center justify-center min-h-screen">
@@ -69,6 +65,7 @@ export default function Page() {
     }
 
     const { bannerUrl, mediaItems } = data;
+
 
     return (
         <>

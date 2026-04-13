@@ -99,8 +99,7 @@ export default function CouplesWeServe() {
                       alt={centerCard.text}
                       fill
                       className={`object-cover ${centerCard.position}`}
-                      priority
-                      quality={100}
+                      quality={80}
                       sizes="(max-width: 1024px) 100vw, 70vw"
                     />
                     {/* Neutral Gradient Overlay for legibility */}
