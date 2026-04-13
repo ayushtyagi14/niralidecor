@@ -10,7 +10,6 @@ const Explore = ({ serviceName }) => {
         { name: 'Vidhi & Haldi', url: '/service/vidhi-and-haldi', img: '/assets/vidhi-and-haldi.jpg' },
         { name: 'Centerpiece', url: '/service/centerpiece', img: '/assets/centerpiece-service.jpg' },
         { name: 'Sangeet & Garba', url: '/service/sangeet-and-garba', img: '/assets/service-banner.jpg' },
-        { name: 'Couple', url: '/service/couple', img: '/assets/couple%20banner.jpg' },
     ];
 
     // Filter out the current service and limit to 4 services for the grid

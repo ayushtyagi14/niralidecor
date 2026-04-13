@@ -14,7 +14,6 @@ const Page = () => {
     const [data, setData] = useState({
         mediaUrl: null,
         centerpieceUrl: null,
-        coupleUrl: null,
         weddingUrl: null,
         receptionUrl: null,
         vidhiHaldiUrl: null,
@@ -51,7 +50,6 @@ const Page = () => {
                 setData({
                     mediaUrl,
                     centerpieceUrl: findServiceImage("portfolio-centerpiece"),
-                    coupleUrl: findServiceImage("portfolio-couple") || "/assets/couple%20banner.jpg",
                     weddingUrl: findServiceImage("portfolio-wedding"),
                     receptionUrl: findServiceImage("portfolio-reception"),
                     vidhiHaldiUrl: findServiceImage("portfolio-vidhi-haldi"),
@@ -84,7 +82,6 @@ const Page = () => {
         mediaUrl,
         weddingUrl,
         centerpieceUrl,
-        coupleUrl,
         receptionUrl,
         vidhiHaldiUrl,
         sangeetGarbaUrl,
@@ -97,7 +94,6 @@ const Page = () => {
             <Collage
                 weddingUrl={weddingUrl}
                 centerpieceUrl={centerpieceUrl}
-                coupleUrl={coupleUrl}
                 receptionUrl={receptionUrl}
                 vidhiHaldiUrl={vidhiHaldiUrl}
                 sangeetGarbaUrl={sangeetGarbaUrl}

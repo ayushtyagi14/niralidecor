@@ -33,19 +33,9 @@ export default function Page({ params }) {
                 throw new Error('Error fetching data');
             }
 
-            setMediaUrl(bannerResponse.data?.mediaUrl || (pageType === 'couple' ? '/assets/couple%20banner.jpg' : null));
+            setMediaUrl(bannerResponse.data?.mediaUrl || null);
 
             let items = galleryResponse.data || [];
-            if (pageType === 'couple' && items.length === 0) {
-                items = [
-                    { id: 'c1', mediaUrl: '/assets/couple1.JPG' },
-                    { id: 'c2', mediaUrl: '/assets/couple2.JPG' },
-                    { id: 'c3', mediaUrl: '/assets/couple3.JPG' },
-                    { id: 'c4', mediaUrl: '/assets/couple4.JPG' },
-                    { id: 'c5', mediaUrl: '/assets/couple5.JPG' },
-                    { id: 'c6', mediaUrl: '/assets/couple6.JPG' },
-                ];
-            }
             setMediaItems(items);
         } catch (error) {
             console.error('Error fetching media data:', error.message || error);
@@ -78,10 +68,7 @@ export default function Page({ params }) {
                 setServiceName('Centerpiece');
                 fetchMediaData('centerpiece');
                 break;
-            case 'couple':
-                setServiceName('Couple');
-                fetchMediaData('couple', '/assets/couple.jpg');
-                break;
+
             default:
                 setServiceName('');
         }
