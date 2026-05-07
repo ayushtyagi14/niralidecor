@@ -1,4 +1,45 @@
 import { NextResponse } from 'next/server';
+import supabaseAdmin from '@/lib/supabaseAdmin';
+
+export async function GET(request) {
+  try {
+    // Check admin auth
+    const token = request.headers.get('x-admin-token');
+    if (!token || token !== process.env.ADMIN_TOKEN) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Get date range from query params
+    const { searchParams } = new URL(request.url);
+    const fromDate = searchParams.get('from');
+    const toDate = searchParams.get('to');
+
+    let query = supabaseAdmin
+      .from('wedding_consultations')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    // Apply date filters if provided
+    if (fromDate) {
+      query = query.gte('created_at', `${fromDate}T00:00:00.000Z`);
+    }
+    if (toDate) {
+      query = query.lte('created_at', `${toDate}T23:59:59.999Z`);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json({ error: 'Failed to fetch consultations' }, { status: 500 });
+    }
+
+    return NextResponse.json(data || []);
+  } catch (error) {
+    console.error('GET consultations error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
 
 export async function POST(request) {
   try {
@@ -93,5 +134,37 @@ Sent from Nirali Decor Website
       message: 'Form submitted (check console for details)',
       console_backup: true 
     });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    // Check admin auth
+    const token = request.headers.get('x-admin-token');
+    if (!token || token !== process.env.ADMIN_TOKEN) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    }
+
+    const { error } = await supabaseAdmin
+      .from('wedding_consultations')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Supabase delete error:', error);
+      return NextResponse.json({ error: 'Failed to delete consultation' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: 'Deleted successfully' });
+  } catch (error) {
+    console.error('DELETE consultation error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

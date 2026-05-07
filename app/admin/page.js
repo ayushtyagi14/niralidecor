@@ -139,6 +139,18 @@ export default function AdminPage() {
                         >
                             FAQs
                         </button>
+                        <button
+                            className={`tab-btn ${tab === 'couples' ? 'active' : ''}`}
+                            onClick={() => setTab('couples')}
+                        >
+                            Real Weddings
+                        </button>
+                        <button
+                            className={`tab-btn ${tab === 'inquiries' ? 'active' : ''}`}
+                            onClick={() => setTab('inquiries')}
+                        >
+                            Inquiries
+                        </button>
                         <button className="logout-btn" onClick={logout}>
                             Logout
                         </button>
@@ -148,6 +160,8 @@ export default function AdminPage() {
                         {tab === 'blog' && <BlogSection token={token} />}
                         {tab === 'case' && <CaseSection token={token} />}
                         {tab === 'faq' && <FaqSection token={token} />}
+                        {tab === 'couples' && <CouplesSection token={token} />}
+                        {tab === 'inquiries' && <ConsultationsSection token={token} />}
                     </div>
                 </div>
             )}
@@ -1192,5 +1206,765 @@ function FaqSection({ token }) {
                 </div>
             </form>
         </>
+    );
+}
+
+function CouplesSection({ token }) {
+    const [list, setList] = useState([]);
+    const [editing, setEditing] = useState(null);
+    const [form, setForm] = useState({
+        slug: '',
+        name: '',
+        location: '',
+        date: '',
+        description: '',
+        coverImage: '',
+        bannerImage: '',
+        isFeatured: false,
+        status: 'published'
+    });
+    const [status, setStatus] = useState('');
+    const [uploadingCover, setUploadingCover] = useState(false);
+    const [uploadingBanner, setUploadingBanner] = useState(false);
+    const [categoryImages, setCategoryImages] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('wedding');
+    const [uploadingGallery, setUploadingGallery] = useState(false);
+
+    const refreshGallery = useCallback((slug) => {
+        if (!slug) return;
+        fetch(`/api/couples/${slug}/images`, { headers: { 'x-admin-token': token } })
+            .then(r => r.json())
+            .then(data => {
+                if (Array.isArray(data)) setCategoryImages(data);
+                else setCategoryImages([]);
+            });
+    }, [token]);
+
+    const refresh = useCallback(() => {
+        fetch('/api/couples', { headers: { 'x-admin-token': token } })
+            .then((r) => r.json())
+            .then((data) => {
+                if (Array.isArray(data)) setList(data);
+                else setList([]);
+            })
+            .catch((err) => {
+                console.error('Error fetching couples:', err);
+                setList([]);
+            });
+    }, [token]);
+
+    useEffect(() => {
+        refresh();
+    }, [refresh]);
+
+    useEffect(() => {
+        if (editing) {
+            refreshGallery(editing.slug);
+        } else {
+            setCategoryImages([]);
+        }
+    }, [editing, refreshGallery]);
+
+    const handleImageUpload = async (file, type) => {
+        if (!file) return;
+        
+        if (type === 'gallery') {
+            setUploadingGallery(true);
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const res = await fetch('/api/upload/image', {
+                    method: 'POST',
+                    headers: { 'x-admin-token': token },
+                    body: formData,
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    // Add to DB
+                    await fetch(`/api/couples/${editing.slug}/images`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                        body: JSON.stringify({ category: selectedCategory, mediaUrl: data.url })
+                    });
+                    refreshGallery(editing.slug);
+                }
+            } catch (err) {
+                alert('Gallery upload failed: ' + err.message);
+            } finally {
+                setUploadingGallery(false);
+            }
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', file);
+        
+        if (type === 'cover') setUploadingCover(true);
+        else if (type === 'banner') setUploadingBanner(true);
+
+        try {
+            const res = await fetch('/api/upload/image', {
+                method: 'POST',
+                headers: { 'x-admin-token': token },
+                body: formData,
+            });
+            const data = await res.json();
+            if (res.ok) {
+                if (type === 'cover') setForm({ ...form, coverImage: data.url });
+                else setForm({ ...form, bannerImage: data.url });
+                alert('Image uploaded successfully!');
+            } else {
+                alert('Upload failed: ' + (data.error || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('Upload failed: ' + err.message);
+        } finally {
+            if (type === 'cover') setUploadingCover(false);
+            else if (type === 'banner') setUploadingBanner(false);
+        }
+    };
+
+    const submit = async (e) => {
+        e.preventDefault();
+        setStatus('');
+        const payload = { ...form };
+        const method = editing ? 'PUT' : 'POST';
+        const url = editing ? `/api/couples/${editing.slug}` : '/api/couples';
+        try {
+            const res = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setStatus('Saved!');
+                setForm({
+                    slug: '', name: '', location: '', date: '', description: '', coverImage: '', bannerImage: '', isFeatured: false, status: 'published'
+                });
+                setEditing(null);
+                refresh();
+            } else {
+                setStatus(`Error: ${data.error}`);
+            }
+        } catch (err) {
+            setStatus(`Error: ${err.message}`);
+        }
+    };
+
+    return (
+        <>
+            <div className="items-grid">
+                {list.map((item) => (
+                    <div key={item.slug} className="item-card">
+                        <div className="item-title">{item.name}</div>
+                        <div className="item-meta">
+                            {item.location} • {item.date}
+                        </div>
+                        <div className="item-status">
+                            <span className={`status-badge ${item.is_featured ? 'published' : 'draft'}`}>
+                                {item.is_featured ? 'Featured' : 'Standard'}
+                            </span>
+                        </div>
+                        <div className="item-actions">
+                            <button
+                                className="btn-edit"
+                                onClick={() => {
+                                    setEditing(item);
+                                    setForm({
+                                        slug: item.slug || '',
+                                        name: item.name || '',
+                                        location: item.location || '',
+                                        date: item.date || '',
+                                        description: item.description || '',
+                                        coverImage: item.cover_image || '',
+                                        bannerImage: item.banner_image || '',
+                                        isFeatured: item.is_featured || false,
+                                        status: item.status || 'published',
+                                    });
+                                }}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="btn-delete"
+                                onClick={async () => {
+                                    if (confirm('Are you sure you want to delete this couple?')) {
+                                        await fetch(`/api/couples/${item.slug}`, {
+                                            method: 'DELETE',
+                                            headers: { 'x-admin-token': token },
+                                        });
+                                        refresh();
+                                    }
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <form className="admin-form" onSubmit={submit}>
+                <div className="form-header">
+                    <div>
+                        <p className="form-eyebrow">{editing ? 'Update existing couple' : 'Add new real wedding'}</p>
+                        <h3 className="form-title">{editing ? 'Edit Couple' : 'Add New Couple'}</h3>
+                        <p className="form-subtitle">Add details to showcase this beautiful wedding story.</p>
+                    </div>
+                    {editing && <span className="form-badge">Editing mode</span>}
+                </div>
+
+                <div className="form-section">
+                    <div className="section-header">
+                        <span className="section-chip">Basics</span>
+                        <p className="section-description">Set up their names, URL slug, and core details.</p>
+                    </div>
+                    <div className="form-grid-3 form-grid-tight">
+                        <input
+                            type="text"
+                            placeholder="Couple Name (e.g. Arti & Darshil) *"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            className="form-input"
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Slug (e.g. arti-and-darshil) *"
+                            value={form.slug}
+                            onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                            className="form-input"
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Location (e.g. Wedding Celebration)"
+                            value={form.location}
+                            onChange={(e) => setForm({ ...form, location: e.target.value })}
+                            className="form-input"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Date (e.g. October 12, 2025)"
+                            value={form.date}
+                            onChange={(e) => setForm({ ...form, date: e.target.value })}
+                            className="form-input"
+                        />
+                    </div>
+                    
+                    <div className="media-field" style={{marginTop: '20px'}}>
+                        <label className="form-label" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                            <input 
+                                type="checkbox" 
+                                checked={form.isFeatured} 
+                                onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })} 
+                            />
+                            Featured Couple (Will be displayed on the main Portfolio grid. Max 6 recommended)
+                        </label>
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <div className="section-header">
+                        <span className="section-chip accent">Cover Image</span>
+                        <p className="section-description">Upload the vertical portrait showcase image.</p>
+                    </div>
+
+                    <div className="media-field">
+                        {!form.coverImage ? (
+                            <div className="media-input">
+                                <input
+                                    type="text"
+                                    placeholder="Cover Image URL"
+                                    value={form.coverImage}
+                                    onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
+                                    className="form-input"
+                                />
+                                <label className={`upload-btn ${uploadingCover ? 'uploading' : ''}`}>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleImageUpload(e.target.files[0], 'cover')}
+                                        disabled={uploadingCover}
+                                    />
+                                    {uploadingCover ? 'Uploading...' : 'Upload Cover'}
+                                </label>
+                            </div>
+                        ) : (
+                            <div className="media-preview">
+                                <img
+                                    src={form.coverImage}
+                                    alt="Cover preview"
+                                    className="media-preview-img"
+                                />
+                                <div className="media-preview-copy">
+                                    <strong>Listing image uploaded</strong>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn-danger-outline"
+                                    onClick={() => setForm({ ...form, coverImage: '' })}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <div className="section-header">
+                        <span className="section-chip accent">Inner Page Banner Image</span>
+                        <p className="section-description">Upload the horizontal banner image for their story page.</p>
+                    </div>
+
+                    <div className="media-field">
+                        {!form.bannerImage ? (
+                            <div className="media-input">
+                                <input
+                                    type="text"
+                                    placeholder="Banner Image URL"
+                                    value={form.bannerImage}
+                                    onChange={(e) => setForm({ ...form, bannerImage: e.target.value })}
+                                    className="form-input"
+                                />
+                                <label className={`upload-btn ${uploadingBanner ? 'uploading' : ''}`}>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleImageUpload(e.target.files[0], 'banner')}
+                                        disabled={uploadingBanner}
+                                    />
+                                    {uploadingBanner ? 'Uploading...' : 'Upload Banner'}
+                                </label>
+                            </div>
+                        ) : (
+                            <div className="media-preview">
+                                <img
+                                    src={form.bannerImage}
+                                    alt="Banner preview"
+                                    className="media-preview-img h-[150px!important] object-cover"
+                                />
+                                <div className="media-preview-copy">
+                                    <strong>Banner image uploaded</strong>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn-danger-outline"
+                                    onClick={() => setForm({ ...form, bannerImage: '' })}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <div className="section-header">
+                        <span className="section-chip soft">Content</span>
+                        <p className="section-description">Write a beautiful excerpt about this event.</p>
+                    </div>
+                    <FormattedTextarea
+                        placeholder="Description"
+                        value={form.description}
+                        onChange={(e) => setForm({ ...form, description: e.target.value })}
+                        rows={4}
+                    />
+                </div>
+
+                <div className="form-actions">
+                    <button className="btn-submit" type="submit">
+                        {editing ? 'Update Couple' : 'Add Couple'}
+                    </button>
+                    {editing && (
+                        <button
+                            type="button"
+                            className="btn-cancel"
+                            onClick={() => {
+                                setEditing(null);
+                                setForm({
+                                    slug: '', name: '', location: '', date: '', description: '', coverImage: '', bannerImage: '', isFeatured: false, status: 'published'
+                                });
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    )}
+                <div className="form-status">
+                    {status && <span className="form-status">{status}</span>}
+                    {!editing && (
+                        <p className="text-[13px] text-amber-600 mt-2 font-medium">
+                            * Tip: Once you create the couple, you can edit it to manage the separate event category galleries (Wedding, Sangeet, etc.)
+                        </p>
+                    )}
+                </div>
+            </div>
+        </form>
+
+        {editing && (
+                <div className="admin-form mt-8" style={{ marginTop: '40px', borderTop: '2px solid #eee', paddingTop: '40px' }}>
+                    <div className="form-header">
+                        <div>
+                            <p className="form-eyebrow">Visual Gallery</p>
+                            <h3 className="form-title">Category Images for {editing.name}</h3>
+                            <p className="form-subtitle">Manage the deep-dive photos for each event category.</p>
+                        </div>
+                    </div>
+
+                    <div className="form-section">
+                        <div className="section-header">
+                            <span className="section-chip">Category Selection</span>
+                            <p className="section-description">Choose which event gallery you are adding photos to.</p>
+                        </div>
+                        <div className="flex gap-4 items-center">
+                            <select 
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                className="form-select pill-select"
+                                style={{ minWidth: '200px' }}
+                            >
+                                <option value="centerpiece">Centerpiece</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="sangeet-garba">Sangeet / Garba</option>
+                                <option value="vidhi-haldi">Vidhi / Haldi</option>
+                                <option value="reception">Reception</option>
+                            </select>
+
+                            <label className={`upload-btn ${uploadingGallery ? 'uploading' : ''}`} style={{ marginBottom: 0 }}>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    style={{ display: 'none' }}
+                                    onChange={async (e) => {
+                                        const files = Array.from(e.target.files);
+                                        for (const file of files) {
+                                            await handleImageUpload(file, 'gallery');
+                                        }
+                                    }}
+                                    disabled={uploadingGallery}
+                                />
+                                {uploadingGallery ? 'Uploading...' : 'Upload Image(s)'}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="form-section">
+                        <div className="section-header">
+                            <span className="section-chip soft">Existing Gallery Images</span>
+                            <p className="section-description">Photos currently assigned to categories.</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            {categoryImages.map((img) => (
+                                <div key={img.id} className="relative group rounded-lg overflow-hidden h-32 bg-gray-100 border border-gray-200">
+                                    <img src={img.media_url} alt="Gallery" className="w-full h-full object-cover" />
+                                    <div className="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full capitalize">
+                                        {img.category.replace('-', ' ')}
+                                    </div>
+                                    <button 
+                                        onClick={async () => {
+                                            if (confirm('Delete this image?')) {
+                                                await fetch(`/api/couples/${editing.slug}/images?id=${img.id}`, {
+                                                    method: 'DELETE',
+                                                    headers: { 'x-admin-token': token }
+                                                });
+                                                refreshGallery(editing.slug);
+                                            }
+                                        }}
+                                        className="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                            <path d="M18 6L6 18M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+
+                        {categoryImages.length === 0 && (
+                            <p className="text-gray-400 text-center py-8 border-2 border-dashed border-gray-100 rounded-xl">
+                                No category images uploaded yet.
+                            </p>
+                        )}
+                    </div>
+                </div>
+            )}
+        </>
+    );
+}
+
+function ConsultationsSection({ token }) {
+    const [list, setList] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
+    const [status, setStatus] = useState('');
+
+    const fetchConsultations = useCallback(() => {
+        setLoading(true);
+        setStatus('');
+        
+        const params = new URLSearchParams();
+        if (fromDate) params.append('from', fromDate);
+        if (toDate) params.append('to', toDate);
+        
+        const url = `/api/wedding-consultation${params.toString() ? `?${params.toString()}` : ''}`;
+        
+        fetch(url, { headers: { 'x-admin-token': token } })
+            .then((r) => r.json())
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setList(data);
+                } else {
+                    console.error('API did not return an array:', data);
+                    setList([]);
+                    if (data?.error) setStatus(`Error: ${data.error}`);
+                }
+            })
+            .catch((err) => {
+                console.error('Error fetching consultations:', err);
+                setStatus(`Error: ${err.message}`);
+                setList([]);
+            })
+            .finally(() => setLoading(false));
+    }, [token, fromDate, toDate]);
+
+    useEffect(() => {
+        fetchConsultations();
+    }, [fetchConsultations]);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '-';
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const handleDelete = async (id) => {
+        if (!confirm('Are you sure you want to delete this inquiry?')) return;
+        
+        try {
+            const res = await fetch(`/api/wedding-consultation?id=${id}`, {
+                method: 'DELETE',
+                headers: { 'x-admin-token': token }
+            });
+            
+            if (res.ok) {
+                setList(list.filter(item => item.id !== id));
+                setStatus('Deleted successfully');
+            } else {
+                const data = await res.json();
+                setStatus(`Error: ${data?.error || 'Failed to delete'}`);
+            }
+        } catch (err) {
+            setStatus(`Error: ${err.message}`);
+        }
+    };
+
+    return (
+        <div className="consultations-section">
+            <div className="filter-bar" style={{ 
+                display: 'flex', 
+                gap: '16px', 
+                alignItems: 'center', 
+                marginBottom: '24px',
+                flexWrap: 'wrap'
+            }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#666' }}>From Date</label>
+                    <input
+                        type="date"
+                        value={fromDate}
+                        onChange={(e) => setFromDate(e.target.value)}
+                        style={{
+                            padding: '8px 12px',
+                            border: '1px solid #ddd',
+                            borderRadius: '8px',
+                            fontSize: '14px',
+                            minWidth: '150px'
+                        }}
+                    />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#666' }}>To Date</label>
+                    <input
+                        type="date"
+                        value={toDate}
+                        onChange={(e) => setToDate(e.target.value)}
+                        style={{
+                            padding: '8px 12px',
+                            border: '1px solid #ddd',
+                            borderRadius: '8px',
+                            fontSize: '14px',
+                            minWidth: '150px'
+                        }}
+                    />
+                </div>
+                <button
+                    onClick={fetchConsultations}
+                    disabled={loading}
+                    style={{
+                        padding: '10px 20px',
+                        background: '#96034f',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        marginTop: '20px'
+                    }}
+                >
+                    {loading ? 'Loading...' : 'Filter'}
+                </button>
+                <button
+                    onClick={() => {
+                        setFromDate('');
+                        setToDate('');
+                        setTimeout(() => fetchConsultations(), 0);
+                    }}
+                    style={{
+                        padding: '10px 20px',
+                        background: '#f3f4f6',
+                        color: '#666',
+                        border: '1px solid #ddd',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        marginTop: '20px'
+                    }}
+                >
+                    Clear
+                </button>
+                <button
+                    onClick={() => {
+                        if (list.length === 0) return;
+                        const headers = ['Name', 'Email', 'Contact', 'Wedding Date', 'Location', 'Submitted At'];
+                        const rows = list.map(item => [
+                            item.name,
+                            item.email,
+                            item.contact,
+                            item.wedding_date || '',
+                            item.event_location || '',
+                            item.created_at
+                        ]);
+                        const csv = [
+                            headers.join(','),
+                            ...rows.map(r => r.map(cell => `"${(cell || '').toString().replace(/"/g, '""')}"`).join(','))
+                        ].join('\n');
+                        const blob = new Blob([csv], { type: 'text/csv' });
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `inquiries-${fromDate || 'all'}-to-${toDate || 'all'}.csv`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }}
+                    disabled={list.length === 0}
+                    style={{
+                        padding: '10px 20px',
+                        background: list.length === 0 ? '#e5e7eb' : '#065f46',
+                        color: list.length === 0 ? '#9ca3af' : 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: list.length === 0 ? 'not-allowed' : 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        marginTop: '20px'
+                    }}
+                >
+                    Download CSV
+                </button>
+            </div>
+
+            {status && (
+                <div style={{ 
+                    padding: '12px 16px', 
+                    marginBottom: '16px', 
+                    borderRadius: '8px',
+                    background: status.includes('Error') ? '#fee2e2' : '#d1fae5',
+                    color: status.includes('Error') ? '#991b1b' : '#065f46',
+                    fontSize: '14px'
+                }}>
+                    {status}
+                </div>
+            )}
+
+            <div style={{ overflowX: 'auto' }}>
+                <table style={{ 
+                    width: '100%', 
+                    borderCollapse: 'collapse',
+                    background: 'white',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                }}>
+                    <thead>
+                        <tr style={{ background: '#f9fafb' }}>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Name</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Email</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Contact</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Wedding Date</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Location</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Submitted</th>
+                            <th style={{ padding: '12px 16px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#666', borderBottom: '1px solid #e5e7eb' }}>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {list.length === 0 ? (
+                            <tr>
+                                <td colSpan="7" style={{ padding: '40px', textAlign: 'center', color: '#999', fontSize: '14px' }}>
+                                    {loading ? 'Loading inquiries...' : 'No inquiries found for the selected date range.'}
+                                </td>
+                            </tr>
+                        ) : (
+                            list.map((item) => (
+                                <tr key={item.id} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#111' }}>{item.name}</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#666' }}>{item.email}</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#666' }}>{item.contact}</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#666' }}>{item.wedding_date || '-'}</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#666' }}>{item.event_location || '-'}</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '13px', color: '#999' }}>{formatDate(item.created_at)}</td>
+                                    <td style={{ padding: '12px 16px', textAlign: 'center' }}>
+                                        <button
+                                            onClick={() => handleDelete(item.id)}
+                                            style={{
+                                                padding: '6px 12px',
+                                                background: '#fee2e2',
+                                                color: '#dc2626',
+                                                border: 'none',
+                                                borderRadius: '6px',
+                                                cursor: 'pointer',
+                                                fontSize: '13px',
+                                                fontWeight: '500'
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style={{ marginTop: '16px', fontSize: '13px', color: '#666' }}>
+                Total inquiries: <strong>{list.length}</strong>
+            </div>
+        </div>
     );
 }

@@ -19,6 +19,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/service/wedding-decor',
+        destination: '/service',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

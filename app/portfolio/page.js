@@ -6,6 +6,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import Collage from "@/components/Portfolio/Collage";
 import Hero from "@/components/Portfolio/Hero";
+import WeddingStories from "@/components/Portfolio/WeddingStories";
 import Supabase from "@/lib/supabase";
 
 import React, { useState, useEffect } from "react";
@@ -91,6 +92,7 @@ const Page = () => {
         <>
             <Navbar />
             <Hero mediaUrl={mediaUrl} />
+            <WeddingStories />
             <Collage
                 weddingUrl={weddingUrl}
                 centerpieceUrl={centerpieceUrl}

@@ -62,14 +62,14 @@ function SectionContent({ section, index, onInViewChange, isActive }) {
       >
         {/* Progress Indicator */}
         <motion.div
-          className="absolute -left-8 top-8 w-1 h-16 bg-gradient-to-b from-[#96034f] to-[#f4c7ff] rounded-full"
+          className="hidden lg:block absolute -left-8 top-8 w-1 h-16 bg-gradient-to-b from-[#96034f] to-[#f4c7ff] rounded-full"
           initial={{ scaleY: 0 }}
           animate={{ scaleY: isActive ? 1 : 0.3 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         />
 
         <motion.h3
-          className={`${deco.className} text-4xl md:text-5xl font-light text-[#96034f] mb-8 tracking-wide`}
+          className={`${deco.className} text-3xl md:text-5xl font-light text-[#96034f] mb-6 md:mb-8 tracking-wide`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
@@ -79,7 +79,7 @@ function SectionContent({ section, index, onInViewChange, isActive }) {
         </motion.h3>
 
         <motion.div
-          className="text-lg leading-relaxed text-gray-700 whitespace-pre-line space-y-4"
+          className="text-base md:text-lg leading-relaxed text-gray-700 whitespace-pre-line space-y-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
@@ -102,6 +102,38 @@ function SectionContent({ section, index, onInViewChange, isActive }) {
   );
 }
 
+function MobileSectionCard({ section, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      className="mb-8"
+    >
+      <div className="relative h-[45vh] rounded-2xl overflow-hidden shadow-xl mb-6">
+        <Image
+          src={section.image}
+          alt={section.title}
+          fill
+          className={`object-cover ${section.position}`}
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+      </div>
+      <h3 className={`${deco.className} text-3xl font-light text-[#96034f] mb-4 tracking-wide`}>
+        {section.title}
+      </h3>
+      <div className="text-base leading-relaxed text-gray-700 whitespace-pre-line space-y-4">
+        {section.content.split('\n\n').map((paragraph, pIndex) => (
+          <p key={pIndex}>{paragraph}</p>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function MeetTheTeam() {
   const [activeImage, setActiveImage] = useState(0);
   const containerRef = useRef(null);
@@ -120,14 +152,25 @@ export default function MeetTheTeam() {
         transition={{ duration: 0.8 }}
         className="text-center mb-16"
       >
-        <h2 className={`${deco.className} text-5xl md:text-6xl font-light text-[#96034f] tracking-wider`}>
+        <h2 className={`${deco.className} text-3xl sm:text-4xl md:text-6xl font-light text-[#96034f] tracking-wider`}>
           Meet the Team
         </h2>
         <div className="w-24 h-0.5 bg-[#96034f] mx-auto mt-6" />
       </motion.div>
 
-      {/* Two Column Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Mobile Layout - Stacked cards */}
+      <div className="lg:hidden max-w-7xl mx-auto px-4 sm:px-6">
+        {sections.map((section, index) => (
+          <MobileSectionCard
+            key={section.id}
+            section={section}
+            index={index}
+          />
+        ))}
+      </div>
+
+      {/* Desktop Layout - Sticky image + scrolling text */}
+      <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* Left Side - Sticky Image with Enhanced Animations */}
           <div className="lg:w-1/2">

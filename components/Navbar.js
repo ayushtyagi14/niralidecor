@@ -52,9 +52,6 @@ const Navbar = ({ forceScrolled = false }) => {
                         />
                     </Link>
                     <div className={`hidden lg:flex items-center space-x-3 ${scrolled ? 'text-[13px] font-semibold' : 'text-[14px]'} tracking-wide ${deco.className}`}>
-                        <Link href="/">
-                            <h1 className="hover-underline">Home</h1>
-                        </Link>
                         <Link href="/about-us">
                             <h1 className="hover-underline">About Us</h1>
                         </Link>
@@ -117,9 +114,6 @@ const Navbar = ({ forceScrolled = false }) => {
                 className="lg:hidden overflow-hidden"
             >
                 <div className={`flex flex-col items-center space-y-4 py-4 ${scrolled ? 'bg-[#f4c7ffca]' : 'bg-[#f9e1ffbe]'} w-[90%] mx-auto my-2 rounded-[50px] shadow-lg uppercase tracking-widest text-[#96034f]`}>
-                    <Link href="/">
-                        <h1 onClick={toggleMenu}>Home</h1>
-                    </Link>
                     <Link href="/about-us">
                         <h1 onClick={toggleMenu}>About Us</h1>
                     </Link>
