@@ -1749,6 +1749,32 @@ function ConsultationsSection({ token }) {
         });
     };
 
+    const formatCSVDate = (dateString) => {
+        if (!dateString) return '';
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+            const [year, month, day] = dateString.split('-');
+            return `${day}-${month}-${year}`;
+        }
+        const d = new Date(dateString);
+        if (isNaN(d.getTime())) return dateString;
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    const formatCSVDateTime = (dateString) => {
+        if (!dateString) return '';
+        const d = new Date(dateString);
+        if (isNaN(d.getTime())) return dateString;
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
+    };
+
     const handleDelete = async (id) => {
         if (!confirm('Are you sure you want to delete this inquiry?')) return;
         
@@ -1853,10 +1879,11 @@ function ConsultationsSection({ token }) {
                         const rows = list.map(item => [
                             item.name,
                             item.email,
-                            item.contact,
-                            item.wedding_date || '',
+                            // Wrap contact in Excel text formula format ="value" to preserve leading zeros and prevent scientific notation
+                            `="${(item.contact || '').toString().replace(/"/g, '""')}"`,
+                            formatCSVDate(item.wedding_date),
                             item.event_location || '',
-                            item.created_at
+                            formatCSVDateTime(item.created_at)
                         ]);
                         const csv = [
                             headers.join(','),

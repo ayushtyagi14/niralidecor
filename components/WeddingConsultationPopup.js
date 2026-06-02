@@ -46,23 +46,25 @@ export default function WeddingConsultationPopup() {
     setIsSubmitting(true);
 
     try {
-      // Save to Supabase
-      const { data, error } = await Supabase
-        .from('wedding_consultations')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            contact: formData.contact,
-            wedding_date: formData.weddingDate,
-            event_location: formData.eventLocation,
-            status: 'new',
-            created_at: new Date().toISOString()
-          }
-        ]);
+      // Send data to the secure server API route
+      const response = await fetch('/api/wedding-consultation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          contact: formData.contact,
+          weddingDate: formData.weddingDate,
+          eventLocation: formData.eventLocation
+        }),
+      });
 
-      if (error) {
-        console.error('Supabase error:', error);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Server submission failed');
       }
 
       setIsSubmitting(false);
@@ -88,7 +90,8 @@ export default function WeddingConsultationPopup() {
     } catch (err) {
       console.error('Error submitting form:', err);
       setIsSubmitting(false);
-      // Still show success to user
+      // Fallback: still show the success state to the customer to maintain high conversions,
+      // and log the error for diagnostics.
       setSubmitted(true);
     }
   };
