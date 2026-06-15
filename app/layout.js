@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${ranade.className} antialiased`} suppressHydrationWarning>
+        {/*
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GKKC7S45X4"
           strategy="afterInteractive"
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-GKKC7S45X4');
           `}
         </Script>
+        */}
         {children}
         <ScrollToTopButton />
         <WeddingConsultationPopup />
