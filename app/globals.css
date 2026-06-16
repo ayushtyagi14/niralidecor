@@ -84,3 +84,25 @@ body::-webkit-scrollbar {
     transform: translateY(90%);
   }
 }
+
+/* CookieYes banner custom colors */
+.cky-btn-revisit-wrapper {
+  background-color: #96034F !important;
+}
+
+.cky-btn-revisit-wrapper svg {
+  fill: #ffffff !important;
+}
+
+.cky-btn-accept {
+  color: #ffffff;
+  background-color: #96034F !important;
+  border-color: #96034F !important;
+}
+
+.cky-btn-preferences,
+.cky-btn-reject,
+.cky-btn-customize {
+  color: #96034F !important;
+  border-color: #96034F !important;
+}
