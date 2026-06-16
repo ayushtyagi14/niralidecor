@@ -18,17 +18,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <head />
+      <body className={`${ranade.className} antialiased`} suppressHydrationWarning>
         {/* Start cookieyes banner */}
-        <script
+        <Script
           id="cookieyes"
-          type="text/javascript"
           src="https://cdn-cookieyes.com/client_data/88d5c7bc58b0a23bbbb711775dc8ff5a/script.js"
-          async
+          strategy="beforeInteractive"
         />
         {/* End cookieyes banner */}
-      </head>
-      <body className={`${ranade.className} antialiased`} suppressHydrationWarning>
         <Script id="google-consent" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
