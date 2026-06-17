@@ -51,15 +51,15 @@ body::-webkit-scrollbar {
   transition: bottom 200ms 100ms, transform 100ms;
 }
 
-.check-icon:checked + .icon-menu > .bar--1 {
+.check-icon:checked+.icon-menu>.bar--1 {
   transition: top 200ms, transform 200ms 100ms;
 }
 
-.check-icon:checked + .icon-menu > .bar--3 {
+.check-icon:checked+.icon-menu>.bar--3 {
   transition: bottom 200ms, transform 200ms 100ms;
 }
 
-.check-icon:checked + .icon-menu {
+.check-icon:checked+.icon-menu {
   --pos-y-bar-one: calc(var(--gap) + var(--height-bar));
   --pos-y-bar-three: calc(var(--gap) + var(--height-bar));
   --scale-bar: 0;
@@ -105,4 +105,9 @@ body::-webkit-scrollbar {
 .cky-btn-customize {
   color: #96034F !important;
   border-color: #96034F !important;
+}
+
+.cky-btn-preferences,
+.cky-btn-reject {
+  background-color: #fff !important;
 }
