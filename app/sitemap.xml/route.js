@@ -14,7 +14,12 @@ export async function GET() {
     "/blog",
     "/faq",
     "/contact-us",
-    "/case-studies",
+    "/service/wedding",
+    "/service/reception",
+    "/service/vidhi-and-haldi",
+    "/service/sangeet-and-garba",
+    "/service/centerpiece",
+    "/portfolio/all-stories",
   ];
 
   let urls = staticRoutes.map((path) => ({
@@ -23,18 +28,25 @@ export async function GET() {
   }));
 
   try {
-    // Fetch published blogs and case studies for dynamic URLs
-    const [{ data: blogs, error: blogsError }, { data: caseStudies, error: caseStudiesError }] =
-      await Promise.all([
-        supabaseAdmin
-          .from("blogs")
-          .select("slug, updated_at, status")
-          .eq("status", "published"),
-        supabaseAdmin
-          .from("case_studies")
-          .select("id, updated_at, created_at, status")
-          .eq("status", "published"),
-      ]);
+    // Fetch published blogs, case studies, and couples for dynamic URLs
+    const [
+      { data: blogs, error: blogsError },
+      { data: caseStudies, error: caseStudiesError },
+      { data: couples, error: couplesError }
+    ] = await Promise.all([
+      supabaseAdmin
+        .from("blogs")
+        .select("slug, updated_at, status")
+        .eq("status", "published"),
+      supabaseAdmin
+        .from("case_studies")
+        .select("id, updated_at, created_at, status")
+        .eq("status", "published"),
+      supabaseAdmin
+        .from("portfolio_couples")
+        .select("slug, updated_at, status")
+        .eq("status", "published")
+    ]);
 
     if (!blogsError && Array.isArray(blogs)) {
       urls.push(
@@ -53,6 +65,17 @@ export async function GET() {
         })),
       );
     }
+
+    if (!couplesError && Array.isArray(couples)) {
+      urls.push(
+        ...couples.map((c) => ({
+          url: `${baseUrl}/portfolio/${c.slug}`,
+          lastModified: c.updated_at ? new Date(c.updated_at) : new Date(),
+        })),
+      );
+    }
+
+
   } catch (e) {
     console.error("Error building sitemap:", e);
   }
