@@ -1,6 +1,6 @@
 import supabaseAdmin from "@/lib/supabaseAdmin";
 
-export default async function sitemap() {
+export async function GET() {
   const baseUrl = "https://www.niralidecor.com";
 
   // Static top-level routes
@@ -15,7 +15,7 @@ export default async function sitemap() {
     "/case-studies",
   ];
 
-  const urls = staticRoutes.map((path) => ({
+  let urls = staticRoutes.map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
   }));
@@ -55,5 +55,24 @@ export default async function sitemap() {
     console.error("Error building sitemap:", e);
   }
 
-  return urls;
+  // Generate XML
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls
+    .map(
+      (url) => `
+  <url>
+    <loc>${url.url}</loc>
+    <lastmod>${url.lastModified.toISOString()}</lastmod>
+  </url>`
+    )
+    .join("")}
+</urlset>`;
+
+  return new Response(sitemapXml.trim(), {
+    headers: {
+      "Content-Type": "text/xml; charset=utf-8",
+    },
+  });
 }

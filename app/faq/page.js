@@ -196,7 +196,7 @@ export default function FAQPage() {
 
             <div className="page-banner">
                 <img
-                    src="/assets/_PM40748 (1).jpg"
+                    src="/assets/service-banner.jpg"
                     alt="FAQ Banner"
                 />
             </div>
