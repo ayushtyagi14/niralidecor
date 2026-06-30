@@ -24,10 +24,10 @@ export default function RootLayout({ children }) {
         <Script
           id="cookieyes"
           src="https://cdn-cookieyes.com/client_data/88d5c7bc58b0a23bbbb711775dc8ff5a/script.js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
         {/* End cookieyes banner */}
-        <Script id="google-consent" strategy="beforeInteractive">
+        <Script id="google-consent" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

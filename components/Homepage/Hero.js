@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Hero = ({ bannerUrl }) => {
     const [videoLoaded, setVideoLoaded] = useState(false);
@@ -22,21 +25,18 @@ const Hero = ({ bannerUrl }) => {
         });
     };
 
-    useEffect(() => {
-        const timer = setTimeout(() => setVideoLoaded(true), 500);
-        return () => clearTimeout(timer);
-    }, []);
-
     return (
         <div className="relative h-[90vh] lg:min-h-screen overflow-hidden">
             {isImage(bannerUrl) ? (
-                <img
+                <Image
                     src={bannerUrl}
                     alt="Hero Banner"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    fill
+                    priority
+                    className="absolute inset-0 object-cover"
                 />
             ) : (
-                videoLoaded && bannerUrl && (
+                bannerUrl && (
                     <video
                         className="absolute inset-0 w-full h-full object-cover"
                         src={bannerUrl}
@@ -44,10 +44,22 @@ const Hero = ({ bannerUrl }) => {
                         muted
                         loop
                         playsInline
-                        preload="auto"
-                        onLoadedData={() => setVideoLoaded(true)}
+                        preload="metadata"
+                        fetchPriority="high"
+                        aria-hidden="true"
+                        onCanPlay={() => setVideoLoaded(true)}
                     ></video>
                 )
+            )}
+
+            {bannerUrl && !isImage(bannerUrl) && !videoLoaded && (
+                <Image
+                    src="/assets/couple.jpg"
+                    alt="Loading video..."
+                    fill
+                    priority
+                    className="absolute inset-0 object-cover pointer-events-none"
+                />
             )}
 
             <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
@@ -60,12 +72,13 @@ const Hero = ({ bannerUrl }) => {
                     {/* Optional Content */}
                 </motion.div>
 
-                <div
-                    className="absolute bottom-12 left-[45%] md:left-[47%] 2xl:left-[49%] cursor-pointer"
+                <button
+                    className="absolute bottom-12 left-[45%] md:left-[47%] 2xl:left-[49%] cursor-pointer border-none bg-transparent p-0"
                     onClick={scrollToContent}
+                    aria-label="Scroll to content"
                 >
-                    <img src="/assets/arrow-down.png" alt="arrow" className="scroll" />
-                </div>
+                    <Image src="/assets/arrow-down.png" alt="Scroll down icon" width={40} height={40} className="scroll" />
+                </button>
             </div>
         </div>
     );

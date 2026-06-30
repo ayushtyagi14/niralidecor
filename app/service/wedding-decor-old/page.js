@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Homepage/Contact";
@@ -170,18 +171,18 @@ export default function WeddingDecorPage() {
               Indian.
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-2">
-              <a
+              <Link
                 href="/contact-us"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff4f88] px-7 py-2.5 text-sm font-medium tracking-wide text-white shadow-lg shadow-[#ff4f88]/40 hover:bg-[#e63c74] transition-colors"
               >
                 Get a Free Design Consultation
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/portfolio"
                 className="inline-flex items-center justify-center rounded-full bg-white/90 px-6 py-2.5 text-sm font-medium tracking-wide text-[#96034f] hover:bg-white transition-colors"
               >
                 View Stage Decor Portfolio
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -348,12 +349,12 @@ export default function WeddingDecorPage() {
               smooth implementation from first idea to your wedding day
               celebrations.
             </p>
-            <a
+            <Link
               href="/contact-us"
               className="inline-flex items-center justify-center rounded-full bg-[#ff4f88] px-7 py-2.5 text-sm font-medium tracking-wide text-white shadow-[0_16px_40px_rgba(255,79,136,0.45)] hover:bg-[#e63c74] transition-transform transition-colors hover:-translate-y-0.5"
             >
               Schedule a Decor Consultation
-            </a>
+            </Link>
           </div>
         </div>
       </motion.section>
@@ -401,12 +402,12 @@ export default function WeddingDecorPage() {
             </div>
 
             <div className="mt-6">
-              <a
+              <Link
                 href="/about-us"
                 className="inline-flex items-center justify-center rounded-full border border-[#96034f] px-6 py-2.5 text-sm font-medium tracking-wide text-[#96034f] hover:bg-[#fdf2f8] transition-colors"
               >
                 Know More
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -555,12 +556,12 @@ export default function WeddingDecorPage() {
               </motion.div>
             ))}
           </div>
-          <a
+          <Link
             href="/portfolio"
             className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-medium tracking-wide text-[#96034f] shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:bg-[#fdf2f8] transition-colors"
           >
             View Full Portfolio
-          </a>
+          </Link>
         </div>
       </motion.section>
 
@@ -690,12 +691,12 @@ export default function WeddingDecorPage() {
             your celebration becomes not only unforgettable, but also fabulous.
           </p>
           <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
+            <Link
               href="/contact-us"
               className="inline-flex items-center justify-center rounded-full bg-[#ff4f88] px-7 py-2.5 text-sm font-medium tracking-wide text-white shadow-[0_16px_40px_rgba(255,79,136,0.45)] hover:bg-[#e63c74] transition-transform transition-colors hover:-translate-y-0.5"
             >
               Book a Free Consultation
-            </a>
+            </Link>
             {/* <span className="text-[11px] uppercase tracking-[0.18em] text-[#6b4e45]">
               Response within 1–2 business days
             </span> */}

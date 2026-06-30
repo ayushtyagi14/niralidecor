@@ -1,8 +1,10 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { deco } from '@/lib/fonts';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const AboutUs = ({ aboutLeftUrl, aboutRightUrl }) => {
     const router = useRouter();
@@ -29,15 +31,25 @@ const AboutUs = ({ aboutLeftUrl, aboutRightUrl }) => {
             </motion.div>
 
             <div className='grid grid-cols-1 lg:grid-cols-3 my-10 gap-10 items-center font-light'>
-                <motion.img
-                    src={aboutLeftUrl}
-                    alt="About Nirali Decor"
-                    className='rounded-[24px] w-[450px] object-cover h-[450px] shadow-lg'
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    loading='lazy'
-                />
+                {aboutLeftUrl ? (
+                    <motion.div
+                        className='relative w-full h-[300px] lg:h-[450px] shadow-lg rounded-[24px] overflow-hidden'
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <Image
+                            src={aboutLeftUrl}
+                            alt="About Nirali Decor Left"
+                            fill
+                            className='object-cover'
+                            sizes="(max-width: 1024px) 100vw, 33vw"
+                        />
+                    </motion.div>
+                ) : (
+                    <div className='w-full h-[300px] lg:h-[450px]'></div>
+                )}
+                
                 <div className='flex flex-col items-center gap-4 h-full justify-between'>
                     <p className='text-center font-medium uppercase'>
                         Little bit on how it all started
@@ -55,25 +67,38 @@ const AboutUs = ({ aboutLeftUrl, aboutRightUrl }) => {
                         Let us connect and understand how we can assist in crafting your vision!
                     </p>
                 </div>
-                <motion.img
-                    src={aboutRightUrl}
-                    alt="About Nirali Decor"
-                    className='rounded-[24px] w-[450px] object-cover h-[450px] shadow-lg'
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                />
+                
+                {aboutRightUrl ? (
+                    <motion.div
+                        className='relative w-full h-[300px] lg:h-[450px] shadow-lg rounded-[24px] overflow-hidden'
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <Image
+                            src={aboutRightUrl}
+                            alt="About Nirali Decor Right"
+                            fill
+                            className='object-cover'
+                            sizes="(max-width: 1024px) 100vw, 33vw"
+                        />
+                    </motion.div>
+                ) : (
+                    <div className='w-full h-[300px] lg:h-[450px]'></div>
+                )}
             </div>
             <div className='grid grid-cols-2 gap-5 lg:w-[70%] mx-auto'>
                 <button
                     onClick={() => router.push('/about-us')}
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500'
+                    aria-label="Meet Our Team"
                 >
                     Meet Our Team
                 </button>
                 <button
                     onClick={() => router.push('/contact-us')}
                     className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500'
+                    aria-label="Connect With Us"
                 >
                     Connect With Us
                 </button>

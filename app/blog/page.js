@@ -203,6 +203,7 @@ export default function BlogPage() {
                                                     src={post.cover_image}
                                                     alt={post.title}
                                                     fill
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                     style={{ objectFit: 'cover' }}
                                                 />
                                             </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -5,6 +7,7 @@ import { Navigation } from 'swiper/modules'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { deco } from '@/lib/fonts';
+import Image from 'next/image';
 
 const TimelineData = [
     {
@@ -119,23 +122,23 @@ const Timeline = () => {
                                         <p className="text-[13px] lg:text-[16px] font-light lg:w-[65%] mt-2">{phase.niraliContent}</p>
                                     </div>
                                     {/* Divider Line */}
-                                    <div className="w-full h-[2px] bg-black my-4 flex flex-row gap-10 items-center">
-                                        <span className='bg-[#fed9fe] py-1 px-3 rounded-full text-[14px]'>{index + 1}</span>
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
-                                        <img src="/assets/line.png" alt="Vertical line" />
+                                    <div className="w-full h-[2px] bg-black my-4 flex flex-row gap-10 items-center overflow-hidden">
+                                        <span className='bg-[#fed9fe] py-1 px-3 rounded-full text-[14px] shrink-0'>{index + 1}</span>
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
+                                        <Image src="/assets/line.png" alt="Vertical line" width={2} height={20} />
                                     </div>
                                     {/* About Client */}
                                     <div className='text-left w-full mt-4'>
@@ -159,13 +162,13 @@ const Timeline = () => {
                         ref={prevButtonRef}
                         className={`${activeIndex === 0 && 'opacity-50'} custom-prev-button border-[1.5px] border-[#96034f] p-4 rounded-full ${activeIndex !== 0 && 'hover:bg-[#fed9fe]'} duration-300 transition`}
                     >
-                        <img src="/assets/back.png" alt="Back Arrow" />
+                        <Image src="/assets/back.png" alt="Back Arrow" width={40} height={40} />
                     </button>
                     <button
                         ref={nextButtonRef}
                         className={`${activeIndex === TimelineData.length - 1 && 'opacity-50'} custom-next-button border-[1.5px] border-[#96034f] p-4 rounded-full ${activeIndex !== TimelineData.length - 1 && 'hover:bg-[#fed9fe]'} duration-300 transition`}
                     >
-                        <img src="/assets/next.png" alt="Next Arrow" />
+                        <Image src="/assets/next.png" alt="Next Arrow" width={40} height={40} />
                     </button>
                 </div>
             </div>

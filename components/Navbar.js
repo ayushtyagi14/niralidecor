@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FaTiktok } from 'react-icons/fa6';
 import { deco } from '@/lib/fonts';
+import Image from 'next/image';
 
 const Navbar = ({ forceScrolled = false }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +47,10 @@ const Navbar = ({ forceScrolled = false }) => {
                         <motion.img
                             src={"/assets/logo.png"}
                             alt="Logo"
-                            className={`${scrolled ? 'w-[240px]' : 'w-[300px] lg:w-[350px] transition-all duration-300'} mb-2`}
+                            width={350}
+                            height={100}
+                            fetchPriority="high"
+                            className={`${scrolled ? 'w-[240px]' : 'w-[300px] lg:w-[350px] transition-all duration-300'} mb-2 h-auto`}
                             whileHover={{ scale: 1.1 }}
                             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                         />
@@ -71,15 +75,19 @@ const Navbar = ({ forceScrolled = false }) => {
                             <h1 className="hover-underline">Contact</h1>
                         </Link>
                         <div className='flex flex-row items-center gap-2'>
-                            <img
+                            <Image
                                 src={scrolled ? "/assets/instagram-pink.png" : "/assets/instagram-white.png"}
                                 alt="Instagram"
+                                width={24}
+                                height={24}
                                 className='cursor-pointer hover:scale-110 duration-300 transition-all'
                                 onClick={() => router.push('https://instagram.com/niralidecor')}
                             />
-                            <img
+                            <Image
                                 src={scrolled ? "/assets/facebook-pink.png" : "/assets/facebook-white.png"}
                                 alt="Facebook"
+                                width={24}
+                                height={24}
                                 className='cursor-pointer hover:scale-110 duration-300 transition-all'
                                 onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                             />
@@ -133,15 +141,19 @@ const Navbar = ({ forceScrolled = false }) => {
                         <h1 onClick={toggleMenu}>Contact</h1>
                     </Link>
                     <div className='flex flex-row items-center gap-2'>
-                        <img
+                        <Image
                             src={"/assets/instagram-pink.png"}
                             alt="Instagram"
+                            width={32}
+                            height={32}
                             className='cursor-pointer hover:scale-110 duration-300 transition-all'
                             onClick={() => router.push('https://instagram.com/niralidecor')}
                         />
-                        <img
+                        <Image
                             src={"/assets/facebook-pink.png"}
                             alt="Facebook"
+                            width={32}
+                            height={32}
                             className='cursor-pointer hover:scale-110 duration-300 transition-all'
                             onClick={() => router.push('https://www.facebook.com/profile.php?id=61587084800669')}
                         />

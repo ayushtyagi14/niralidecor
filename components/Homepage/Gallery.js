@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { deco } from '@/lib/fonts';
@@ -50,7 +52,7 @@ const Gallery = ({ mediaItems }) => {
 
                             {/* Text layer with hover effect */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                <div className="text-white text-center flex flex-row items-center gap-2"> <img src="/assets/instagram-white.png" alt="instagram-new--v1" /> Instagram:</div>
+                                <div className="text-white text-center flex flex-row items-center gap-2"> <Image src="/assets/instagram-white.png" alt="instagram-new--v1" width={24} height={24} /> Instagram:</div>
                                 <h1 className="text-white text-center lg:text-[28px] mt-2 tracking-wider">
                                     @niralidecor
                                 </h1>

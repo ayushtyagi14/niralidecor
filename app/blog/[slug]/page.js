@@ -20,6 +20,7 @@ export default function BlogDetailPage() {
         if (params.slug) {
             fetchPost();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.slug]);
 
     const fetchPost = async () => {

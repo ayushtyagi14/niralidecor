@@ -1,8 +1,11 @@
-import React from 'react'
+"use client";
+
+import React from 'react';
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { deco } from '@/lib/fonts'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image';
 
 const LocationCard = ({ title, lines = [], iframeSrc }) => {
     return (
@@ -24,6 +27,7 @@ const LocationCard = ({ title, lines = [], iframeSrc }) => {
                 <div className="relative w-full" style={{ aspectRatio: '16 / 10' }}>
                     <iframe
                         src={iframeSrc}
+                        title={`Location map for ${title}`}
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
@@ -97,15 +101,15 @@ const Contact = () => {
                     </h2>
                     <div className="flex flex-col gap-2 my-4 font-light">
                         <Link className="flex flex-row items-center gap-4" href="mailto:niralidecor@gmail.com">
-                            <img src="/assets/mail.png" alt="Email" />
+                            <Image src="/assets/mail.png" alt="Email" width={24} height={24} />
                             <span>niralidecor@gmail.com</span>
                         </Link>
                         <Link href={'tel:+6097035879'} className="flex flex-row items-center gap-4">
-                            <img src="/assets/call.png" alt="call" />
+                            <Image src="/assets/call.png" alt="call" width={24} height={24} />
                             <span>(609) 703-5879</span>
                         </Link>
                         <Link href={'https://www.instagram.com/niralidecor'} className="flex flex-row items-center gap-4">
-                            <img src="/assets/instagram.png" alt="Instagram" />
+                            <Image src="/assets/instagram.png" alt="Instagram" width={24} height={24} />
                             <span>@niralidecor</span>
                         </Link>
                     </div>

@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { deco } from '@/lib/fonts';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Testimonials = ({ reviews }) => {
     const [current, setCurrent] = useState(0);
@@ -50,17 +53,20 @@ const Testimonials = ({ reviews }) => {
                     <div>
                         <motion.div
                             key={reviews[current].id}
-                            className='flex flex-col lg:flex-row items-center p-6 shadow-lg bg-[#fed9fe]'
+                            className='flex flex-col lg:flex-row items-center p-6 shadow-lg bg-[#fed9fe] rounded-[12px]'
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 2 }}
                         >
-                            <img
-                                src={reviews[current].mediaUrl}
-                                alt={reviews[current].name}
-                                className='lg:w-[200px] w-full h-[200px] rounded-[12px] object-cover lg:mr-6 mb-4 lg:mb-0'
-                            />
+                            <div className='relative lg:w-[200px] w-full h-[200px] lg:mr-6 mb-4 lg:mb-0 shrink-0'>
+                                <Image
+                                    src={reviews[current].mediaUrl}
+                                    alt={reviews[current].name}
+                                    fill
+                                    className='rounded-[12px] object-cover'
+                                />
+                            </div>
                             <div className='text-center lg:text-left'>
                                 <p className='text-[#96034f] mb-2 font-light lg:text-center'>
                                     <span className='text-[24px]'>&quot;</span> {reviews[current].review} <span className='text-[24px]'>&quot;</span>
@@ -77,6 +83,7 @@ const Testimonials = ({ reviews }) => {
             <button
                 className='border-2 rounded-[12px] py-2 border-[#96034f] hover:bg-[#96034f] hover:text-white text-[#96034f] transition-all duration-500 mx-auto w-[35%] row-span-1 col-span-2 mt-10 flex justify-center'
                 onClick={() => router.push('/testimonials')}
+                aria-label="View all testimonials"
             >
                 Testimonials
             </button>

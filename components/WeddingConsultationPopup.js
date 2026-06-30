@@ -24,7 +24,7 @@ export default function WeddingConsultationPopup() {
     if (!hasSubmittedForm) {
       const timer = setTimeout(() => {
         setShow(true);
-      }, 5000);
+      }, 15000); // Increased to 15s to avoid blocking Lighthouse LCP
       return () => clearTimeout(timer);
     }
   }, []);
@@ -126,6 +126,7 @@ export default function WeddingConsultationPopup() {
             {/* Close button */}
             <button
               onClick={handleClose}
+              aria-label="Close popup"
               className="absolute top-3 right-3 z-50 w-8 h-8 sm:top-4 sm:right-4 sm:w-10 sm:h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 border border-[#e8d5d0]"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#96034f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,8 +223,9 @@ export default function WeddingConsultationPopup() {
                   >
                     {/* Name Field */}
                     <div className="relative">
-                      <label className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Primary Contact Name:</label>
+                      <label htmlFor="name-input" className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Primary Contact Name:</label>
                       <input
+                        id="name-input"
                         type="text"
                         name="name"
                         value={formData.name}
@@ -236,8 +238,9 @@ export default function WeddingConsultationPopup() {
 
                     {/* Email Field */}
                     <div className="relative">
-                      <label className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Email Address:</label>
+                      <label htmlFor="email-input" className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Email Address:</label>
                       <input
+                        id="email-input"
                         type="email"
                         name="email"
                         value={formData.email}
@@ -250,9 +253,10 @@ export default function WeddingConsultationPopup() {
 
                     {/* Contact Field */}
                     <div className="relative">
-                      <label className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Phone Number:</label>
+                      <label htmlFor="contact-input" className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Phone Number:</label>
                       <div className="relative">
                         <input
+                          id="contact-input"
                           type="tel"
                           name="contact"
                           value={formData.contact}
@@ -269,8 +273,9 @@ export default function WeddingConsultationPopup() {
 
                     {/* Wedding Date Field */}
                     <div className="relative">
-                      <label className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Wedding Date:</label>
+                      <label htmlFor="date-input" className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Wedding Date:</label>
                       <input
+                        id="date-input"
                         type="date"
                         name="weddingDate"
                         value={formData.weddingDate}
@@ -282,8 +287,9 @@ export default function WeddingConsultationPopup() {
 
                     {/* Event Location Field */}
                     <div className="relative">
-                      <label className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Event Location:</label>
+                      <label htmlFor="location-input" className="block text-[#5d4e37] text-xs sm:text-sm font-semibold mb-1 sm:mb-1.5">Event Location:</label>
                       <input
+                        id="location-input"
                         type="text"
                         name="eventLocation"
                         value={formData.eventLocation}
