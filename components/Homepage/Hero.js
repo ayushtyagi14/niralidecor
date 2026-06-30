@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const Hero = ({ bannerUrl }) => {
-    const [videoLoaded, setVideoLoaded] = useState(false);
     const imageExtensions = [
         '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.tiff', '.svg', '.heic', '.heif', '.raw', '.cr2', '.nef', '.orf', '.sr2'
     ];
@@ -47,19 +46,8 @@ const Hero = ({ bannerUrl }) => {
                         preload="metadata"
                         fetchPriority="high"
                         aria-hidden="true"
-                        onCanPlay={() => setVideoLoaded(true)}
                     ></video>
                 )
-            )}
-
-            {bannerUrl && !isImage(bannerUrl) && !videoLoaded && (
-                <Image
-                    src="/assets/couple.jpg"
-                    alt="Loading video..."
-                    fill
-                    priority
-                    className="absolute inset-0 object-cover pointer-events-none"
-                />
             )}
 
             <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
