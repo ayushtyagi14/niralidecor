@@ -45,7 +45,7 @@ export default function DesignPhilosophy() {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={containerRef} className="relative bg-white py-24 overflow-hidden">
+    <section ref={containerRef} className="relative bg-white pt-12 pb-0 lg:py-24 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -44,7 +46,7 @@ const Gallery = ({ mediaItems }) => {
 
     return (
         <motion.div
-            className='mt-24 lg:w-[75%] w-[90%] mx-auto'
+            className='mt-10 lg:mt-24 lg:w-[75%] w-[90%] mx-auto'
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

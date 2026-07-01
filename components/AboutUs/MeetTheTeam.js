@@ -143,7 +143,7 @@ export default function MeetTheTeam() {
   };
 
   return (
-    <section ref={containerRef} className="bg-white py-20">
+    <section ref={containerRef} className="bg-white pt-10 pb-0 lg:py-20">
       {/* Centered Title */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

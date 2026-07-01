@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "@/components/Navbar";
 import Contact from "@/components/Homepage/Contact";
 import Footer from "@/components/Footer";
@@ -10,51 +8,35 @@ import DesignPhilosophy from "@/components/AboutUs/DesignPhilosophy";
 import OurApproach from "@/components/AboutUs/OurApproach";
 import Gallery from "@/components/AboutUs/Gallery";
 
-import React, { useState, useEffect } from "react";
 import Supabase from "@/lib/supabase";
-import LoadingScreen from "@/components/LoadingScreen";
 
-export default function Page() {
-    const [data, setData] = useState({
-        bannerUrl: null,
-        mediaItems: [],
-    });
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+export const revalidate = 60; // Cache the data for 60 seconds
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [bannerRes, galleryRes] = await Promise.all([
-                    Supabase.from("Banners")
-                        .select("mediaUrl")
-                        .eq("page", "about-us")
-                        .maybeSingle(),
-                    Supabase.from("Gallery")
-                        .select("id, mediaUrl")
-                        .eq("page", "about-us"),
-                ]);
+export default async function Page() {
+    let bannerUrl = null;
+    let mediaItems = [];
+    let error = null;
 
-                if (bannerRes.error) throw bannerRes.error;
-                if (galleryRes.error) throw galleryRes.error;
+    try {
+        const [bannerRes, galleryRes] = await Promise.all([
+            Supabase.from("Banners")
+                .select("mediaUrl")
+                .eq("page", "about-us")
+                .maybeSingle(),
+            Supabase.from("Gallery")
+                .select("id, mediaUrl")
+                .eq("page", "about-us"),
+        ]);
 
-                const bannerUrl = bannerRes.data?.mediaUrl || null;
-                const mediaItems = galleryRes.data || [];
+        if (bannerRes.error) throw bannerRes.error;
+        if (galleryRes.error) throw galleryRes.error;
 
-                setData({
-                    bannerUrl,
-                    mediaItems,
-                });
-            } catch (err) {
-                console.error("Error fetching data:", err.message || err);
-                setError(err.message || "Failed to fetch data.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
+        bannerUrl = bannerRes.data?.mediaUrl || null;
+        mediaItems = galleryRes.data || [];
+    } catch (err) {
+        console.error("Error fetching data:", err.message || err);
+        error = err.message || "Failed to fetch data.";
+    }
 
     if (error) {
         return (
@@ -63,9 +45,6 @@ export default function Page() {
             </div>
         );
     }
-
-    const { bannerUrl, mediaItems } = data;
-
 
     return (
         <>

@@ -51,8 +51,10 @@ export default function CouplesWeServe() {
 
   useEffect(() => {
     const unsubscribe = cardIndex.on("change", (latest) => {
-      const newIndex = Math.min(Math.max(Math.round(latest), 0), 4);
-      setActiveIndex(newIndex);
+      if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+        const newIndex = Math.min(Math.max(Math.round(latest), 0), 4);
+        setActiveIndex(newIndex);
+      }
     });
     return () => unsubscribe();
   }, [cardIndex]);
@@ -62,14 +64,13 @@ export default function CouplesWeServe() {
   return (
     <section
       ref={containerRef}
-      className="relative bg-gradient-to-b from-white via-[#fef7ff] to-white"
-      style={{ height: "500vh" }}
+      className="relative bg-gradient-to-b from-white via-[#fef7ff] to-white lg:h-[500vh]"
     >
-      <div className="sticky top-[80px] h-screen flex items-center pt-10">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
+      <div className="lg:sticky lg:top-[80px] lg:h-screen flex lg:items-center pt-4 lg:pt-10 pb-0">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-4 lg:py-8">
           
           {/* 70/30 Layout */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 min-h-[80vh] py-4">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 lg:min-h-[80vh] py-4">
             
             {/* LEFT - Fluid space */}
             <div className="flex-1 flex flex-col min-h-full min-w-0">

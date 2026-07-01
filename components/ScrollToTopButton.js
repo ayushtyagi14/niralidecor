@@ -1,28 +1,53 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function ScrollToTopButton() {
-  const [show, setShow] = useState(false);
-  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const iconRef = useRef(null);
   const lastScrollTop = useRef(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const onScroll = () => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const percentage = scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const percentage = scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
 
-      setScrollPercentage(percentage);
+          const isVisible = currentScroll > 100;
 
-      // Show the button when scrolling down or up
-      if (currentScroll > 100) {
-        setShow(true);
-      } else {
-        setShow(false);
+          if (buttonRef.current) {
+            if (isVisible) {
+              buttonRef.current.classList.add('show');
+              // Optional: fade out slightly when idle, full opacity when scrolling
+              const scrollDiff = Math.abs(currentScroll - lastScrollTop.current);
+              buttonRef.current.style.opacity = scrollDiff > 20 ? '1' : '0.5';
+            } else {
+              buttonRef.current.classList.remove('show');
+              buttonRef.current.style.opacity = '0';
+            }
+          }
+
+          if (textRef.current && iconRef.current) {
+            if (percentage >= 95) {
+              textRef.current.style.display = 'none';
+              iconRef.current.style.display = 'inline-block';
+            } else {
+              textRef.current.style.display = 'inline-block';
+              textRef.current.textContent = `${Math.round(percentage)}%`;
+              iconRef.current.style.display = 'none';
+            }
+          }
+
+          lastScrollTop.current = currentScroll <= 0 ? 0 : currentScroll;
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      lastScrollTop.current = currentScroll <= 0 ? 0 : currentScroll;
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -32,14 +57,6 @@ export default function ScrollToTopButton() {
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Calculate opacity based on scroll speed
-  const getOpacity = () => {
-    if (!show) return 0;
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollDiff = Math.abs(currentScroll - lastScrollTop.current);
-    return scrollDiff > 20 ? 1 : 0.3;
   };
 
   return (
@@ -57,7 +74,7 @@ export default function ScrollToTopButton() {
           font-size: 16px;
           cursor: pointer;
           opacity: 0;
-          transition: opacity 0.5s ease, transform 0.3s ease;
+          transition: transform 0.3s ease, opacity 0.5s ease;
           text-align: center;
           font-weight: bold;
           font-family: Arial, sans-serif;
@@ -67,10 +84,11 @@ export default function ScrollToTopButton() {
           display: flex;
           justify-content: center;
           align-items: center;
+          pointer-events: none;
         }
 
         .scroll-to-top.show {
-          opacity: ${getOpacity()};
+          pointer-events: auto;
         }
 
         .scroll-to-top:hover {
@@ -99,22 +117,20 @@ export default function ScrollToTopButton() {
         }
       `}</style>
       <button
+        ref={buttonRef}
         type="button"
-        className={`scroll-to-top ${show ? 'show' : ''}`}
+        className="scroll-to-top"
         onClick={handleClick}
         aria-label="Scroll to top"
-        style={{ opacity: show ? getOpacity() : 0 }}
       >
         <span style={{ color: 'white', fontSize: '14px', fontWeight: 'bold' }}>
-          {scrollPercentage >= 95 ? (
-            <img 
-              src="https://mrpaanwala.com/wp-content/uploads/2025/02/arrow3-1.png" 
-              alt="Scroll to Top" 
-              style={{ width: '24px', height: '24px', verticalAlign: 'middle' }} 
-            />
-          ) : (
-            `${Math.round(scrollPercentage)}%`
-          )}
+          <span ref={textRef}></span>
+          <img 
+            ref={iconRef}
+            src="https://mrpaanwala.com/wp-content/uploads/2025/02/arrow3-1.png" 
+            alt="Scroll to Top" 
+            style={{ width: '24px', height: '24px', verticalAlign: 'middle', display: 'none' }} 
+          />
         </span>
       </button>
     </>

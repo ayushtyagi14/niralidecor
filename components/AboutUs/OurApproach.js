@@ -180,7 +180,7 @@ function SectionContent({ section, index, onInViewChange }) {
   }, [isInView, index, onInViewChange]);
 
   return (
-    <div ref={ref} className="min-h-screen flex items-start pt-8 py-20">
+    <div ref={ref} className="lg:min-h-screen flex items-start pt-8 pb-0 lg:py-20">
       <div className="max-w-xl w-full">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -253,7 +253,7 @@ export default function OurApproach() {
   };
 
   return (
-    <section ref={containerRef} className="bg-white py-20">
+    <section ref={containerRef} className="bg-white pt-10 pb-0 lg:py-20">
       {/* Two Column Layout - Text Left, Image Right */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
