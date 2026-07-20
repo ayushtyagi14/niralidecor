@@ -70,7 +70,7 @@ const Footer = () => {
             <div className="footer-social-section">
               <h4 className="footer-social-heading">Follow Us</h4>
               <div className="footer-social-icons">
-                <a href="https://www.facebook.com/profile.php?id=61587084800669" target="_blank" rel="noopener noreferrer" className="footer-social-link facebook" aria-label="Facebook">
+                <a href="https://www.facebook.com/niraliweddingandeventdesigns/" target="_blank" rel="noopener noreferrer" className="footer-social-link facebook" aria-label="Facebook">
                   <FaFacebook />
                 </a>
                 <a href="https://www.instagram.com/niralidecor" target="_blank" rel="noopener noreferrer" className="footer-social-link instagram" aria-label="Instagram">
@@ -97,7 +97,7 @@ const Footer = () => {
               <div className="footer-location">
                 <div className="footer-contact-item">
                   <FaMapMarkerAlt className="footer-icon" />
-                  <span>Middlesex, NJ</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Nirali+Decor,+500+Lincoln+Blvd,+Middlesex,+NJ+08846" target="_blank" rel="noopener noreferrer" className="footer-contact-link">Middlesex, NJ</a>
                 </div>
                 <div className="footer-contact-item">
                   <FaPhone className="footer-icon" />
@@ -113,7 +113,7 @@ const Footer = () => {
               <div className="footer-location">
                 <div className="footer-contact-item">
                   <FaMapMarkerAlt className="footer-icon" />
-                  <span>Atlanta, GA</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Nirali+Decor,+5305+Fulton+Industrial+Blvd+SW,+Suite+C,+Atlanta,+GA+30336" target="_blank" rel="noopener noreferrer" className="footer-contact-link">Atlanta, GA</a>
                 </div>
                 <div className="footer-contact-item">
                   <FaPhone className="footer-icon" />
