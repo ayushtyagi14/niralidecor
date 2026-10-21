@@ -672,9 +672,15 @@ img.blog-avatar { width: clamp(40px, 6vw, 52px); height: clamp(40px, 6vw, 52px);
 .blog-excerpt { font-size: clamp(18px, 2.5vw, 22px); color: #000; font-family: var(--font-ranade); margin-bottom: clamp(18px, 3vw, 28px); font-weight: 500; }
 .blog-body { font-size: clamp(16px, 2vw, 19px); line-height: 1.8; color: #000; font-family: var(--font-ranade); }
 .blog-body p { margin: 0 0 clamp(16px, 2.5vw, 24px); }
-.blog-body h2, .blog-body h3 { font-family: var(--font-cinzel); color: var(--brand); margin: clamp(24px, 4vw, 36px) 0 clamp(12px, 2vw, 18px); font-size: clamp(22px, 3vw + 4px, 28px); }
+/* Headings match the bold-line headings used in older posts */
+.blog-body h2, .blog-body h3, .blog-body h4 { font-family: inherit; font-size: inherit; line-height: inherit; font-weight: 700; color: var(--brand-strong); margin: 0 0 clamp(16px, 2.5vw, 24px); }
 .blog-body strong { font-weight: 700; color: var(--brand-strong); }
 .blog-body a { color: var(--brand); text-decoration: underline; }
+.blog-body ul, .blog-body ol { margin: 0 0 clamp(16px, 2.5vw, 24px); padding-left: 1.4em; }
+.blog-body ul { list-style: disc; }
+.blog-body ol { list-style: decimal; }
+.blog-body li { margin-bottom: 6px; }
+.blog-body li p { margin: 0; }
 .blog-tags-section { margin: clamp(32px, 5vw, 48px) 0; padding-top: clamp(24px, 4vw, 36px); border-top: 1px solid var(--border); }
 .blog-tags-section h4 { font-size: clamp(14px, 1.9vw, 17px); margin: 0 0 clamp(10px, 1.5vw, 14px); color: var(--brand-strong); }
 .blog-author-card { margin-top: clamp(32px, 5vw, 48px); padding: clamp(18px, 3vw, 28px); background: #fff; border: 1px solid var(--border); border-radius: clamp(10px, 1.5vw, 14px); display: flex; gap: clamp(12px, 2vw, 18px); }

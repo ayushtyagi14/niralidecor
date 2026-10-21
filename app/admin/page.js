@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import FormattedTextarea from '@/components/Blog/FormattedTextarea';
+import RichTextEditor from '@/components/Blog/RichTextEditor';
 import './admin.css';
 
 export default function AdminPage() {
@@ -190,6 +191,40 @@ function BlogSection({ token }) {
     const [status, setStatus] = useState('');
     const [uploadingCover, setUploadingCover] = useState(false);
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const [search, setSearch] = useState('');
+    const formRef = useRef(null);
+
+    const term = search.trim().toLowerCase();
+    const filteredList = term
+        ? list.filter((item) =>
+              [item.title, item.slug, item.category, item.author].some((v) => (v || '').toLowerCase().includes(term))
+          )
+        : list;
+
+    const scrollToForm = () => {
+        requestAnimationFrame(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    };
+
+    const startNew = () => {
+        setEditing(null);
+        setStatus('');
+        setForm({
+            slug: '',
+            title: '',
+            excerpt: '',
+            content: '',
+            author: '',
+            coverImage: '',
+            avatarImage: '',
+            tags: '',
+            categories: '',
+            status: 'published',
+            seoTitle: '',
+            seoDescription: '',
+            seoKeywords: '',
+        });
+        scrollToForm();
+    };
 
     const normalizeSlug = (value) => {
         if (!value) return '';
@@ -321,12 +356,30 @@ function BlogSection({ token }) {
 
     return (
         <>
+            <div className="list-toolbar">
+                <input
+                    type="search"
+                    placeholder="Search blogs by title, slug, category or author..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="form-input list-search"
+                />
+                <span className="list-count">
+                    {term ? `${filteredList.length} of ${list.length}` : `${list.length} posts`}
+                </span>
+                <button type="button" className="btn-submit" onClick={startNew}>
+                    + Add New Blog
+                </button>
+            </div>
+
+            {term && filteredList.length === 0 && <p className="list-empty">No blogs match &ldquo;{search}&rdquo;.</p>}
+
             <div className="items-grid">
-                {list.map((item) => (
+                {filteredList.map((item) => (
                     <div key={item.id} className="item-card">
                         <div className="item-title">{item.title}</div>
                         <div className="item-meta">
-                            {(item.categories || []).join(', ')} • {item.author}
+                            {item.category} • {item.author}
                         </div>
                         <div className="item-status">
                             <span className={`status-badge ${item.status === 'published' ? 'published' : 'draft'}`}>
@@ -353,6 +406,7 @@ function BlogSection({ token }) {
                                         seoDescription: item.seo_description || '',
                                         seoKeywords: item.seo_keywords || '',
                                     });
+                                    scrollToForm();
                                 }}
                             >
                                 Edit
@@ -376,7 +430,7 @@ function BlogSection({ token }) {
                 ))}
             </div>
 
-            <form className="admin-form" onSubmit={submit}>
+            <form className="admin-form" onSubmit={submit} ref={formRef}>
                 <div className="form-header">
                     <div>
                         <p className="form-eyebrow">{editing ? 'Update existing article' : 'Create a fresh story'}</p>
@@ -552,11 +606,10 @@ function BlogSection({ token }) {
                         className="form-input"
                     />
 
-                    <FormattedTextarea
-                        placeholder="Content (supports **bold**, _italic_, [link](https://)) *"
+                    <RichTextEditor
+                        placeholder="Content * (write here or paste from Google Docs)"
                         value={form.content}
                         onChange={(e) => setForm({ ...form, content: e.target.value })}
-                        rows={8}
                     />
                 </div>
 

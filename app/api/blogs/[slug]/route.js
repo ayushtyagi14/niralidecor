@@ -47,7 +47,7 @@ export async function PUT(request, { params }) {
             cover_image: body.coverImage,
             avatar_image: body.avatarImage,
             tags: body.tags,
-            category: body.category,
+            category: Array.isArray(body.categories) && body.categories.length ? body.categories.join(', ') : body.category,
             status: body.status,
             seo_title: body.seoTitle,
             seo_description: body.seoDescription,

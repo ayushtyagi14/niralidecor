@@ -48,7 +48,8 @@ export async function POST(request) {
             summary: summary || '',
             metrics: metrics || [],
             tags: tags || [],
-            categories: categories || [],
+            // DB column is `category` (text); store multiple categories comma-separated
+            category: categories && categories.length ? categories.join(', ') : 'General',
             status: status || 'published',
             seo_title: seoTitle || '',
             seo_description: seoDescription || '',

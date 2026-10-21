@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { FaFacebookF, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa6';
 import { FiLink } from 'react-icons/fi';
+import { renderBlogContent } from '@/lib/blogContent';
 import '../blog.css';
 
 export default function BlogDetailPage() {
@@ -40,24 +41,6 @@ export default function BlogDetailPage() {
         }
     };
 
-    const formatContent = (text) => {
-        if (!text) return '';
-
-        const paragraphs = text.split(/\n{2,}/); // split on blank lines into paragraphs
-
-        const htmlParagraphs = paragraphs.map((para) => {
-            const withMarkup = para
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1<\/strong>')
-                .replace(/_(.+?)_/g, '<em>$1<\/em>')
-                .replace(/`(.+?)`/g, '<code>$1<\/code>')
-                .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>')
-                .replace(/\n/g, '<br\/>'); // single newlines inside a paragraph
-
-            return `<p>${withMarkup}<\/p>`;
-        });
-
-        return htmlParagraphs.join('');
-    };
 
     if (loading) {
         return (
@@ -192,7 +175,7 @@ export default function BlogDetailPage() {
 
                     <div className="blog-article-content">
                         <div className="blog-excerpt">{post.excerpt}</div>
-                        <div className="blog-body" dangerouslySetInnerHTML={{ __html: formatContent(post.content) }} />
+                        <div className="blog-body" dangerouslySetInnerHTML={{ __html: renderBlogContent(post.content) }} />
 
                         <div className="blog-tags-section">
                             <h4>Tags</h4>

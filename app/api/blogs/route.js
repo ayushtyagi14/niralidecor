@@ -47,13 +47,14 @@ export async function POST(request) {
         const blogData = {
             slug,
             title,
-            excerpt: excerpt || content.slice(0, 140),
+            excerpt: excerpt || content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140),
             content,
             author: author || 'Admin',
             cover_image: coverImage || '',
             avatar_image: avatarImage || '',
             tags: tags || [],
-            categories: categories || [],
+            // DB column is `category` (text); store multiple categories comma-separated
+            category: categories && categories.length ? categories.join(', ') : 'General',
             status: status || 'published',
             seo_title: seoTitle || '',
             seo_description: seoDescription || '',
