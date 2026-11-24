@@ -833,3 +833,125 @@
     color: #888;
     margin: 8px 0 0;
 }
+
+/* Cover image crop focus pickers (blog) */
+.position-pickers {
+    display: grid;
+    gap: 16px;
+}
+
+.position-picker {
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+}
+
+.position-picker-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.position-value {
+    font-size: 13px;
+    color: #475569;
+    font-variant-numeric: tabular-nums;
+}
+
+.position-reset {
+    margin-left: auto;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f766e;
+    background: transparent;
+    border: 1px solid rgba(15, 118, 110, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.position-reset:hover {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.position-hint {
+    margin: 6px 0 12px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.position-picker-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.position-source {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: none;
+    cursor: crosshair;
+    line-height: 0;
+}
+
+.position-source:focus-visible {
+    outline: 3px solid #0f766e;
+    outline-offset: 2px;
+}
+
+.position-source img {
+    display: block;
+    max-width: 100%;
+    max-height: 220px;
+    user-select: none;
+}
+
+.position-marker {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.6), 0 2px 8px rgba(15, 23, 42, 0.4);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: left 0.15s ease-out, top 0.15s ease-out;
+}
+
+.position-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: min(260px, 100%);
+}
+
+.position-preview {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #e5e7eb;
+}
+
+.position-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.position-preview-label {
+    font-size: 12px;
+    color: #64748b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .position-marker { transition: none; }
+}

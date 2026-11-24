@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import { FaFacebookF, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa6';
 import { FiLink } from 'react-icons/fi';
 import { renderBlogContent } from '@/lib/blogContent';
+import { imagePosition } from '@/lib/imagePosition';
 import '../blog.css';
 
 export default function BlogDetailPage() {
@@ -167,7 +168,7 @@ export default function BlogDetailPage() {
                                 src={post.cover_image}
                                 alt={post.title}
                                 fill
-                                style={{ objectFit: 'cover' }}
+                                style={{ objectFit: 'cover', objectPosition: imagePosition(post.cover_position_detail) }}
                                 priority
                             />
                         </div>

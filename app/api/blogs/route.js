@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import supabaseAdmin from '@/lib/supabaseAdmin';
+import { sanitizeImagePosition } from '@/lib/imagePosition';
 
 // GET all blogs or filter by status
 export async function GET(request) {
@@ -38,7 +39,7 @@ export async function POST(request) {
         }
 
         const body = await request.json();
-        const { slug, title, excerpt, content, author, coverImage, avatarImage, tags, categories, status, seoTitle, seoDescription, seoKeywords } = body;
+        const { slug, title, excerpt, content, author, coverImage, coverPositionList, coverPositionDetail, avatarImage, tags, categories, status, seoTitle, seoDescription, seoKeywords } = body;
 
         if (!slug || !title || !content) {
             return NextResponse.json({ error: 'Slug, title and content are required' }, { status: 400 });
@@ -51,6 +52,8 @@ export async function POST(request) {
             content,
             author: author || 'Admin',
             cover_image: coverImage || '',
+            cover_position_list: sanitizeImagePosition(coverPositionList),
+            cover_position_detail: sanitizeImagePosition(coverPositionDetail),
             avatar_image: avatarImage || '',
             tags: tags || [],
             // DB column is `category` (text); store multiple categories comma-separated

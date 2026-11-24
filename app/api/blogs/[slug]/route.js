@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import supabaseAdmin from '@/lib/supabaseAdmin';
+import { sanitizeImagePosition } from '@/lib/imagePosition';
 
 // GET single blog by slug
 export async function GET(request, { params }) {
@@ -45,6 +46,8 @@ export async function PUT(request, { params }) {
             content: body.content,
             author: body.author,
             cover_image: body.coverImage,
+            cover_position_list: sanitizeImagePosition(body.coverPositionList),
+            cover_position_detail: sanitizeImagePosition(body.coverPositionDetail),
             avatar_image: body.avatarImage,
             tags: body.tags,
             category: Array.isArray(body.categories) && body.categories.length ? body.categories.join(', ') : body.category,

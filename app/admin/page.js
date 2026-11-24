@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import FormattedTextarea from '@/components/Blog/FormattedTextarea';
 import RichTextEditor from '@/components/Blog/RichTextEditor';
+import CoverPositionPicker from '@/components/Blog/CoverPositionPicker';
 import './admin.css';
 
 export default function AdminPage() {
@@ -170,24 +171,28 @@ export default function AdminPage() {
     );
 }
 
+const EMPTY_BLOG_FORM = {
+    slug: '',
+    title: '',
+    excerpt: '',
+    content: '',
+    author: '',
+    coverImage: '',
+    coverPositionList: '',
+    coverPositionDetail: '',
+    avatarImage: '',
+    tags: '',
+    categories: '',
+    status: 'published',
+    seoTitle: '',
+    seoDescription: '',
+    seoKeywords: '',
+};
+
 function BlogSection({ token }) {
     const [list, setList] = useState([]);
     const [editing, setEditing] = useState(null);
-    const [form, setForm] = useState({
-        slug: '',
-        title: '',
-        excerpt: '',
-        content: '',
-        author: '',
-        coverImage: '',
-        avatarImage: '',
-        tags: '',
-        categories: '',
-        status: 'published',
-        seoTitle: '',
-        seoDescription: '',
-        seoKeywords: '',
-    });
+    const [form, setForm] = useState(EMPTY_BLOG_FORM);
     const [status, setStatus] = useState('');
     const [uploadingCover, setUploadingCover] = useState(false);
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
@@ -208,21 +213,7 @@ function BlogSection({ token }) {
     const startNew = () => {
         setEditing(null);
         setStatus('');
-        setForm({
-            slug: '',
-            title: '',
-            excerpt: '',
-            content: '',
-            author: '',
-            coverImage: '',
-            avatarImage: '',
-            tags: '',
-            categories: '',
-            status: 'published',
-            seoTitle: '',
-            seoDescription: '',
-            seoKeywords: '',
-        });
+        setForm(EMPTY_BLOG_FORM);
         scrollToForm();
     };
 
@@ -280,7 +271,7 @@ function BlogSection({ token }) {
             if (res.ok) {
                 const imageUrl = data.url;
                 if (type === 'cover') {
-                    setForm({ ...form, coverImage: imageUrl });
+                    setForm({ ...form, coverImage: imageUrl, coverPositionList: '', coverPositionDetail: '' });
                 } else {
                     setForm({ ...form, avatarImage: imageUrl });
                 }
@@ -327,21 +318,7 @@ function BlogSection({ token }) {
             }
             if (res.ok) {
                 setStatus('Saved!');
-                setForm({
-                    slug: '',
-                    title: '',
-                    excerpt: '',
-                    content: '',
-                    author: '',
-                    coverImage: '',
-                    avatarImage: '',
-                    tags: '',
-                    categories: '',
-                    status: 'published',
-                    seoTitle: '',
-                    seoDescription: '',
-                    seoKeywords: '',
-                });
+                setForm(EMPTY_BLOG_FORM);
                 setEditing(null);
                 refresh();
             } else {
@@ -401,6 +378,8 @@ function BlogSection({ token }) {
                                                 : item.category || '',
                                         status: item.status || 'published',
                                         coverImage: item.cover_image || '',
+                                        coverPositionList: item.cover_position_list || '',
+                                        coverPositionDetail: item.cover_position_detail || '',
                                         avatarImage: item.avatar_image || '',
                                         seoTitle: item.seo_title || '',
                                         seoDescription: item.seo_description || '',
@@ -532,10 +511,30 @@ function BlogSection({ token }) {
                                 <button
                                     type="button"
                                     className="btn-danger-outline"
-                                    onClick={() => setForm({ ...form, coverImage: '' })}
+                                    onClick={() => setForm({ ...form, coverImage: '', coverPositionList: '', coverPositionDetail: '' })}
                                 >
                                     Delete
                                 </button>
+                            </div>
+                        )}
+                        {form.coverImage && (
+                            <div className="position-pickers">
+                                <CoverPositionPicker
+                                    src={form.coverImage}
+                                    label="Crop on blog listing card"
+                                    hint="Click the part of the photo that must stay visible on the blog listing page."
+                                    aspectRatio="4 / 3"
+                                    value={form.coverPositionList}
+                                    onChange={(v) => setForm((f) => ({ ...f, coverPositionList: v }))}
+                                />
+                                <CoverPositionPicker
+                                    src={form.coverImage}
+                                    label="Crop on blog detail page"
+                                    hint="Click the part of the photo that must stay visible in the wide banner on the post itself."
+                                    aspectRatio="21 / 9"
+                                    value={form.coverPositionDetail}
+                                    onChange={(v) => setForm((f) => ({ ...f, coverPositionDetail: v }))}
+                                />
                             </div>
                         )}
                     </div>
@@ -651,21 +650,7 @@ function BlogSection({ token }) {
                             className="btn-cancel"
                             onClick={() => {
                                 setEditing(null);
-                                setForm({
-                                    slug: '',
-                                    title: '',
-                                    excerpt: '',
-                                    content: '',
-                                    author: '',
-                                    coverImage: '',
-                                    avatarImage: '',
-                                    tags: '',
-                                    categories: '',
-                                    status: 'published',
-                                    seoTitle: '',
-                                    seoDescription: '',
-                                    seoKeywords: '',
-                                });
+                                setForm(EMPTY_BLOG_FORM);
                             }}
                         >
                             Cancel

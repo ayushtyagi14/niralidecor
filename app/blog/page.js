@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { imagePosition } from '@/lib/imagePosition';
 import './blog.css';
 
 export default function BlogPage() {
@@ -204,7 +205,7 @@ export default function BlogPage() {
                                                     alt={post.title}
                                                     fill
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                    style={{ objectFit: 'cover' }}
+                                                    style={{ objectFit: 'cover', objectPosition: imagePosition(post.cover_position_list) }}
                                                 />
                                             </div>
                                         )}
